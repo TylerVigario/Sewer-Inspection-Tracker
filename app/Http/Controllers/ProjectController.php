@@ -27,16 +27,20 @@ class ProjectController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request, Customer $customer): RedirectResponse
+    public function store(Request $request): RedirectResponse
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255', Rule::unique(Project::class)],
             'customer_id' => ['required', 'exists:customers']
         ]);
 
+        $customer = Customer::find($request->customer_id);
+
         $project = Project::create([
             'name' => $request->name,
         ]);
+
+        $project->customer()->save($customer);
 
         return redirect(route('projects.edit', $project, absolute: false));
     }
@@ -61,9 +65,13 @@ class ProjectController extends Controller
             'customer_id' => ['required', 'exists:customers']
         ]);
 
+        $customer = Customer::find($request->customer_id);
+
         $project->fill([
             'name' => $request->name,
         ]);
+
+        $project->customer()->save($customer);
 
         return redirect(route('projects.edit', $project, absolute: false));
     }
