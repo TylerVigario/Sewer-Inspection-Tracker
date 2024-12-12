@@ -1,10 +1,10 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            @isset($project)
-            {{ __('Edit Project') }}
+            @isset($customer)
+            {{ __('Edit Customer') }}
             @else
-            {{ __('Create Project') }}
+            {{ __('Create Customer') }}
             @endisset
         </h2>
     </x-slot>
@@ -16,17 +16,17 @@
                     <section>
                         <header>
                             <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
-                                {{ __('Project Information') }}
+                                {{ __('Customer Information') }}
                             </h2>
 
-                            @isset($project)
+                            @isset($customer)
                             <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-                                {{ __("Update project name, customer & other details.") }}
+                                {{ __("Update customer name & other details.") }}
                             </p>
                             @endisset
                         </header>
 
-                        <form method="post" action="{{ route('project.create') }}" class="mt-6 space-y-6">
+                        <form method="post" action="{{ route('customer.create') }}" class="mt-6 space-y-6">
                             @csrf
                             @method('post')
 
