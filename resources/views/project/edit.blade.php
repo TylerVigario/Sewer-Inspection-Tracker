@@ -40,7 +40,7 @@
                                 <x-input-label for="customer" class="mb-2" :value="__('Customer')" />
                                 <select id="customer" name="customer" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                     @foreach (App\Models\Customer::all() as $customer)
-                                    <option  @if ($customer == $project->customer) selected @endif value="{{ $customer->id }}">{{ $customer->name }}</option>
+                                    <option @if ($customer==$project->customer) selected @endif value="{{ $customer->id }}">{{ $customer->name }}</option>
                                     @endforeach
                                 </select>
                                 <x-input-error class="mt-2" :messages="$errors->get('customer')" />
@@ -59,6 +59,7 @@
 
                             <div class="flex items-center gap-4">
                                 <x-primary-button>{{ __('Save') }}</x-primary-button>
+                                <x-danger-button>{{ __('Delete') }}</x-danger-button>
 
                                 @if (session('status') === 'profile-updated')
                                 <p
