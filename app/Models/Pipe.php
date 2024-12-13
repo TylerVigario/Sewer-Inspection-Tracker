@@ -17,7 +17,7 @@ class Pipe extends Model
      */
     public function upstreamAsset(): HasOne
     {
-        return $this->hasOne(Asset::class);
+        return $this->hasOne(Asset::class, 'id', 'upstream_asset_id');
     }
 
     /**
@@ -25,7 +25,7 @@ class Pipe extends Model
      */
     public function downstreamAsset(): HasOne
     {
-        return $this->hasOne(Asset::class);
+        return $this->hasOne(Asset::class, 'id', 'downstream_asset_id');
     }
 
     /**
