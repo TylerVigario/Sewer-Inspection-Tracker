@@ -18,7 +18,7 @@ class ProjectFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->randomNumber(5, true),
+            'name' => fake()->randomElement([fake()->randomNumber(5, true), fake()->city . ' Collection System']),
             'customer_id' => Customer::factory(),
             'due' => fake()->dateTimeBetween('-10 years', '+10 years'),
             'lat' => fake()->latitude,

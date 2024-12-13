@@ -31,18 +31,20 @@ class ProjectController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255', Rule::unique(Project::class)],
-            'customer_id' => ['required', 'exists:customers']
+            'customer' => ['required', 'exists:customers,id']
         ]);
 
-        $customer = Customer::find($request->customer_id);
+        $customer = Customer::find($request->customer);
 
         $project = Project::create([
             'name' => $request->name,
         ]);
 
-        $project->customer()->save($customer);
+        $project->customer()->associate($customer);
 
-        return redirect(route('projects.edit', $project, absolute: false));
+        $project->save();
+
+        return redirect(route('project.edit', $project, absolute: false));
     }
 
     /**
@@ -62,17 +64,19 @@ class ProjectController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255', Rule::unique(Project::class)->ignore($project->id)],
-            'customer_id' => ['required', 'exists:customers']
+            'customer' => ['required', 'exists:customers,id']
         ]);
 
-        $customer = Customer::find($request->customer_id);
+        $customer = Customer::find($request->customer);
 
         $project->fill([
             'name' => $request->name,
         ]);
 
-        $project->customer()->save($customer);
+        $project->customer()->associate($customer);
 
-        return redirect(route('projects.edit', $project, absolute: false));
+        $project->save();
+
+        return redirect(route('project.edit', $project));
     }
 }

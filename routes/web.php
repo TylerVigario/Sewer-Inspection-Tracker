@@ -18,7 +18,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // Customers
     Route::get('/customers', function () {
-        return view('customers');
+        return view('customers', ['customers' => App\Models\Customer::all()]);
     })->name('customers');
 
     Route::get('/customers/create', [CustomerController::class, 'create'])->name('customer.create');
@@ -28,13 +28,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // Projects
     Route::get('/projects', function () {
-        return view('projects');
+        return view('projects', ['projects' => App\Models\Project::all()]);
     })->name('projects');
 
     Route::get('/projects/create', [ProjectController::class, 'create'])->name('project.create');
     Route::post('/projects/create', [ProjectController::class, 'store'])->name('project.store');
-    Route::get('/projects{project}', [ProjectController::class, 'edit'])->name('project.edit');
-    Route::patch('/projects{project}', [ProjectController::class, 'update'])->name('project.update');
+    Route::get('/projects/{project}', [ProjectController::class, 'edit'])->name('project.edit');
+    Route::patch('/projects/{project}', [ProjectController::class, 'update'])->name('project.update');
 });
 
 Route::middleware('auth')->group(function () {

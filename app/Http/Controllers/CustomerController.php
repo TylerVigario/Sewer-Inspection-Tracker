@@ -36,7 +36,7 @@ class CustomerController extends Controller
             'name' => $request->name,
         ]);
 
-        return redirect(route('customers.edit', $customer, absolute: false));
+        return redirect(route('customer.edit', $customer, absolute: false));
     }
 
     /**
@@ -52,7 +52,7 @@ class CustomerController extends Controller
     /**
      * Update the customer's profile information.
      */
-    public function update(Customer $customer, Request $request): RedirectResponse
+    public function update(Request $request, Customer $customer): RedirectResponse
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255', Rule::unique(Customer::class)->ignore($customer->id)],
@@ -60,8 +60,8 @@ class CustomerController extends Controller
 
         $customer->fill([
             'name' => $request->name,
-        ]);
+        ])->save();
 
-        return redirect(route('customers.edit', $customer, absolute: false));
+        return redirect(route('customer.edit', $customer));
     }
 }

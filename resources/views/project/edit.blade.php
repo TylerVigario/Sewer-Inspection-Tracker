@@ -26,14 +26,35 @@
                             @endisset
                         </header>
 
-                        <form method="post" action="{{ route('project.create') }}" class="mt-6 space-y-6">
+                        <form method="post" action="{{ route('project.update', $project) }}" class="mt-6 space-y-6">
                             @csrf
-                            @method('post')
+                            @method('patch')
 
                             <div>
                                 <x-input-label for="name" :value="__('Name')" />
-                                <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" required autofocus autocomplete="name" />
+                                <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name', $project->name)" required autofocus autocomplete="name" />
                                 <x-input-error class="mt-2" :messages="$errors->get('name')" />
+                            </div>
+
+                            <div>
+                                <x-input-label for="customer" class="mb-2" :value="__('Customer')" />
+                                <select id="customer" name="customer" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                    @foreach (App\Models\Customer::all() as $customer)
+                                    <option  @if ($customer == $project->customer) selected @endif value="{{ $customer->id }}">{{ $customer->name }}</option>
+                                    @endforeach
+                                </select>
+                                <x-input-error class="mt-2" :messages="$errors->get('customer')" />
+                            </div>
+
+                            <div>
+                                <x-input-label for="created" :value="__('Created')" />
+                                <x-text-input id="created" type="text" class="mt-1 block w-full" :value="$project->created_at->diffForHumans()" readonly />
+                            </div>
+
+                            <div>
+                                <x-input-label for="due" :value="__('Due')" />
+                                <x-text-input id="due" type="text" class="mt-1 block w-full" :value="old('due', $project->due->diffForHumans())" readonly />
+                                <x-input-error class="mt-2" :messages="$errors->get('due')" />
                             </div>
 
                             <div class="flex items-center gap-4">
