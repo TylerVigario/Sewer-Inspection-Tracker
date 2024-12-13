@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\Customer;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Project>
@@ -18,7 +19,10 @@ class ProjectFactory extends Factory
     {
         return [
             'name' => fake()->randomNumber(5, true),
-            'customer_id' => 0,
+            'customer_id' => Customer::factory(),
+            'due' => fake()->dateTimeBetween('-10 years', '+10 years'),
+            'lat' => fake()->latitude,
+            'lng' => fake()->longitude,
         ];
     }
 }
