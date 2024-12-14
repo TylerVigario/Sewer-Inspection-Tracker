@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('customer_id')->constrained();
             $table->text('name');
-            $table->timestamp('due')->nullable();
-            $table->double('lat')->nullable();
-            $table->double('lng')->nullable();
+            $table->timestamp('due');
+            $table->double('lat');
+            $table->double('lng');
             $table->timestamps();
         });
 
@@ -41,8 +41,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('projects');
         Schema::dropIfExists('asset_project');
         Schema::dropIfExists('pipe_project');
+        Schema::dropIfExists('projects');
     }
 };
