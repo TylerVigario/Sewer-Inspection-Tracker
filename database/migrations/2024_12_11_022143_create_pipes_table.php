@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('upstream_asset_id')->constrained('assets');
             $table->foreignId('downstream_asset_id')->constrained('assets');
-            $table->integer('size');
-            $table->integer('upstream_rim_to_invert');
-            $table->integer('downstream_rim_to_invert');
+            $table->integer('size')->nullable();
+            $table->integer('upstream_rim_to_invert')->nullable();
+            $table->integer('downstream_rim_to_invert')->nullable();
             $table->timestamps();
         });
     }

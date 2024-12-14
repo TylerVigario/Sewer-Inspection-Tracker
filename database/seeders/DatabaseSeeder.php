@@ -16,6 +16,8 @@ class DatabaseSeeder extends Seeder
             AssetTypeSeeder::class,
             CustomerSeeder::class,
             ProjectSeeder::class,
+            AssetSeeder::class,
+            PipeSeeder::class
         ]);
     }
 }

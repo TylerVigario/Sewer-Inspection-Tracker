@@ -12,24 +12,36 @@ class AssetTypeSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('asset_types')->insert([
-            'name' => 'Manhole',
+        DB::table('asset_types')->insert([[
+            'name' => 'Manhole',              // 1
             'tag' => 'MH'
         ],[
-            'name' => 'Cleanout',
+            'name' => 'Cleanout',             // 2
             'tag'=> 'CO'
         ],[
-            'name' => 'Roof Vent',
+            'name' => 'Roof Vent',            // 3
             'tag'=> 'RV'
         ],[
-            'name' => 'Tap',
+            'name' => 'Tap',                  // 4
             'tag'=> 'T'
         ],[
-            'name' => 'Branch',
+            'name' => 'Branch',               // 5
             'tag'=> 'B'
         ],[
-            'name' => 'Catch Basin',
+            'name' => 'Catch Basin',          // 6
             'tag'=> 'CB'
-        ]);
+        ],[
+            'name' => 'Storm Drain Manhole',  // 7
+            'tag'=> 'SDMH'
+        ],[
+            'name' => 'End of Workzone',      // 8
+            'tag'=> 'EWZ'
+        ],[
+            'name' => 'Cap',                  // 9
+            'tag'=> 'CAP'
+        ],[
+            'name' => 'End of Pipe',          // 10
+            'tag'=> 'EP'
+        ]]);
     }
 }

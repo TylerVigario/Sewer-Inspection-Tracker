@@ -13,14 +13,22 @@ class ProjectSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('projects')->insert([
+        DB::table('projects')->insert([[
             'customer_id' => 1,
             'name' => '35509372-T5SF-30615',
             'due' => Carbon::parse('12/01/2024'),
             'lat' => 35.365926,
             'lng' => -119.010390,
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
+            'created_at' => Carbon::parse('12/13/2024 6:30PM'),
+            'updated_at' => Carbon::parse('12/13/2024 6:30PM')
+        ],[
+            'customer_id' => 1,
+            'name' => '35315620-R9R0-30087',
+            'due' => Carbon::parse('11/01/2024'),
+            'lat' => 37.293757,
+            'lng' => -120.518860,
+            'created_at' => Carbon::parse('12/13/2024 6:30PM'),
+            'updated_at' => Carbon::parse('12/13/2024 6:30PM')
+        ]]);
     }
 }
