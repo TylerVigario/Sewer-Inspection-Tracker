@@ -23,7 +23,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/customers/create', [CustomerController::class, 'create'])->name('customer.create');
     Route::post('/customers/create', [CustomerController::class, 'store'])->name('customer.store');
-    Route::get('/customers/{customer}', [CustomerController::class, 'edit'])->name('customer.edit');
+    Route::get('/customers/{customer}/edit', [CustomerController::class, 'edit'])->name('customer.edit');
     Route::patch('/customers/{customer}', [CustomerController::class, 'update'])->name('customer.update');
 
     // Projects
@@ -33,7 +33,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/projects/create', [ProjectController::class, 'create'])->name('project.create');
     Route::post('/projects/create', [ProjectController::class, 'store'])->name('project.store');
-    Route::get('/projects/{project}', [ProjectController::class, 'edit'])->name('project.edit');
+    Route::get('/projects/{project}', [ProjectController::class, 'show'])->name('project.show');
+    Route::get('/projects/{project}/edit', [ProjectController::class, 'edit'])->name('project.edit');
     Route::patch('/projects/{project}', [ProjectController::class, 'update'])->name('project.update');
 });
 

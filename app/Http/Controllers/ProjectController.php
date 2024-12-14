@@ -48,6 +48,16 @@ class ProjectController extends Controller
     }
 
     /**
+     * Display the Project view.
+     */
+    public function show(Project $project): View
+    {
+        return view('project.show', [
+            'project' => $project,
+        ]);
+    }
+
+    /**
      * Display the Project's profile form.
      */
     public function edit(Project $project): View
