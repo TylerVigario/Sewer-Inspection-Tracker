@@ -23,6 +23,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/customers/create', [CustomerController::class, 'create'])->name('customer.create');
     Route::post('/customers/create', [CustomerController::class, 'store'])->name('customer.store');
+    Route::get('/customers/{customer}', [CustomerController::class, 'show'])->name('customer.show');
     Route::get('/customers/{customer}/edit', [CustomerController::class, 'edit'])->name('customer.edit');
     Route::patch('/customers/{customer}', [CustomerController::class, 'update'])->name('customer.update');
 

@@ -40,6 +40,16 @@ class CustomerController extends Controller
     }
 
     /**
+     * Display the Project view.
+     */
+    public function show(Customer $customer): View
+    {
+        return view('customer.show', [
+            'customer' => $customer,
+        ]);
+    }
+
+    /**
      * Display the Customer's profile form.
      */
     public function edit(Customer $customer): View
