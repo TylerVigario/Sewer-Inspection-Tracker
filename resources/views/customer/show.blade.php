@@ -1,11 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            @isset($customer)
-            {{ __('Edit Customer') }}
-            @else
-            {{ __('Create Customer') }}
-            @endisset
+            {{ $customer->name }}
         </h2>
     </x-slot>
 

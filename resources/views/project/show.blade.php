@@ -1,84 +1,58 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            @isset($project)
-            {{ __('Edit Project') }}
-            @else
-            {{ __('Create Project') }}
-            @endisset
+            <span class="text-gray-600">{{ $project->customer->name }}</span> <span class="text-gray-400">/</span> {{ $project->name }}
         </h2>
     </x-slot>
 
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-            <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    <div>
-                        <div class="px-4 sm:px-0">
-                            <h3 class="text-base/7 font-semibold text-gray-900">Applicant Information</h3>
-                            <p class="mt-1 max-w-2xl text-sm/6 text-gray-500">Personal details and application.</p>
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 text-gray-900 dark:text-gray-100">
+                    <div class="px-4 sm:px-6 lg:px-8">
+                        <div class="sm:flex sm:items-center">
+                            <div class="sm:flex-auto">
+                                <h1 class="text-base font-semibold text-gray-900">Project Assets</h1>
+                                <p class="mt-2 text-sm text-gray-700"></p>
+                            </div>
+                            <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
+                                <a href=""><button type="button" class="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Add Asset</button></a>
+                            </div>
                         </div>
-                        <div class="mt-6 border-t border-gray-100">
-                            <dl class="divide-y divide-gray-100">
-                                <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                                    <dt class="text-sm/6 font-medium text-gray-900">Full name</dt>
-                                    <dd class="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0">Margot Foster</dd>
+                        <div class="mt-8 flow-root">
+                            <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                                <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+                                    <table class="min-w-full divide-y divide-gray-300">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0">Type</th>
+                                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Name</th>
+                                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Upstream Pipes</th>
+                                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Downstream Pipes</th>
+                                                <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-0">
+                                                    <span class="sr-only">Edit</span>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="divide-y divide-gray-200">
+                                            @foreach ($project->assets as $asset)
+                                            <tr>
+                                                <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">{{ $asset->type->tag }}</td>
+                                                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ $asset->name }}</td>
+                                                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ $asset->upstreamPipes()->count() }}</td>
+                                                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ $asset->downstreamPipes()->count() }}</td>
+                                                <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
+                                                    <a href="" class="text-indigo-600 hover:text-indigo-900 pr-2">Edit<span class="sr-only">, {{ $asset->name }}</span></a>
+                                                    <a href="" class="text-indigo-600 hover:text-indigo-900">View<span class="sr-only">, {{ $asset->name }}</span></a>
+                                                </td>
+                                            </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
                                 </div>
-                                <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                                    <dt class="text-sm/6 font-medium text-gray-900">Application for</dt>
-                                    <dd class="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0">Backend Developer</dd>
-                                </div>
-                                <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                                    <dt class="text-sm/6 font-medium text-gray-900">Email address</dt>
-                                    <dd class="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0">margotfoster@example.com</dd>
-                                </div>
-                                <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                                    <dt class="text-sm/6 font-medium text-gray-900">Salary expectation</dt>
-                                    <dd class="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0">$120,000</dd>
-                                </div>
-                                <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                                    <dt class="text-sm/6 font-medium text-gray-900">About</dt>
-                                    <dd class="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0">Fugiat ipsum ipsum deserunt culpa aute sint do nostrud anim incididunt cillum culpa consequat. Excepteur qui ipsum aliquip consequat sint. Sit id mollit nulla mollit nostrud in ea officia proident. Irure nostrud pariatur mollit ad adipisicing reprehenderit deserunt qui eu.</dd>
-                                </div>
-                                <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                                    <dt class="text-sm/6 font-medium text-gray-900">Attachments</dt>
-                                    <dd class="mt-2 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-                                        <ul role="list" class="divide-y divide-gray-100 rounded-md border border-gray-200">
-                                            <li class="flex items-center justify-between py-4 pl-4 pr-5 text-sm/6">
-                                                <div class="flex w-0 flex-1 items-center">
-                                                    <svg class="size-5 shrink-0 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
-                                                        <path fill-rule="evenodd" d="M15.621 4.379a3 3 0 0 0-4.242 0l-7 7a3 3 0 0 0 4.241 4.243h.001l.497-.5a.75.75 0 0 1 1.064 1.057l-.498.501-.002.002a4.5 4.5 0 0 1-6.364-6.364l7-7a4.5 4.5 0 0 1 6.368 6.36l-3.455 3.553A2.625 2.625 0 1 1 9.52 9.52l3.45-3.451a.75.75 0 1 1 1.061 1.06l-3.45 3.451a1.125 1.125 0 0 0 1.587 1.595l3.454-3.553a3 3 0 0 0 0-4.242Z" clip-rule="evenodd" />
-                                                    </svg>
-                                                    <div class="ml-4 flex min-w-0 flex-1 gap-2">
-                                                        <span class="truncate font-medium">resume_back_end_developer.pdf</span>
-                                                        <span class="shrink-0 text-gray-400">2.4mb</span>
-                                                    </div>
-                                                </div>
-                                                <div class="ml-4 shrink-0">
-                                                    <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500">Download</a>
-                                                </div>
-                                            </li>
-                                            <li class="flex items-center justify-between py-4 pl-4 pr-5 text-sm/6">
-                                                <div class="flex w-0 flex-1 items-center">
-                                                    <svg class="size-5 shrink-0 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
-                                                        <path fill-rule="evenodd" d="M15.621 4.379a3 3 0 0 0-4.242 0l-7 7a3 3 0 0 0 4.241 4.243h.001l.497-.5a.75.75 0 0 1 1.064 1.057l-.498.501-.002.002a4.5 4.5 0 0 1-6.364-6.364l7-7a4.5 4.5 0 0 1 6.368 6.36l-3.455 3.553A2.625 2.625 0 1 1 9.52 9.52l3.45-3.451a.75.75 0 1 1 1.061 1.06l-3.45 3.451a1.125 1.125 0 0 0 1.587 1.595l3.454-3.553a3 3 0 0 0 0-4.242Z" clip-rule="evenodd" />
-                                                    </svg>
-                                                    <div class="ml-4 flex min-w-0 flex-1 gap-2">
-                                                        <span class="truncate font-medium">coverletter_back_end_developer.pdf</span>
-                                                        <span class="shrink-0 text-gray-400">4.5mb</span>
-                                                    </div>
-                                                </div>
-                                                <div class="ml-4 shrink-0">
-                                                    <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500">Download</a>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </dd>
-                                </div>
-                            </dl>
+                            </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
