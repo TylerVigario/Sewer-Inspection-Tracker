@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customer;
-use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 use Illuminate\Validation\Rule;
@@ -36,7 +34,7 @@ class CustomerController extends Controller
             'name' => $request->name,
         ]);
 
-        return redirect(route('customer.edit', $customer, absolute: false));
+        return Redirect::route('customer.edit', $customer);
     }
 
     /**
@@ -72,6 +70,6 @@ class CustomerController extends Controller
             'name' => $request->name,
         ])->save();
 
-        return redirect(route('customer.edit', $customer));
+        return Redirect::route('customer.edit', $customer);
     }
 }

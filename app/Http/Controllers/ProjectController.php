@@ -4,10 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Customer;
 use App\Models\Project;
-use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 use Illuminate\Validation\Rule;
@@ -44,7 +42,7 @@ class ProjectController extends Controller
 
         $project->save();
 
-        return redirect(route('project.edit', $project, absolute: false));
+        return Redirect::route('project.edit', $project);
     }
 
     /**
@@ -87,6 +85,6 @@ class ProjectController extends Controller
 
         $project->save();
 
-        return redirect(route('project.edit', $project));
+        return Redirect::route('project.edit', $project);
     }
 }
