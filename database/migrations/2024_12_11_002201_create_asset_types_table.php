@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('asset_types', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('tag');
+            $table->string('name')->unique();
+            $table->string('tag')->unique();
             $table->timestamps();
         });
     }
