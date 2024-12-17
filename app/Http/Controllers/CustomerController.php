@@ -12,15 +12,23 @@ use Illuminate\Validation\Rule;
 class CustomerController extends Controller
 {
     /**
-     * Display the new Customer profile form.
+     * Display a listing of the resource.
      */
-    public function create(): View
+    public function index(): View
     {
-        return view('customer.edit');
+        return view('customers.index', ['customers' => Customer::all()]);
     }
 
     /**
-     * Handle an incoming registration request.
+     * Show the form for creating a new resource.
+     */
+    public function create(): View
+    {
+        return view('customers.edit');
+    }
+
+    /**
+     * Store a newly created resource in storage.
      *
      * @throws \Illuminate\Validation\ValidationException
      */
@@ -34,7 +42,7 @@ class CustomerController extends Controller
             'name' => $request->name,
         ]);
 
-        return Redirect::route('customer.edit', $customer);
+        return Redirect::route('customers.edit', $customer);
     }
 
     /**
@@ -42,7 +50,7 @@ class CustomerController extends Controller
      */
     public function show(Customer $customer): View
     {
-        return view('customer.show', [
+        return view('customers.show', [
             'customer' => $customer,
         ]);
     }
@@ -52,7 +60,7 @@ class CustomerController extends Controller
      */
     public function edit(Customer $customer): View
     {
-        return view('customer.edit', [
+        return view('customers.edit', [
             'customer' => $customer,
         ]);
     }
@@ -70,6 +78,14 @@ class CustomerController extends Controller
             'name' => $request->name,
         ])->save();
 
-        return Redirect::route('customer.edit', $customer)->with('status', 'customer-updated');
+        return Redirect::route('customers.edit', $customer)->with('status', 'customer-updated');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(Customer $customer)
+    {
+        //
     }
 }

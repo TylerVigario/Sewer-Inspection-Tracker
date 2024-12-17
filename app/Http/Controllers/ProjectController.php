@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Customer;
 use App\Models\Project;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -13,11 +12,19 @@ use Illuminate\Validation\Rule;
 class ProjectController extends Controller
 {
     /**
+     * Display a listing of the resource.
+     */
+    public function index(): View
+    {
+        return view('projects.index', ['projects' => Project::all()]);
+    }
+
+    /**
      * Display the new Project profile form.
      */
     public function create(): View
     {
-        return view('project.edit');
+        return view('projects.edit');
     }
 
     /**
@@ -43,7 +50,7 @@ class ProjectController extends Controller
             'lng' => 0,
         ]);
 
-        return Redirect::route('project.edit', $project);
+        return Redirect::route('projects.edit', $project);
     }
 
     /**
@@ -51,7 +58,7 @@ class ProjectController extends Controller
      */
     public function show(Project $project): View
     {
-        return view('project.show', [
+        return view('projects.show', [
             'project' => $project,
         ]);
     }
@@ -61,7 +68,7 @@ class ProjectController extends Controller
      */
     public function edit(Project $project): View
     {
-        return view('project.edit', [
+        return view('projects.edit', [
             'project' => $project,
         ]);
     }
@@ -87,6 +94,14 @@ class ProjectController extends Controller
             //'lng' => $request->lng,
         ])->save();
 
-        return Redirect::route('project.edit', $project)->with('status', 'project-updated');
+        return Redirect::route('projects.edit', $project)->with('status', 'project-updated');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(Project $project)
+    {
+        //
     }
 }

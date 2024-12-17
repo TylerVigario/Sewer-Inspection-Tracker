@@ -5,7 +5,7 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('projects') }}">
+                    <a href="{{ route('projects.index') }}">
                         <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
                     </a>
                 </div>
@@ -17,10 +17,10 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
                     -->
-                    <x-nav-link :href="route('projects')" :active="request()->routeIs('projects')">
+                    <x-nav-link :href="route('projects.index')" :active="request()->routeIs('projects.index')">
                         {{ __('Projects') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('customers')" :active="request()->routeIs('customers')">
+                    <x-nav-link :href="route('customers.index')" :active="request()->routeIs('customers.index')">
                         {{ __('Customers') }}
                     </x-nav-link>
                 </div>
@@ -78,10 +78,10 @@
             <!--<x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>-->
-            <x-responsive-nav-link :href="route('projects')" :active="request()->routeIs('projects')">
+            <x-responsive-nav-link :href="route('projects.index')" :active="request()->routeIs('projects.index')">
                 {{ __('Projects') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('customers')" :active="request()->routeIs('customers')">
+            <x-responsive-nav-link :href="route('customers.index')" :active="request()->routeIs('customers.index')">
                 {{ __('Customers') }}
             </x-responsive-nav-link>
         </div>

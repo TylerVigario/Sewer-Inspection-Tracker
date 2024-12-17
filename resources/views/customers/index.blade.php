@@ -28,13 +28,13 @@
                                     </tr>
                                 </thead>
                                 <tbody class="divide-y divide-gray-200 light:bg-white">
-                                    @foreach (App\Models\Customer::all() as $customer)
+                                    @foreach ($customers as $customer)
                                     <tr>
                                         <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 dark:text-white sm:pl-0">{{ $customer->name }}</td>
                                         <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-300">{{ $customer->projects()->count() }}</td>
                                         <td class="whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
-                                            <a href="{{ route('customer.edit', $customer) }}" class="text-indigo-600 hover:text-indigo-900">Edit<span class="sr-only">, {{ $customer->name }}</span></a>
-                                            <a href="{{ route('customer.show', $customer) }}" class="text-indigo-600 hover:text-indigo-900 pl-3">View<span class="sr-only">, {{ $customer->name }}</span></a>
+                                            <a href="{{ route('customers.edit', $customer) }}" class="text-indigo-600 hover:text-indigo-900">Edit<span class="sr-only">, {{ $customer->name }}</span></a>
+                                            <a href="{{ route('customers.show', $customer) }}" class="text-indigo-600 hover:text-indigo-900 pl-3">View<span class="sr-only">, {{ $customer->name }}</span></a>
                                         </td>
                                     </tr>
                                     @endforeach
