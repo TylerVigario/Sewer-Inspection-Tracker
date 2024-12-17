@@ -5,6 +5,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\AssetController;
+use App\Http\Controllers\AssetTypeController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -18,6 +19,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('customers', CustomerController::class);
     Route::resource('projects', ProjectController::class);
     Route::resource('assets', AssetController::class);
+    Route::resource('asset-types', AssetTypeController::class);
 });
 
 Route::middleware('auth')->group(function () {

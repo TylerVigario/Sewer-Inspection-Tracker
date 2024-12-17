@@ -4,15 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Models\Asset;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class AssetController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): View
     {
-        //
+        return view('assets.index', [
+            'assets' => Asset::all(),
+        ]);
     }
 
     /**
@@ -42,9 +45,11 @@ class AssetController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Asset $asset)
+    public function edit(Asset $asset): View
     {
-        //
+        return view('assets.edit', [
+            'asset' => $asset,
+        ]);
     }
 
     /**
