@@ -70,6 +70,6 @@ class CustomerController extends Controller
             'name' => $request->name,
         ])->save();
 
-        return Redirect::route('customer.edit', $customer);
+        return Redirect::route('customer.edit', $customer)->with('status', 'customer-updated');
     }
 }

@@ -19,6 +19,7 @@ class Project extends Model
      */
     protected $fillable = [
         'name',
+        'customer_id',
         'due',
         'lat',
         'lng'
@@ -60,5 +61,5 @@ class Project extends Model
         return $this->belongsTo(Customer::class);
     }
 
-    
+
 }

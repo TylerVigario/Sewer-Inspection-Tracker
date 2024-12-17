@@ -29,18 +29,19 @@ class ProjectController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255', Rule::unique(Project::class)],
-            'customer' => ['required', 'exists:customers,id']
+            'customer_id' => ['required', 'exists:customers,id'],
+            'due' => ['required', 'date'],
+            //'lat' => ['required', 'between:-90,90'],
+            //'lng' => ['required', 'between:-180,180'],
         ]);
-
-        $customer = Customer::find($request->customer);
 
         $project = Project::create([
             'name' => $request->name,
+            'customer_id' => $request->customer_id,
+            'due' => $request->due,
+            'lat' => 0,
+            'lng' => 0,
         ]);
-
-        $project->customer()->associate($customer);
-
-        $project->save();
 
         return Redirect::route('project.edit', $project);
     }
@@ -72,19 +73,20 @@ class ProjectController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255', Rule::unique(Project::class)->ignore($project->id)],
-            'customer' => ['required', 'exists:customers,id']
+            'customer_id' => ['required', 'exists:customers,id'],
+            'due' => ['required', 'date'],
+            //'lat' => ['required', 'between:-90,90'],
+            //'lng' => ['required', 'between:-180,180'],
         ]);
-
-        $customer = Customer::find($request->customer);
 
         $project->fill([
             'name' => $request->name,
-        ]);
+            'customer_id' => $request->customer_id,
+            'due' => $request->due,
+            //'lat' => $request->lat,
+            //'lng' => $request->lng,
+        ])->save();
 
-        $project->customer()->associate($customer);
-
-        $project->save();
-
-        return Redirect::route('project.edit', $project);
+        return Redirect::route('project.edit', $project)->with('status', 'project-updated');
     }
 }
