@@ -22,6 +22,10 @@ class ProjectTypeSeeder extends Seeder
             'name' => 'Crossbore Prevention',
             'created_at' => Carbon::parse('12/17/2024 11:30PM'),
             'updated_at' => Carbon::parse('12/17/2024 11:30PM'),
+        ],[
+            'name' => 'Existing Infrastructure',
+            'created_at' => Carbon::parse('12/18/2024 8AM'),
+            'updated_at' => Carbon::parse('12/18/2024 8AM'),
         ]]);
     }
 }
