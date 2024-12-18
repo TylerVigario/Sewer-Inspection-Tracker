@@ -18,7 +18,7 @@ class AssetController extends Controller
     {
         return view('assets.index', [
             'project' => $project,
-            'assets' => Asset::all(),
+            'assets' => Asset::paginate(15),
         ]);
     }
 

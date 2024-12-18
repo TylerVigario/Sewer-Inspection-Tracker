@@ -16,7 +16,9 @@ class ProjectController extends Controller
      */
     public function index(): View
     {
-        return view('projects.index', ['projects' => Project::all()]);
+        return view('projects.index', [
+            'projects' => Project::paginate(15),
+        ]);
     }
 
     /**
@@ -58,8 +60,16 @@ class ProjectController extends Controller
      */
     public function show(Project $project): View
     {
+        $markers = [];
+
+        foreach ($project->assets as $asset) {
+            $markers[] = ['lat' => $asset->lat, 'long' => $asset->lng, 'title' => $asset->fullName];
+        }
+
         return view('projects.show', [
             'project' => $project,
+            'markers' => $markers,
+            'assets' => $project->assets()->paginate(5),
         ]);
     }
 

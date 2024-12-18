@@ -5,6 +5,19 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white dark:bg-gray-800 max-h-96 overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="relative h-0 overflow-hidden" style="padding-bottom: 56.25%;">
+                    <x-maps-google
+                        :markers="$markers"
+                        :mapType="'hybrid'"
+                        :centerToBoundsCenter="true"
+                        :zoomLevel="19">
+                    </x-maps-google>
+                </div>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mt-6 mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <div class="px-4 sm:px-6 lg:px-8">
@@ -35,7 +48,7 @@
                                     </tr>
                                 </thead>
                                 <tbody class="divide-y divide-gray-200 light:bg-white">
-                                    @foreach ($project->assets as $asset)
+                                    @foreach ($assets as $asset)
                                     <tr>
                                         <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 dark:text-white sm:pl-0">{{ $asset->type->tag }}</td>
                                         <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-300">{{ $asset->name }}</td>
@@ -48,6 +61,9 @@
                                     @endforeach
                                 </tbody>
                             </table>
+                            <div class="mt-4">
+                                {{ $assets->links() }}
+                            </div>
                         </div>
                     </div>
                 </div>
