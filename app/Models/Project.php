@@ -38,6 +38,14 @@ class Project extends Model
     }
 
     /**
+     * Get the Project Type.
+     */
+    public function type(): BelongsTo
+    {
+        return $this->belongsTo(ProjectType::class, 'project_type_id');
+    }
+
+    /**
      * The assets that belong to the project.
      */
     public function assets(): BelongsToMany

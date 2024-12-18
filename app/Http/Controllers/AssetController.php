@@ -14,7 +14,7 @@ class AssetController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Project $project = null): View
+    public function index(Project $project): View
     {
         return view('assets.index', [
             'project' => $project,
@@ -25,7 +25,7 @@ class AssetController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create(Project $project = null): view
+    public function create(Project $project): view
     {
         return view('assets.edit', [
             'project' => $project,
@@ -37,7 +37,7 @@ class AssetController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request, Project $project = null): RedirectResponse
+    public function store(Request $request, Project $project): RedirectResponse
     {
         $request->validate([
             'asset_type_id' => ['required', 'exists:asset_types,id'],
@@ -55,18 +55,29 @@ class AssetController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Project $project = null, Asset $asset): View
+    public function show(Project $project, Asset $asset): View
     {
+        $markers[] = ['lat' => $asset->lat, 'long' => $asset->lng, 'title' => $asset->name];
+
+        foreach ($asset->downstreamPipes as $pipe) {
+            $markers[] = ['lat' => $pipe->downstreamAsset->lat, 'long' => $pipe->downstreamAsset->lng, 'title' => $pipe->downstreamAsset->name];
+        }
+
+        foreach ($asset->upstreamPipes as $pipe) {
+            $markers[] = ['lat' => $pipe->upstreamAsset->lat, 'long' => $pipe->upstreamAsset->lng, 'title' => $pipe->upstreamAsset->name];
+        }
+
         return view('assets.show', [
             'project' => $project,
             'asset' => $asset,
+            'markers' => $markers,
         ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Project $project = null, Asset $asset): View
+    public function edit(Project $project, Asset $asset): View
     {
         return view('assets.edit', [
             'project' => $project,
@@ -79,7 +90,7 @@ class AssetController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function update(Request $request, Project $project = null, Asset $asset)
+    public function update(Request $request, Project $project, Asset $asset)
     {
         $request->validate([
             'asset_type_id' => ['required', 'exists:asset_types,id'],
@@ -97,7 +108,7 @@ class AssetController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Project $project = null, Asset $asset)
+    public function destroy(Project $project, Asset $asset)
     {
         //
     }

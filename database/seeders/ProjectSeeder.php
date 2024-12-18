@@ -14,6 +14,7 @@ class ProjectSeeder extends Seeder
     public function run(): void
     {
         DB::table('projects')->insert([[
+            'project_type_id' => 2,
             'customer_id' => 1,
             'name' => '35509372-T5SF-30615',
             'due' => Carbon::parse('12/01/2024'),
@@ -22,6 +23,7 @@ class ProjectSeeder extends Seeder
             'created_at' => Carbon::parse('12/13/2024 6:30PM'),
             'updated_at' => Carbon::parse('12/13/2024 6:30PM')
         ],[
+            'project_type_id' => 2,
             'customer_id' => 1,
             'name' => '35315620-R9R0-30087',
             'due' => Carbon::parse('11/01/2024'),

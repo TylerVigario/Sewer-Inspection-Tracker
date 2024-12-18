@@ -1,10 +1,10 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            @isset($asset)
-            {{ __('Edit Asset') }}
+            @isset($pipe)
+            {{ __('Edit Pipe') }}
             @else
-            {{ __('Create Asset') }}
+            {{ __('Create Pipe') }}
             @endisset
         </h2>
     </x-slot>
@@ -13,9 +13,9 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
             <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
                 <div class="max-w-xl">
-                    <form method="post" action="{!! isset($asset) ? route('projects.assets.update', [$project, $asset]) : route('projects.assets.store', $project) !!}" class="mt-6 space-y-6">
+                    <form method="post" action="{!! isset($pipe) ? route('projects.pipes.update', [$project, $pipe]) : route('projects.pipes.store', $project) !!}" class="mt-6 space-y-6">
                         @csrf
-                        @method(isset($asset) ? 'patch' : 'post')
+                        @method(isset($pipe) ? 'patch' : 'post')
 
                         <div>
                             <x-input-label for="project_id" :value="__('Project')" />
@@ -33,30 +33,39 @@
                         </div>
 
                         <div>
-                            <x-input-label for="asset_type_id" :value="__('Asset Type')" />
+                            <x-input-label for="upstream_asset_id" :value="__('Upstream Asset')" />
                             <div class="mt-2 grid grid-cols-1">
-                                <select id="asset_type_id" name="asset_type_id" class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pl-3 pr-8 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
-                                    @foreach(App\Models\AssetType::all() as $assetType)
-                                    <option @if(isset($asset) && $asset->type->id == $assetType->id) selected @endif value="{{ $assetType->id }}">{{ $assetType->name }}</option>
+                                <select id="upstream_asset_id" name="upstream_asset_id" class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pl-3 pr-8 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                                    @foreach($project->assets as $asset)
+                                    <option @if(isset($pipe) && $pipe->upstreamAsset == $asset) selected @endif value="{{ $asset->id }}">{{ $asset->name }}</option>
                                     @endforeach
                                 </select>
                                 <svg class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" data-slot="icon">
                                     <path fill-rule="evenodd" d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
                                 </svg>
                             </div>
-                            <x-input-error class="mt-2" :messages="$errors->get('asset_type_id')" />
+                            <x-input-error class="mt-2" :messages="$errors->get('upstream_asset_id')" />
                         </div>
 
                         <div>
-                            <x-input-label for="name" :value="__('Name')" />
-                            <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name', ($asset->name ?? ''))" required autofocus />
-                            <x-input-error class="mt-2" :messages="$errors->get('name')" />
+                            <x-input-label for="downstream_asset_id" :value="__('Downstream Asset')" />
+                            <div class="mt-2 grid grid-cols-1">
+                                <select id="downstream_asset_id" name="downstream_asset_id" class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pl-3 pr-8 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                                    @foreach($project->assets as $asset)
+                                    <option @if(isset($pipe) && $pipe->downstreamAsset == $asset) selected @endif value="{{ $asset->id }}">{{ $asset->name }}</option>
+                                    @endforeach
+                                </select>
+                                <svg class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" data-slot="icon">
+                                    <path fill-rule="evenodd" d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                            <x-input-error class="mt-2" :messages="$errors->get('downstream_asset_id')" />
                         </div>
 
                         <div class="flex items-center gap-4">
                             <x-primary-button>{{ __('Save') }}</x-primary-button>
 
-                            @if (session('status') === 'asset-updated')
+                            @if (session('status') === 'pipe-updated')
                             <p
                                 x-data="{ show: true }"
                                 x-show="show"
