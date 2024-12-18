@@ -42,7 +42,7 @@ class CustomerController extends Controller
             'name' => $request->name,
         ]);
 
-        return Redirect::route('customers.edit', $customer);
+        return Redirect::route('customers.show', $customer);
     }
 
     /**
@@ -67,6 +67,8 @@ class CustomerController extends Controller
 
     /**
      * Update the customer's profile information.
+     *
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function update(Request $request, Customer $customer): RedirectResponse
     {

@@ -30,9 +30,12 @@
                                     </tr>
                                 </thead>
                                 <tbody class="divide-y divide-gray-200 light:bg-white">
-                                    @foreach (App\Models\Project::all() as $project)
+                                    @foreach ($projects as $project)
                                     <tr>
-                                        <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 dark:text-white sm:pl-0">{{ $project->name }}</td>
+                                        <td class="whitespace-nowrap py-5 pl-4 pr-3 text-sm sm:pl-0">
+                                            <div class="font-medium text-gray-900 dark:text-white">{{ $project->name }}</div>
+                                            <div class="mt-1 text-gray-500 dark:text-gray-300">{{ $project->customer->name }}</div>
+                                        </td>
                                         <td class="hidden whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-300 sm:table-cell">{{ $project->assets()->count() }}</td>
                                         <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-300"></td>
                                         <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-300">{{ $project->due->diffForHumans() }}</td>

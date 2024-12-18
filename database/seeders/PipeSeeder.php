@@ -125,6 +125,6 @@ class PipeSeeder extends Seeder
             ];
         }
 
-        DB::table('pipe_project')->insert($data);
+        DB::table('project_pipes')->insert($data);
     }
 }

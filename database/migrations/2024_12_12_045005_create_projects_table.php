@@ -21,14 +21,14 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::create('asset_project', function (Blueprint $table) {
+        Schema::create('project_assets', function (Blueprint $table) {
             $table->id();
             $table->foreignId('project_id')->constrained();
             $table->foreignId('asset_id')->constrained();
             $table->timestamps();
         });
 
-        Schema::create('pipe_project', function (Blueprint $table) {
+        Schema::create('project_pipes', function (Blueprint $table) {
             $table->id();
             $table->foreignId('project_id')->constrained();
             $table->foreignId('pipe_id')->constrained();
@@ -41,8 +41,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('asset_project');
-        Schema::dropIfExists('pipe_project');
+        Schema::dropIfExists('project_assets');
+        Schema::dropIfExists('project_pipes');
         Schema::dropIfExists('projects');
     }
 };

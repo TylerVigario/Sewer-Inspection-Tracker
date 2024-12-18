@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\AssetType;
+use App\Models\Pipe;
 use Illuminate\Http\Request;
-use Illuminate\View\View;
-use Illuminate\Support\Facades\Redirect;
 
-class AssetTypeController extends Controller
+class PipeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -27,8 +25,6 @@ class AssetTypeController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @throws \Illuminate\Validation\ValidationException
      */
     public function store(Request $request)
     {
@@ -38,7 +34,7 @@ class AssetTypeController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(AssetType $assetType)
+    public function show(Pipe $pipe)
     {
         //
     }
@@ -46,17 +42,15 @@ class AssetTypeController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(AssetType $assetType)
+    public function edit(Pipe $pipe)
     {
         //
     }
 
     /**
      * Update the specified resource in storage.
-     *
-     * @throws \Illuminate\Validation\ValidationException
      */
-    public function update(Request $request, AssetType $assetType)
+    public function update(Request $request, Pipe $pipe)
     {
         //
     }
@@ -64,7 +58,7 @@ class AssetTypeController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(AssetType $assetType)
+    public function destroy(Pipe $pipe)
     {
         //
     }

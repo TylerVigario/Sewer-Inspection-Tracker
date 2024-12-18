@@ -50,7 +50,7 @@ class ProjectController extends Controller
             'lng' => 0,
         ]);
 
-        return Redirect::route('projects.edit', $project);
+        return Redirect::route('projects.show', $project);
     }
 
     /**
@@ -75,6 +75,8 @@ class ProjectController extends Controller
 
     /**
      * Update the project's profile information.
+     *
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function update(Project $project, Request $request): RedirectResponse
     {

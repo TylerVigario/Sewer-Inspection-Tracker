@@ -33,6 +33,6 @@ class Pipe extends Model
      */
     public function projects(): BelongsToMany
     {
-        return $this->belongsToMany(Project::class);
+        return $this->belongsToMany(Project::class, 'project_pipes');
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -19,6 +20,7 @@ class Asset extends Model
      * @var list<string>
      */
     protected $fillable = [
+        'asset_type_id',
         'name',
     ];
 
@@ -35,7 +37,7 @@ class Asset extends Model
      */
     public function projects(): BelongsToMany
     {
-        return $this->belongsToMany(Project::class);
+        return $this->belongsToMany(Project::class, 'project_assets');
     }
 
     /**
@@ -43,7 +45,7 @@ class Asset extends Model
      */
     public function upstreamPipes(): HasMany
     {
-        return $this->hasMany(Pipe::class, 'upstream_asset_id');
+        return $this->hasMany(Pipe::class, 'downstream_asset_id');
     }
 
     /**
@@ -51,6 +53,6 @@ class Asset extends Model
      */
     public function downstreamPipes(): HasMany
     {
-        return $this->hasMany(Pipe::class, 'downstream_asset_id');
+        return $this->hasMany(Pipe::class, 'upstream_asset_id');
     }
 }

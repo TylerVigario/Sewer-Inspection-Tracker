@@ -42,7 +42,7 @@ class Project extends Model
      */
     public function assets(): BelongsToMany
     {
-        return $this->belongsToMany(Asset::class);
+        return $this->belongsToMany(Asset::class, 'project_assets');
     }
 
     /**
@@ -50,7 +50,7 @@ class Project extends Model
      */
     public function pipes(): BelongsToMany
     {
-        return $this->belongsToMany(Pipe::class);
+        return $this->belongsToMany(Pipe::class, 'project_pipes');
     }
 
     /**
@@ -60,6 +60,4 @@ class Project extends Model
     {
         return $this->belongsTo(Customer::class);
     }
-
-
 }

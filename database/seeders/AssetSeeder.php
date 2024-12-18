@@ -156,6 +156,6 @@ class AssetSeeder extends Seeder
             ];
         }
 
-        DB::table('asset_project')->insert($data);
+        DB::table('project_assets')->insert($data);
     }
 }
