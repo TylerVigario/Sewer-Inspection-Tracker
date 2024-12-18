@@ -61,7 +61,7 @@
                                     @endforeach
                                 </tbody>
                             </table>
-                            {{ $assets->links('') }}
+                            {{ $assets->links('components/pagination-centered') }}
                         </div>
                     </div>
                 </div>

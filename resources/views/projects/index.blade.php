@@ -26,8 +26,7 @@
                                 <thead>
                                     <tr>
                                         <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 dark:text-white sm:pl-0">Name</th>
-                                        <th scope="col" class="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-white sm:table-cell">Assets</th>
-                                        <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-white">Progress</th>
+                                        <th scope="col" class="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-white sm:table-cell">Progress</th>
                                         <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-white">Due</th>
                                         <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-0">
                                             <span class="sr-only">Edit</span>
@@ -41,8 +40,7 @@
                                             <div class="font-medium text-gray-900 dark:text-white">{{ $project->name }}</div>
                                             <div class="mt-1 text-gray-500 dark:text-gray-300">{{ $project->customer->name }}</div>
                                         </td>
-                                        <td class="hidden whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-300 sm:table-cell">{{ $project->assets()->count() }}</td>
-                                        <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-300"></td>
+                                        <td class="hidden whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-300 sm:table-cell">0 / {{ $project->assets()->count() }}</td>
                                         <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-300">{{ $project->due->diffForHumans() }}</td>
                                         <td class="whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
                                             <a href="{{ route('projects.edit', $project) }}" class="text-indigo-600 hover:text-indigo-900">Edit<span class="sr-only">, {{ $project->name }}</span></a>
@@ -52,7 +50,7 @@
                                     @endforeach
                                 </tbody>
                             </table>
-                            {{ $projects->links() }}
+                            {{ $projects->links('tailwind.centered') }}
                         </div>
                     </div>
                 </div>
