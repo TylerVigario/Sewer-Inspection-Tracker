@@ -1,12 +1,11 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            @isset($pipe)
-            {{ __('Edit Pipe') }}
-            @else
-            {{ __('Create Pipe') }}
-            @endisset
-        </h2>
+    <x-slot name="breadcrumbs">
+        <x-breadcrumb href="{{ route('projects.show', [$project]) }}" :value="$project->name" />
+        @isset($pipe)
+        <x-breadcrumb href="{{ route('projects.pipes.edit', [$project, $pipe]) }}" aria-current="page" :value="$pipe->upstreamAsset->fullName -> $pipe->downstreamAsset->fullName" />
+        @else
+        <x-breadcrumb href="{{ route('projects.pipes.create', [$project]) }}" aria-current="page" :value="'New'" />
+        @endif
     </x-slot>
 
     <div class="py-12">

@@ -1,12 +1,11 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            @isset($customer)
-            {{ __('Edit Customer') }}
-            @else
-            {{ __('Create Customer') }}
-            @endisset
-        </h2>
+    <x-slot name="breadcrumbs">
+        <x-breadcrumb href="{{ route('customers.index') }}" :value="'Customers'" />
+        @isset($customer)
+        <x-breadcrumb href="{{ route('customers.edit', [$customer]) }}" aria-current="page" :value="$customer->fullName" />
+        @else
+        <x-breadcrumb href="{{ route('customers.create') }}" aria-current="page" :value="'Create'" />
+        @endif
     </x-slot>
 
     <div class="py-12">

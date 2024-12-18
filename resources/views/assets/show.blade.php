@@ -1,8 +1,7 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ $asset->name }}
-        </h2>
+<x-slot name="breadcrumbs">
+        <x-breadcrumb href="{{ route('projects.index') }}" :value="$project->name" />
+        <x-breadcrumb href="{{ route('projects.assets.show', [$project, $asset]) }}" aria-current="page" :value="$asset->fullName" />
     </x-slot>
 
     <div class="py-12">
@@ -34,7 +33,7 @@
                                     <svg class="-ml-1.5 size-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
                                         <path d="M10.75 6.75a.75.75 0 0 0-1.5 0v2.5h-2.5a.75.75 0 0 0 0 1.5h2.5v2.5a.75.75 0 0 0 1.5 0v-2.5h2.5a.75.75 0 0 0 0-1.5h-2.5v-2.5Z" />
                                     </svg>
-                                    Add
+                                    New
                                 </a>
                             </div>
                         </div>
@@ -55,7 +54,7 @@
                                     </tr>
                                     @foreach ($asset->upstreamPipes as $pipe)
                                     <tr>
-                                        <td class="whitespace-nowrap py-5 pl-4 pr-3 text-sm text-gray-900 dark:text-white sm:pl-0">{{ $pipe->upstreamAsset->name }}</td>
+                                        <td class="whitespace-nowrap py-5 pl-4 pr-3 text-sm text-gray-900 dark:text-white sm:pl-0">{{ $pipe->upstreamAsset->fullName }}</td>
                                         <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-300"></td>
                                         <td class="whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
                                             <a href="{{ route('projects.assets.edit', [$project, $pipe->upstreamAsset]) }}" class="text-indigo-600 hover:text-indigo-900">Edit<span class="sr-only">, {{ $asset->name }}</span></a>
@@ -68,7 +67,7 @@
                                     </tr>
                                     @foreach ($asset->downstreamPipes as $pipe)
                                     <tr>
-                                        <td class="whitespace-nowrap py-5 pl-4 pr-3 text-sm text-gray-900 dark:text-white sm:pl-0">{{ $pipe->downstreamAsset->name }}</td>
+                                        <td class="whitespace-nowrap py-5 pl-4 pr-3 text-sm text-gray-900 dark:text-white sm:pl-0">{{ $pipe->downstreamAsset->fullName }}</td>
                                         <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-300"></td>
                                         <td class="whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
                                             <a href="{{ route('projects.assets.edit', [$project, $pipe->downstreamAsset]) }}" class="text-indigo-600 hover:text-indigo-900">Edit<span class="sr-only">, {{ $asset->name }}</span></a>

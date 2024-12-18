@@ -1,12 +1,10 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            @isset($project)
-            {{ __('Edit Project') }}
-            @else
-            {{ __('Create Project') }}
-            @endisset
-        </h2>
+    <x-slot name="breadcrumbs">
+        @isset($project)
+        <x-breadcrumb href="{{ route('projects.edit', [$project]) }}" aria-current="page" :value="$project->name" />
+        @else
+        <x-breadcrumb href="{{ route('projects.create') }}" aria-current="page" :value="'New'" />
+        @endif
     </x-slot>
 
     <div class="py-12">

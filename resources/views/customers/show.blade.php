@@ -1,8 +1,7 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ $customer->name }}
-        </h2>
+    <x-slot name="breadcrumbs">
+        <x-breadcrumb href="{{ route('customers.index') }}" :value="'Customers'" />
+        <x-breadcrumb href="{{ route('customers.show', [$customer]) }}" aria-current="page" :value="$customer->name" />
     </x-slot>
 
     <div class="py-12">

@@ -55,4 +55,14 @@ class Asset extends Model
     {
         return $this->hasMany(Pipe::class, 'upstream_asset_id');
     }
+
+    /**
+     * Get the asset full name
+     */
+    public function fullName(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->type->tag . ' ' . $this->name,
+        );
+    }
 }
