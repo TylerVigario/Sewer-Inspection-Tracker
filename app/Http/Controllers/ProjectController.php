@@ -63,12 +63,18 @@ class ProjectController extends Controller
         $markers = [];
 
         foreach ($project->assets as $asset) {
-            $markers[] = ['lat' => $asset->lat, 'long' => $asset->lng, 'title' => $asset->fullName];
+            $markers[] = (object)['position' => ['lat' => $asset->lat, 'lng' => $asset->lng], 'title' => $asset->fullName];
+        }
+
+        foreach ($project->pipes as $pipe) {
+            $paths[] = (object)['lat' => $pipe->upstreamAsset->lat, 'lng' => $pipe->upstreamAsset->lng];
+            $paths[] = (object)['lat' => $pipe->downstreamAsset->lat, 'lng' => $pipe->downstreamAsset->lng];
         }
 
         return view('projects.show', [
             'project' => $project,
             'markers' => $markers,
+            'paths' => $paths,
             'assets' => $project->assets()->paginate(10),
         ]);
     }

@@ -57,20 +57,25 @@ class AssetController extends Controller
      */
     public function show(Project $project, Asset $asset): View
     {
-        $markers[] = ['lat' => $asset->lat, 'long' => $asset->lng, 'title' => $asset->name];
+        $markers[] = (object)['position' => ['lat' => $asset->lat, 'lng' => $asset->lng], 'title' => $asset->fullName];
 
         foreach ($asset->downstreamPipes as $pipe) {
-            $markers[] = ['lat' => $pipe->downstreamAsset->lat, 'long' => $pipe->downstreamAsset->lng, 'title' => $pipe->downstreamAsset->name];
+            $markers[] = (object)['position' => ['lat' => $pipe->downstreamAsset->lat, 'lng' => $pipe->downstreamAsset->lng], 'title' => $pipe->downstreamAsset->fullName];
+            $paths[] = (object)['lat' => $pipe->upstreamAsset->lat, 'lng' => $pipe->upstreamAsset->lng];
+            $paths[] = (object)['lat' => $pipe->downstreamAsset->lat, 'lng' => $pipe->downstreamAsset->lng];
         }
 
         foreach ($asset->upstreamPipes as $pipe) {
-            $markers[] = ['lat' => $pipe->upstreamAsset->lat, 'long' => $pipe->upstreamAsset->lng, 'title' => $pipe->upstreamAsset->name];
+            $markers[] = (object)['position' => ['lat' => $pipe->upstreamAsset->lat, 'lng' => $pipe->upstreamAsset->lng], 'title' => $pipe->upstreamAsset->fullName];
+            $paths[] = (object)['lat' => $pipe->upstreamAsset->lat, 'lng' => $pipe->upstreamAsset->lng];
+            $paths[] = (object)['lat' => $pipe->downstreamAsset->lat, 'lng' => $pipe->downstreamAsset->lng];
         }
 
         return view('assets.show', [
             'project' => $project,
             'asset' => $asset,
             'markers' => $markers,
+            'paths' => $paths,
         ]);
     }
 

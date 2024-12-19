@@ -7,8 +7,8 @@
         <div class="max-w-7xl mt-6 mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <div class="px-4 sm:px-6 lg:px-8">
-                    <div class="relative border-b border-gray-200 pb-5 sm:pb-0">
+                    <div class="px-4 sm:px-6 lg:px-8" x-data="{ tab: 'assets' }">
+                        <div class="relative border-b border-gray-200 pb-5 sm:pb-0">
                             <div class="md:flex md:items-center md:justify-between">
                                 <div class="mt-3 flex md:absolute md:right-0 md:top-3 md:mt-0">
                                     <a href="{{ route('projects.create') }}">
@@ -20,8 +20,8 @@
                                 <div class="grid grid-cols-1 sm:hidden">
                                     <!-- Use an "onChange" listener to redirect the user to the selected tab URL. -->
                                     <select aria-label="Select a tab" class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-2 pl-3 pr-8 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600">
+                                        <option>Map</option>
                                         <option selected>Assets</option>
-                                        <option>Pipes</option>
                                     </select>
                                     <svg class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end fill-gray-500" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" data-slot="icon">
                                         <path fill-rule="evenodd" d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
@@ -31,13 +31,20 @@
                                 <div class="hidden sm:block">
                                     <nav class="-mb-px flex space-x-8">
                                         <!-- Current: "border-indigo-500 text-indigo-600", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" -->
-                                        <a href="#" class="whitespace-nowrap border-b-2 border-indigo-500 px-1 pb-4 text-sm font-medium text-indigo-600" aria-current="page">Needs Attention</a>
-                                        <a href="#" class="whitespace-nowrap border-b-2 border-transparent px-1 pb-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">Complete</a>
+                                        <a href="#" x-on:click="tab = 'map'" class="whitespace-nowrap border-b-2 border-transparent px-1 pb-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">Map</a>
+                                        <a href="#" x-on:click="tab = 'assets'" class="whitespace-nowrap border-b-2 border-indigo-500 px-1 pb-4 text-sm font-medium text-indigo-600" aria-current="page">Assets</a>
                                     </nav>
                                 </div>
                             </div>
                         </div>
-                        <div class="-mx-4 mt-4 sm:-mx-0">
+                        <div x-show="tab == 'map'" x-transition class="-mx-4 mt-4 sm:-mx-0">
+                            <div id="map" class="h-screen w-full"></div>
+                            <script>
+                            let markers = {!! json_encode($markers) !!};
+                            let paths = {!! json_encode($paths) !!};
+                            </script>
+                        </div>
+                        <div x-show="tab == 'assets'" x-transition class="-mx-4 mt-4 sm:-mx-0">
                             <table class="min-w-full divide-y divide-gray-300">
                                 <thead>
                                     <tr>

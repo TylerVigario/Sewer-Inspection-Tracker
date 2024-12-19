@@ -1,5 +1,5 @@
 <x-app-layout>
-<x-slot name="breadcrumbs">
+    <x-slot name="breadcrumbs">
         <x-breadcrumb href="{{ route('projects.show', [$project]) }}" :value="$project->name" />
         <x-breadcrumb href="{{ route('projects.assets.show', [$project, $asset]) }}" aria-current="page" :value="$asset->fullName" />
     </x-slot>
@@ -8,12 +8,11 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 max-h-96 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="relative h-0 overflow-hidden" style="padding-bottom: 56.25%;">
-                    <x-maps-google
-                        :markers="$markers"
-                        :mapType="'hybrid'"
-                        :centerToBoundsCenter="true"
-                        :zoomLevel="19">
-                    </x-maps-google>
+                    <div id="map" style="height: 400px"></div>
+                    <script>
+                    let markers = {!! json_encode($markers) !!};
+                    let paths = {!! json_encode($paths) !!};
+                    </script>
                 </div>
             </div>
         </div>
