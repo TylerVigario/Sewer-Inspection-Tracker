@@ -69,7 +69,7 @@ class ProjectController extends Controller
         return view('projects.show', [
             'project' => $project,
             'markers' => $markers,
-            'assets' => $project->assets()->paginate(5),
+            'assets' => $project->assets()->paginate(10),
         ]);
     }
 

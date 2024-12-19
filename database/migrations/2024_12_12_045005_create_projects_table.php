@@ -19,6 +19,8 @@ return new class extends Migration
             $table->timestamp('due');
             $table->double('lat');
             $table->double('lng');
+            $table->string('city');
+            $table->string('state');
             $table->timestamps();
         });
 

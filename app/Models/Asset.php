@@ -33,6 +33,14 @@ class Asset extends Model
     }
 
     /**
+     * Get the asset type
+     */
+    public function address(): BelongsTo
+    {
+        return $this->belongsTo(Address::class);
+    }
+
+    /**
      * The projects that belong to the asset.
      */
     public function projects(): BelongsToMany

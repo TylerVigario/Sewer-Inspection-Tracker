@@ -20,6 +20,8 @@ class ProjectSeeder extends Seeder
             'due' => Carbon::parse('12/01/2024'),
             'lat' => 35.365926,
             'lng' => -119.010390,
+            'city' => 'Bakersfield',
+            'state' => 'CA',
             'created_at' => Carbon::parse('12/13/2024 6:30PM'),
             'updated_at' => Carbon::parse('12/13/2024 6:30PM')
         ],[
@@ -29,6 +31,8 @@ class ProjectSeeder extends Seeder
             'due' => Carbon::parse('11/01/2024'),
             'lat' => 37.293757,
             'lng' => -120.518860,
+            'city' => 'Bakersfield',
+            'state' => 'CA',
             'created_at' => Carbon::parse('12/13/2024 6:30PM'),
             'updated_at' => Carbon::parse('12/13/2024 6:30PM')
         ]]);

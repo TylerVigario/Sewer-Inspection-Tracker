@@ -4,35 +4,37 @@
     </x-slot>
 
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 max-h-96 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="relative h-0 overflow-hidden" style="padding-bottom: 56.25%;">
-                    <x-maps-google
-                        :markers="$markers"
-                        :mapType="'hybrid'"
-                        :centerToBoundsCenter="true"
-                        :zoomLevel="19">
-                    </x-maps-google>
-                </div>
-            </div>
-        </div>
-
         <div class="max-w-7xl mt-6 mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <div class="px-4 sm:px-6 lg:px-8">
-                        <div class="sm:flex sm:items-center">
-                            <div class="sm:flex-auto">
-                                <h1 class="text-base font-semibold text-gray-900">Project Assets</h1>
-                                <p class="mt-2 text-sm text-gray-700">A list of assets for this project.</p>
+                    <div class="relative border-b border-gray-200 pb-5 sm:pb-0">
+                            <div class="md:flex md:items-center md:justify-between">
+                                <div class="mt-3 flex md:absolute md:right-0 md:top-3 md:mt-0">
+                                    <a href="{{ route('projects.create') }}">
+                                        <button type="button" class="ml-3 inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">New Asset</button>
+                                    </a>
+                                </div>
                             </div>
-                            <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-                                <a href="{{ route('projects.assets.create', [$project]) }}" class="ml-auto flex items-center gap-x-1 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-                                    <svg class="-ml-1.5 size-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
-                                        <path d="M10.75 6.75a.75.75 0 0 0-1.5 0v2.5h-2.5a.75.75 0 0 0 0 1.5h2.5v2.5a.75.75 0 0 0 1.5 0v-2.5h2.5a.75.75 0 0 0 0-1.5h-2.5v-2.5Z" />
+                            <div class="mt-6">
+                                <div class="grid grid-cols-1 sm:hidden">
+                                    <!-- Use an "onChange" listener to redirect the user to the selected tab URL. -->
+                                    <select aria-label="Select a tab" class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-2 pl-3 pr-8 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600">
+                                        <option selected>Assets</option>
+                                        <option>Pipes</option>
+                                    </select>
+                                    <svg class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end fill-gray-500" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" data-slot="icon">
+                                        <path fill-rule="evenodd" d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
                                     </svg>
-                                    New
-                                </a>
+                                </div>
+                                <!-- Tabs at small breakpoint and up -->
+                                <div class="hidden sm:block">
+                                    <nav class="-mb-px flex space-x-8">
+                                        <!-- Current: "border-indigo-500 text-indigo-600", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" -->
+                                        <a href="#" class="whitespace-nowrap border-b-2 border-indigo-500 px-1 pb-4 text-sm font-medium text-indigo-600" aria-current="page">Needs Attention</a>
+                                        <a href="#" class="whitespace-nowrap border-b-2 border-transparent px-1 pb-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">Complete</a>
+                                    </nav>
+                                </div>
                             </div>
                         </div>
                         <div class="-mx-4 mt-4 sm:-mx-0">
@@ -41,7 +43,7 @@
                                     <tr>
                                         <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 dark:text-white sm:pl-0">Type</th>
                                         <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-white">Name</th>
-                                        <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-white">Complete</th>
+                                        <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-white">Status</th>
                                         <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-0">
                                             <span class="sr-only">Edit</span>
                                         </th>
@@ -52,7 +54,7 @@
                                     <tr>
                                         <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 dark:text-white sm:pl-0">{{ $asset->type->tag }}</td>
                                         <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-300">{{ $asset->name }}</td>
-                                        <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-300">{{ $asset->complete ? __('Yes') : __('No') }}</td>
+                                        <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-300">{{ __('Never attempted') }}</td>
                                         <td class="whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
                                             <a href="{{ route('projects.assets.edit', [$project, $asset]) }}" class="text-indigo-600 hover:text-indigo-900 pl-3">Edit<span class="sr-only">, {{ $asset->name }}</span></a>
                                             <a href="{{ route('projects.assets.show', [$project, $asset]) }}" class="text-indigo-600 hover:text-indigo-900 pl-3">View<span class="sr-only">, {{ $asset->name }}</span></a>
@@ -61,7 +63,7 @@
                                     @endforeach
                                 </tbody>
                             </table>
-                            {{ $assets->links('components/pagination-centered') }}
+                            {{ $assets->links('components.pagination-centered') }}
                         </div>
                     </div>
                 </div>
