@@ -67,10 +67,18 @@ class Asset extends Model
     /**
      * Get the asset full name
      */
-    public function fullName(): Attribute
+    protected function fullName(): Attribute
     {
         return Attribute::make(
             get: fn () => $this->type->tag . ' ' . $this->name,
         );
+    }
+
+    /**
+     * Get installation activities related to the asset.
+     */
+    public function installationActivities(): HasMany
+    {
+        return $this->hasMany(installationActivity::class);
     }
 }

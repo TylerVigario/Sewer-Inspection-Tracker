@@ -86,6 +86,7 @@
                         <div x-show="tab == 'Settings'" x-transition>
                             @include('projects.partials.settings', [
                                 'url' => route('projects.update', $project),
+                                'project'
                             ])
                         </div>
                     </div>

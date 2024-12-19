@@ -1,6 +1,6 @@
 @props(['method' => 'patch', 'url', 'project'])
 
-<form method="{{ $method  }}" action="{{ $url }}" class="mt-6 space-y-6">
+<form method="post" action="{{ $url }}" class="mt-6 space-y-6">
     @csrf
     @method($method)
 

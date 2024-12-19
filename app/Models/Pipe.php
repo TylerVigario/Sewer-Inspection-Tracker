@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Pipe extends Model
 {
@@ -34,5 +35,21 @@ class Pipe extends Model
     public function projects(): BelongsToMany
     {
         return $this->belongsToMany(Project::class, 'project_pipes');
+    }
+
+    /**
+     * Get inspection activities related to the pipe.
+     */
+    public function inspectionActivities(): HasMany
+    {
+        return $this->hasMany(inspectionActivity::class);
+    }
+
+    /**
+     * Get cleaning activities related to the pipe.
+     */
+    public function cleaningActivities(): HasMany
+    {
+        return $this->hasMany(CleaningActivity::class);
     }
 }
