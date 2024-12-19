@@ -40,7 +40,7 @@
                                         <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-300">{{ $customer->projects()->count() }}</td>
                                         <td class="whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
                                             <a href="{{ route('customers.edit', $customer) }}" class="text-indigo-600 hover:text-indigo-900">Edit<span class="sr-only">, {{ $customer->name }}</span></a>
-                                            <a href="{{ route('customers.show', $customer) }}" class="text-indigo-600 hover:text-indigo-900 pl-3">View<span class="sr-only">, {{ $customer->name }}</span></a>
+                                            <!--<a href="{{ route('customers.show', $customer) }}" class="text-indigo-600 hover:text-indigo-900 pl-3">View<span class="sr-only">, {{ $customer->name }}</span></a>-->
                                         </td>
                                     </tr>
                                     @endforeach

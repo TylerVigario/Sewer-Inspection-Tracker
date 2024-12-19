@@ -4,7 +4,7 @@
         @isset($asset)
         <x-breadcrumb href="{{ route('projects.assets.edit', [$project, $asset]) }}" aria-current="page" :value="$asset->fullName" />
         @else
-        <x-breadcrumb href="{{ route('projects.assets.create') }}" aria-current="page" :value="'New'" />
+        <x-breadcrumb href="{{ route('projects.assets.create', [$project]) }}" aria-current="page" :value="'New'" />
         @endif
     </x-slot>
 

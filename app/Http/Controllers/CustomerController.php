@@ -44,7 +44,7 @@ class CustomerController extends Controller
             'name' => $request->name,
         ]);
 
-        return Redirect::route('customers.show', $customer);
+        return Redirect::route('customers.index');
     }
 
     /**

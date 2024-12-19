@@ -8,7 +8,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 max-h-96 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="relative h-0 overflow-hidden" style="padding-bottom: 56.25%;">
-                    <div id="map" style="height: 400px"></div>
+                    <div id="map" class="map"></div>
                     <script>
                     let markers = {!! json_encode($markers) !!};
                     let paths = {!! json_encode($paths) !!};
