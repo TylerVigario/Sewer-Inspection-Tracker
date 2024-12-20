@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="breadcrumbs">
-        <x-breadcrumb href="{{ route('assets.index') }}" :value="'Assets'" />
-        <x-breadcrumb href="{{ route('assets.edit', $asset) }}" aria-current="page" :value="$asset->fullName" />
+        <x-breadcrumb href="{{ route('projects.show', $project) }}" :value="$project->name" />
+        <x-breadcrumb href="{{ route('projects.assets.create', $project) }}" aria-current="page" :value="'Create Asset'" />
     </x-slot>
 
     <div class="py-12">
@@ -9,9 +9,9 @@
             <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
                 <div class="max-w-xl">
                     @include('assets.partials.settings', [
-                    'method' => 'patch',
-                    'url' => route('assets.update', $asset),
-                    'asset' => $asset,
+                    'method' => 'post',
+                    'url' => route('assets.store', $project),
+                    'project_id' => $project->id
                     ])
                 </div>
             </div>

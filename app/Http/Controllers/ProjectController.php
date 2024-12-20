@@ -78,6 +78,7 @@ class ProjectController extends Controller
             'markers' => $markers,
             'paths' => $paths,
             'assets' => $project->assets()->paginate(10),
+            'pipes' => $project->pipes()->paginate(10),
         ]);
     }
 

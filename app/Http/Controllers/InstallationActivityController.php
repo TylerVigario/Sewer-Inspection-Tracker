@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pipe;
-use Illuminate\Contracts\View\View;
+use App\Models\Project;
 use Illuminate\Http\Request;
 
-class PipeController extends Controller
+class InstallationActivityController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,7 +19,7 @@ class PipeController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Project $project = null, Pipe $pipe = null)
     {
         //
     }
@@ -35,7 +35,7 @@ class PipeController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Pipe $pipe)
+    public function show(string $id)
     {
         //
     }
@@ -43,7 +43,7 @@ class PipeController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Pipe $pipe)
+    public function edit(string $id)
     {
         //
     }
@@ -51,7 +51,7 @@ class PipeController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Pipe $pipe)
+    public function update(Request $request, string $id)
     {
         //
     }
@@ -59,7 +59,7 @@ class PipeController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Pipe $pipe)
+    public function destroy(string $id)
     {
         //
     }

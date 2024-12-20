@@ -14,22 +14,17 @@ class AssetController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Project $project): View
+    public function index()
     {
-        return view('assets.index', [
-            'project' => $project,
-            'assets' => Asset::paginate(15),
-        ]);
+        //
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create(Project $project): view
+    public function create(): view
     {
-        return view('assets.edit', [
-            'project' => $project,
-        ]);
+        return view('assets.edit');
     }
 
     /**
@@ -37,7 +32,7 @@ class AssetController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request, Project $project): RedirectResponse
+    public function store(Request $request): RedirectResponse
     {
         $request->validate([
             'asset_type_id' => ['required', 'exists:asset_types,id'],
@@ -55,7 +50,7 @@ class AssetController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Project $project, Asset $asset): View
+    public function show(Asset $asset): View
     {
         $markers[] = (object)['position' => ['lat' => $asset->lat, 'lng' => $asset->lng], 'title' => $asset->fullName];
 
@@ -72,7 +67,6 @@ class AssetController extends Controller
         }
 
         return view('assets.show', [
-            'project' => $project,
             'asset' => $asset,
             'markers' => $markers,
             'paths' => $paths,
@@ -82,10 +76,9 @@ class AssetController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Project $project, Asset $asset): View
+    public function edit(Asset $asset): View
     {
         return view('assets.edit', [
-            'project' => $project,
             'asset' => $asset,
         ]);
     }
@@ -95,7 +88,7 @@ class AssetController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function update(Request $request, Project $project, Asset $asset)
+    public function update(Request $request, Asset $asset)
     {
         $request->validate([
             'asset_type_id' => ['required', 'exists:asset_types,id'],
@@ -113,7 +106,7 @@ class AssetController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Project $project, Asset $asset)
+    public function destroy(Asset $asset)
     {
         //
     }

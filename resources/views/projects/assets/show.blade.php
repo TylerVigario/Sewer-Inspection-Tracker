@@ -1,7 +1,11 @@
 <x-app-layout>
     <x-slot name="breadcrumbs">
-        <x-breadcrumb href="{{ route('projects.show', [$project]) }}" :value="$project->name" />
+        @if (isset($project))
+        <x-breadcrumb href="{{ route('projects.show', $project) }}" :value="$project->name" />
         <x-breadcrumb href="{{ route('projects.assets.show', [$project, $asset]) }}" aria-current="page" :value="$asset->fullName" />
+        @else
+        <x-breadcrumb href="{{ route('assets.show', $asset) }}" aria-current="page" :value="$asset->fullName" />
+        @endisset
     </x-slot>
 
     <div class="py-12">
@@ -27,7 +31,7 @@
                                 <p class="mt-2 text-sm text-gray-700">A list of assets connected with pipes to this one.</p>
                             </div>
                             <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-                                <a href="{{ route('projects.pipes.create', [$project]) }}" class="ml-auto flex items-center gap-x-1 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                                <a href="{{ isset($project) ? route('projects.assets.create', $project) : route('assets.create', ) }}" class="ml-auto flex items-center gap-x-1 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
                                     <svg class="-ml-1.5 size-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
                                         <path d="M10.75 6.75a.75.75 0 0 0-1.5 0v2.5h-2.5a.75.75 0 0 0 0 1.5h2.5v2.5a.75.75 0 0 0 1.5 0v-2.5h2.5a.75.75 0 0 0 0-1.5h-2.5v-2.5Z" />
                                     </svg>
@@ -55,8 +59,8 @@
                                         <td class="whitespace-nowrap py-5 pl-4 pr-3 text-sm text-gray-900 dark:text-white sm:pl-0">{{ $pipe->upstreamAsset->fullName }}</td>
                                         <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-300"></td>
                                         <td class="whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
-                                            <a href="{{ route('projects.assets.edit', [$project, $pipe->upstreamAsset]) }}" class="text-indigo-600 hover:text-indigo-900">Edit<span class="sr-only">, {{ $asset->name }}</span></a>
-                                            <a href="{{ route('projects.assets.show', [$project, $pipe->upstreamAsset]) }}" class="text-indigo-600 hover:text-indigo-900 pl-3">View<span class="sr-only">, {{ $asset->name }}</span></a>
+                                            <a href="{{ isset($project) ? route('projects.assets.edit', [$project, $pipe->upstreamAsset]) : route('assets.edit', $pipe->upstreamAsset) }}" class="text-indigo-600 hover:text-indigo-900">Edit<span class="sr-only">, {{ $asset->name }}</span></a>
+                                            <a href="{{ isset($project) ? route('projects.assets.show', [$project, $pipe->upstreamAsset]) : route('assets.show', $pipe->upstreamAsset) }}" class="text-indigo-600 hover:text-indigo-900 pl-3">View<span class="sr-only">, {{ $asset->name }}</span></a>
                                         </td>
                                     </tr>
                                     @endforeach
@@ -68,8 +72,8 @@
                                         <td class="whitespace-nowrap py-5 pl-4 pr-3 text-sm text-gray-900 dark:text-white sm:pl-0">{{ $pipe->downstreamAsset->fullName }}</td>
                                         <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-300"></td>
                                         <td class="whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
-                                            <a href="{{ route('projects.assets.edit', [$project, $pipe->downstreamAsset]) }}" class="text-indigo-600 hover:text-indigo-900">Edit<span class="sr-only">, {{ $asset->name }}</span></a>
-                                            <a href="{{ route('projects.assets.show', [$project, $pipe->downstreamAsset]) }}" class="text-indigo-600 hover:text-indigo-900 pl-3">View<span class="sr-only">, {{ $asset->name }}</span></a>
+                                            <a href="{{ isset($project) ? route('projects.assets.edit', [$project, $pipe->downstreamAsset]) : route('assets.edit', $pipe->downstreamAsset) }}" class="text-indigo-600 hover:text-indigo-900">Edit<span class="sr-only">, {{ $asset->name }}</span></a>
+                                            <a href="{{ isset($project) ? route('projects.assets.show', [$project, $pipe->downstreamAsset]) : route('assets.show', $pipe->downstreamAsset) }}" class="text-indigo-600 hover:text-indigo-900 pl-3">View<span class="sr-only">, {{ $asset->name }}</span></a>
                                         </td>
                                     </tr>
                                     @endforeach
