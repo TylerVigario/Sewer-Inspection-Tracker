@@ -7,7 +7,7 @@
         <div class="max-w-7xl mt-6 mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <div class="px-4 sm:px-6 lg:px-8" x-data="{ tab: 'Activity' }">
+                    <div class="px-4 sm:px-6 lg:px-8" x-data="{ tab: 'Asset' }">
 
                         <div class="relative border-b border-gray-200 pb-5 sm:pb-0">
                             <div class="md:flex md:items-center md:justify-between">

@@ -59,9 +59,6 @@ async function initMap() {
         center: markers[0].position,
         mapId: "4504f8b37365c3d0",
     });
-    // Set LatLng and title text for the markers. The first marker (Boynton Pass)
-    // receives the initial focus when tab is pressed. Use arrow keys to move
-    // between markers; press tab again to cycle through the map controls.
 
     // Create an info window to share between markers.
     const infoWindow = new InfoWindow();
