@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="breadcrumbs">
         <x-breadcrumb href="{{ route('customers.index') }}" :value="'Customers'" />
-        <x-breadcrumb href="{{ route('customers.show', [$customer]) }}" aria-current="page" :value="$customer->name" />
+        <x-breadcrumb href="{{ route('customers.show', $customer) }}" aria-current="page" :value="$customer->name" />
     </x-slot>
 
     <div class="py-12">

@@ -1,15 +1,18 @@
-@props(['method', 'url', 'project', 'pipe'])
+@props(['method', 'url', 'project' => null])
 
 <form method="post" action="{{ $url }}" class="mt-6 space-y-6">
     @csrf
     @method($method)
 
+    @isset($project)
+    <input type="hidden" name="project_id" id="project_id" value="{{ $project->id }}" />
+    @else
     <div>
         <x-input-label for="project_id" :value="__('Project')" />
         <div class="mt-2 grid grid-cols-1">
             <select id="project_id" name="project_id" class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pl-3 pr-8 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
-                @foreach(App\Models\Project::all() as $_project)
-                <option @if(isset($project) && $project==$_project) selected @endif value="{{ $_project->id }}">{{ $_project->name }}</option>
+                @foreach(App\Models\Project::all() as $project)
+                <option value="{{ $project->id }}">{{ $project->name }}</option>
                 @endforeach
             </select>
             <svg class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" data-slot="icon">
@@ -18,6 +21,7 @@
         </div>
         <x-input-error class="mt-2" :messages="$errors->get('project_id')" />
     </div>
+    @endisset
 
     <div>
         <x-input-label for="upstream_asset_id" :value="__('Upstream Asset')" />

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Inspections;
 use App\Http\Controllers\Controller;
 use App\Models\Inspection;
 use App\Models\Project;
+use Illuminate\Contracts\View\View;
 
 class ProjectInspectionController extends Controller
 {
@@ -19,7 +20,7 @@ class ProjectInspectionController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create(Project $project)
+    public function create(Project $project): View
     {
         return view('projects.inspections.create', [
             'project' => $project,

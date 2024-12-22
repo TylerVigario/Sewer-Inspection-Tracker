@@ -1,6 +1,7 @@
 <x-app-layout>
     <x-slot name="breadcrumbs">
-        <x-breadcrumb href="{{ route('projects.show', [$project]) }}" aria-current="page" :value="$project->name" />
+        <x-breadcrumb href="{{ route('projects.index') }}" aria-current="page" :value="'Projects'" />
+        <x-breadcrumb href="{{ route('projects.show', $project) }}" aria-current="page" :value="$project->name" />
     </x-slot>
 
     <div class="pt-8 pb-12">
@@ -27,11 +28,11 @@
                                 <div class="grid grid-cols-1 sm:hidden">
                                     <!-- Use an "onChange" listener to redirect the user to the selected tab URL. -->
                                     <select aria-label="Select a tab" class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-2 pl-3 pr-8 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600">
-                                        <option :selected="tab == 'Map'" x-on:click="tab = 'Map'">Map</option>
-                                        <option :selected="tab == 'assets'" x-on:click="tab = 'assets'">Assets</option>
-                                        <option :selected="tab == 'pipes'" x-on:click="tab = 'pipes'">Pipes</option>
-                                        <option :selected="tab == 'inspections'" x-on:click="tab = 'inspections'">Inspections</option>
-                                        <option :selected="tab == 'settings'" x-on:click="tab = 'settings'">Settings</option>
+                                        <option :selected="tab == 'map'" @click="tab = 'map'">Map</option>
+                                        <option :selected="tab == 'assets'" @click="tab = 'assets'">Assets</option>
+                                        <option :selected="tab == 'pipes'" @click="tab = 'pipes'">Pipes</option>
+                                        <option :selected="tab == 'inspections'" @click="tab = 'inspections'">Inspections</option>
+                                        <option :selected="tab == 'settings'" @click="tab = 'settings'">Settings</option>
                                     </select>
                                     <svg class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end fill-gray-500" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" data-slot="icon">
                                         <path fill-rule="evenodd" d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
@@ -41,25 +42,21 @@
                                 <div class="hidden sm:block">
                                     <nav class="-mb-px flex space-x-8">
                                         <!-- Current: "border-indigo-500 text-indigo-600", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" -->
-                                        <a href="#" x-on:click="tab = 'Map'" class="'whitespace-nowrap border-b-2 px-1 pb-4 text-sm font-medium hover:border-gray-300 hover:text-gray-700" :class="tab == 'Map' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500'" :aria-current="tab == 'Map'">Map</a>
-                                        <a href="#" x-on:click="tab = 'assets'" class="'whitespace-nowrap border-b-2 px-1 pb-4 text-sm font-medium hover:border-gray-300 hover:text-gray-700" :class="tab == 'assets' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500'" :aria-current="tab == 'assets'">Assets</a>
-                                        <a href="#" x-on:click="tab = 'pipes'" class="'whitespace-nowrap border-b-2 px-1 pb-4 text-sm font-medium hover:border-gray-300 hover:text-gray-700" :class="tab == 'pipes' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500'" :aria-current="tab == 'pipes'">Pipes</a>
-                                        <a href="#" x-on:click="tab = 'inspections'" class="'whitespace-nowrap border-b-2 px-1 pb-4 text-sm font-medium hover:border-gray-300 hover:text-gray-700" :class="tab == 'inspections' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500'" :aria-current="tab == 'inspections'">Inspections</a>
-                                        <a href="#" x-on:click="tab = 'settings'" class="'whitespace-nowrap border-b-2 px-1 pb-4 text-sm font-medium hover:border-gray-300 hover:text-gray-700" :class="tab == 'settings' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500'" :aria-current="tab == 'settings'">Settings</a>
+                                        <a href="#" @click="tab = 'map'" class="'whitespace-nowrap border-b-2 px-1 pb-4 text-sm font-medium hover:border-gray-300 hover:text-gray-700" :class="tab == 'map' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500'" :aria-current="tab == 'map'">Map</a>
+                                        <a href="#" @click="tab = 'assets'" class="'whitespace-nowrap border-b-2 px-1 pb-4 text-sm font-medium hover:border-gray-300 hover:text-gray-700" :class="tab == 'assets' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500'" :aria-current="tab == 'assets'">Assets</a>
+                                        <a href="#" @click="tab = 'pipes'" class="'whitespace-nowrap border-b-2 px-1 pb-4 text-sm font-medium hover:border-gray-300 hover:text-gray-700" :class="tab == 'pipes' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500'" :aria-current="tab == 'pipes'">Pipes</a>
+                                        <a href="#" @click="tab = 'inspections'" class="'whitespace-nowrap border-b-2 px-1 pb-4 text-sm font-medium hover:border-gray-300 hover:text-gray-700" :class="tab == 'inspections' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500'" :aria-current="tab == 'inspections'">Inspections</a>
+                                        <a href="#" @click="tab = 'settings'" class="'whitespace-nowrap border-b-2 px-1 pb-4 text-sm font-medium hover:border-gray-300 hover:text-gray-700" :class="tab == 'settings' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500'" :aria-current="tab == 'settings'">Settings</a>
                                     </nav>
                                 </div>
                             </div>
                         </div>
 
-                        <div x-cloak x-show="tab == 'Map'" x-transition>
+                        <div x-cloak x-show="tab == 'map'" x-transition>
                             <div id="map" style="height:600px" class="map w-full"></div>
                             <script>
-                                let markers = {
-                                    !!json_encode($markers) !!
-                                };
-                                let paths = {
-                                    !!json_encode($paths) !!
-                                };
+                                let markers = {!! json_encode($markers) !!};
+                                let paths = {!! json_encode($paths) !!};
                             </script>
                         </div>
 

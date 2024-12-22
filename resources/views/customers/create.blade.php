@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="breadcrumbs">
         <x-breadcrumb href="{{ route('customers.index') }}" :value="'Customers'" />
-        <x-breadcrumb href="{{ route('customers.edit', $customer) }}" aria-current="page" :value="$customer->fullName" />
+        <x-breadcrumb href="{{ route('customers.create') }}" aria-current="page" :value="'New Customer'" />
     </x-slot>
 
     <div class="py-12">
@@ -9,9 +9,8 @@
             <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
                 <div class="max-w-xl">
                     @include('customers.partials.settings', [
-                        'url' => route('customers.update', $customer),
-                        'method' => 'patch',
-                        'customer' => $customer,
+                        'url' => route('customers.store'),
+                        'method' => 'post',
                     ])
                 </div>
             </div>
