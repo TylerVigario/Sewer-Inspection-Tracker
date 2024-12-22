@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Project extends Model
 {
@@ -67,5 +68,29 @@ class Project extends Model
     public function customer(): BelongsTo
     {
         return $this->belongsTo(Customer::class);
+    }
+
+    /**
+     * Get all of the inspections for this project.
+     */
+    public function inspections(): HasMany
+    {
+        return $this->hasMany(Cleaning::class);
+    }
+
+    /**
+     * Get all of the inspections for this project.
+     */
+    public function cleanings(): HasMany
+    {
+        return $this->hasMany(Cleaning::class);
+    }
+
+    /**
+     * Get all of the inspections for this project.
+     */
+    public function installations(): HasMany
+    {
+        return $this->hasMany(Installation::class);
     }
 }

@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Installations;
 
-use App\Models\Pipe;
-use Illuminate\Contracts\View\View;
+use App\Http\Controllers\Controller;
+use App\Models\Installation;
 use Illuminate\Http\Request;
 
-class PipeController extends Controller
+class InstallationController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -35,7 +35,7 @@ class PipeController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Pipe $pipe)
+    public function show(Installation $installation)
     {
         //
     }
@@ -43,7 +43,7 @@ class PipeController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Pipe $pipe)
+    public function edit(Installation $installation)
     {
         //
     }
@@ -51,7 +51,7 @@ class PipeController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Pipe $pipe)
+    public function update(Request $request, Installation $installation)
     {
         //
     }
@@ -59,7 +59,7 @@ class PipeController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Pipe $pipe)
+    public function destroy(Installation $installation)
     {
         //
     }

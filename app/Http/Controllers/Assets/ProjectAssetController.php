@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Assets;
 
+use App\Http\Controllers\Controller;
 use App\Models\Asset;
 use App\Models\Project;
 use Illuminate\View\View;

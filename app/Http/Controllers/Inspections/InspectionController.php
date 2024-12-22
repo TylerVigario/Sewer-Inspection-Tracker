@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Inspections;
 
-use App\Models\Pipe;
-use App\Models\Project;
+use App\Http\Controllers\Controller;
+use App\Models\Inspection;
 use Illuminate\Http\Request;
 
-class CleaningActivityController extends Controller
+class InspectionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,7 +19,7 @@ class CleaningActivityController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create(Project $project = null, Pipe $pipe = null)
+    public function create()
     {
         //
     }
@@ -35,7 +35,7 @@ class CleaningActivityController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Inspection $inspection)
     {
         //
     }
@@ -43,7 +43,7 @@ class CleaningActivityController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Inspection $inspection)
     {
         //
     }
@@ -51,7 +51,7 @@ class CleaningActivityController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Inspection $inspection)
     {
         //
     }
@@ -59,7 +59,7 @@ class CleaningActivityController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Inspection $inspection)
     {
         //
     }

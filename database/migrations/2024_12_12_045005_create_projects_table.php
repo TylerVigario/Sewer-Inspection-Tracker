@@ -25,14 +25,12 @@ return new class extends Migration
         });
 
         Schema::create('project_assets', function (Blueprint $table) {
-            $table->id();
             $table->foreignId('project_id')->constrained();
             $table->foreignId('asset_id')->constrained();
             $table->timestamps();
         });
 
         Schema::create('project_pipes', function (Blueprint $table) {
-            $table->id();
             $table->foreignId('project_id')->constrained();
             $table->foreignId('pipe_id')->constrained();
             $table->timestamps();

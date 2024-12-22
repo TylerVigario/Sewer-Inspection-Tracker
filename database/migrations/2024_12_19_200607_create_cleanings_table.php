@@ -11,11 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('installation_activities', function (Blueprint $table) {
+        Schema::create('cleanings', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('asset_id')->constrained('assets');
+            $table->foreignId('project_id')->constrained('projects');
+            $table->foreignId('pipe_id')->constrained('pipes');
+            $table->boolean('downstream');
             $table->boolean('complete');
             $table->string('remarks')->nullable();
+            $table->integer('distance')->nullable();
             $table->timestamps();
         });
     }
@@ -25,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('installation_activities');
+        Schema::dropIfExists('cleanings');
     }
 };

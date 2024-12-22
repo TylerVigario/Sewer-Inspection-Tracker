@@ -3,8 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class CleaningActivity extends Model
+class Cleaning extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -25,5 +26,13 @@ class CleaningActivity extends Model
     public function pipe(): BelongsTo
     {
         return $this->belongsTo(Pipe::class);
+    }
+
+    /**
+     * Get the project this inspection belongs to.
+     */
+    public function project(): BelongsTo
+    {
+        return $this->belongsTo(Project::class);
     }
 }

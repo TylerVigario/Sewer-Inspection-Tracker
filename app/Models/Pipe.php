@@ -40,16 +40,16 @@ class Pipe extends Model
     /**
      * Get inspection activities related to the pipe.
      */
-    public function inspectionActivities(): HasMany
+    public function inspections(): HasMany
     {
-        return $this->hasMany(inspectionActivity::class);
+        return $this->hasMany(Inspection::class);
     }
 
     /**
      * Get cleaning activities related to the pipe.
      */
-    public function cleaningActivities(): HasMany
+    public function cleanings(): HasMany
     {
-        return $this->hasMany(CleaningActivity::class);
+        return $this->hasMany(Cleaning::class);
     }
 }

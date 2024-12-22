@@ -77,8 +77,8 @@ class Asset extends Model
     /**
      * Get installation activities related to the asset.
      */
-    public function installationActivities(): HasMany
+    public function installations(): HasMany
     {
-        return $this->hasMany(installationActivity::class);
+        return $this->hasMany(Installation::class);
     }
 }

@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Pipes;
 
+use App\Http\Controllers\Controller;
 use App\Models\Project;
 use App\Models\Pipe;
 use Illuminate\Contracts\View\View;
@@ -11,7 +12,7 @@ class ProjectPipeController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Project $project)
     {
         //
     }
@@ -37,7 +38,7 @@ class ProjectPipeController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Project $project, Pipe $pipe)
+    public function edit(Project $project, Pipe $pipe): View
     {
         return view('projects.pipes.edit', [
             'project' => $project,

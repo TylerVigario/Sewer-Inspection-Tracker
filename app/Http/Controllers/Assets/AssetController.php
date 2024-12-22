@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Assets;
 
+use App\Http\Controllers\Controller;
 use App\Models\Asset;
-use App\Models\Project;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -44,7 +44,7 @@ class AssetController extends Controller
             'name' => $request->name,
         ]);
 
-        return Redirect::route('projects.show', $asset->project);
+        return Redirect::route('assets.show', $asset);
     }
 
     /**

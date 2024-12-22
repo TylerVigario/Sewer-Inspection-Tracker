@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class InstallationActivity extends Model
+class Installation extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -24,5 +24,13 @@ class InstallationActivity extends Model
     public function asset(): BelongsTo
     {
         return $this->belongsTo(Asset::class);
+    }
+
+    /**
+     * Get the project this inspection belongs to.
+     */
+    public function project(): BelongsTo
+    {
+        return $this->belongsTo(Project::class);
     }
 }
