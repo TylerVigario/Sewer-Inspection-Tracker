@@ -39,19 +39,19 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('installations', InstallationController::class);
 
     // Project Context
-    Route::resource('projects.assets', ProjectAssetController::class)->only(['index', 'create', 'show', 'edit']);
-    Route::resource('projects.pipes', ProjectPipeController::class)->only(['index', 'create', 'show', 'edit']);
-    Route::resource('projects.inspections', ProjectInspectionController::class)->only(['index', 'create', 'show', 'edit']);
-    Route::resource('projects.cleanings', ProjectCleaningController::class)->only(['index', 'create', 'show', 'edit']);
-    Route::resource('projects.installations', ProjectInstallationController::class)->only(['index', 'create', 'show', 'edit']);
+    Route::resource('projects.assets', ProjectAssetController::class);
+    Route::resource('projects.pipes', ProjectPipeController::class);
+    Route::resource('projects.inspections', ProjectInspectionController::class);
+    Route::resource('projects.cleanings', ProjectCleaningController::class);
+    Route::resource('projects.installations', ProjectInstallationController::class);
 
     // Project & Asset Context
-    Route::resource('projects.assets.pipes', ProjectAssetPipeController::class)->only(['create', 'show', 'edit']);
-    Route::resource('projects.assets.installations', ProjectAssetInstallationController::class)->only(['create', 'show', 'edit']);
+    Route::resource('projects.assets.pipes', ProjectAssetPipeController::class);
+    Route::resource('projects.assets.installations', ProjectAssetInstallationController::class);
 
     // Project & Pipe Context
-    Route::resource('projects.pipes.inspections', ProjectPipeInspectionController::class)->only(['create', 'show', 'edit']);
-    Route::resource('projects.pipes.cleanings', ProjectPipeCleaningController::class)->only(['create', 'show', 'edit']);
+    Route::resource('projects.pipes.inspections', ProjectPipeInspectionController::class);
+    Route::resource('projects.pipes.cleanings', ProjectPipeCleaningController::class);
 });
 
 Route::middleware('auth')->group(function () {

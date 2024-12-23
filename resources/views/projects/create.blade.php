@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="breadcrumbs">
-        <x-breadcrumb href="{{ route('projects.index') }}" aria-current="page" :value="'Projects'" />
+        <x-breadcrumb href="{{ route('projects.index') }}" :value="'Projects'" />
         <x-breadcrumb href="{{ route('projects.create') }}" aria-current="page" :value="'New Project'" />
     </x-slot>
 

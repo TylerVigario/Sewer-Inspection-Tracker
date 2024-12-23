@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Inspection extends Model
 {
@@ -13,9 +14,10 @@ class Inspection extends Model
      * @var list<string>
      */
     protected $fillable = [
+        'project_id',
         'pipe_id',
         'downstream',
-        'complete',
+        'completed',
         'remarks',
         'distance',
     ];
@@ -31,8 +33,8 @@ class Inspection extends Model
     /**
      * Get the project this inspection belongs to.
      */
-    public function project(): BelongsTo
+    public function project(): HasOne
     {
-        return $this->belongsTo(Project::class);
+        return $this->hasOne(Project::class);
     }
 }

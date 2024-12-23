@@ -13,9 +13,10 @@ class Cleaning extends Model
      * @var list<string>
      */
     protected $fillable = [
+        'project_id',
         'pipe_id',
         'downstream',
-        'complete',
+        'completed',
         'remarks',
         'distance',
     ];

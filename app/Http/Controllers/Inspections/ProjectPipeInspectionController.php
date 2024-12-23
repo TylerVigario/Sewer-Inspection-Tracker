@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Inspection;
 use App\Models\Pipe;
 use App\Models\Project;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class ProjectPipeInspectionController extends Controller
 {
@@ -23,6 +26,32 @@ class ProjectPipeInspectionController extends Controller
     public function create(Project $project, Pipe $pipe)
     {
         //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function store(Project $project, Pipe $pipe, Request $request): RedirectResponse
+    {
+        $request->validate([
+            'downstream' => ['required', 'boolean'],
+            'completed' => ['required', 'boolean'],
+            'remarks' => ['string', 'max:255'],
+            'distance' => ['required', 'integer', 'min:0'],
+        ]);
+
+        $inspection = Inspection::create([
+            'project_id' => $project->id,
+            'pipe_id' => $pipe->id,
+            'downstream' => $request->downstream,
+            'completed' => $request->complete,
+            'remarks' => $request->remarks,
+            'distance' => $request->distance,
+        ]);
+
+        return Redirect::route('projects.pipes.inspections.show', [$project, $pipe, $inspection]);
     }
 
     /**

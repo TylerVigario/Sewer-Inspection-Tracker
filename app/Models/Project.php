@@ -75,7 +75,7 @@ class Project extends Model
      */
     public function inspections(): HasMany
     {
-        return $this->hasMany(Cleaning::class);
+        return $this->hasMany(Inspection::class);
     }
 
     /**

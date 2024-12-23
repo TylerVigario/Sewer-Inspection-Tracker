@@ -1,8 +1,8 @@
 <x-app-layout>
     <x-slot name="breadcrumbs">
-        <x-breadcrumb href="{{ route('projects.index') }}" aria-current="page" :value="'Projects'" />
+        <x-breadcrumb href="{{ route('projects.index') }}" :value="'Projects'" />
         <x-breadcrumb href="{{ route('projects.show', $project) }}" :value="$project->name" />
-        <x-breadcrumb href="{{ route('projects.show', [$project, 'tab' => 'assets']) }}" aria-current="page" :value="'Assets'" />
+        <x-breadcrumb href="{{ route('projects.show', [$project, 'tab' => 'assets']) }}" :value="'Assets'" />
         <x-breadcrumb href="{{ route('projects.assets.show', [$project, $asset]) }}" aria-current="page" :value="$asset->fullName" />
     </x-slot>
 

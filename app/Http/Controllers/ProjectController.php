@@ -26,7 +26,7 @@ class ProjectController extends Controller
      */
     public function create(): View
     {
-        return view('projects.edit');
+        return view('projects.create');
     }
 
     /**
@@ -79,7 +79,7 @@ class ProjectController extends Controller
             'paths' => $paths,
             'assets' => $project->assets()->paginate(10, ['*'], 'asset_page')->withQueryString(),
             'pipes' => $project->pipes()->paginate(10, ['*'], 'pipe_page')->withQueryString(),
-            'inspections' => $project->inspections()->paginate(10, ['*', 'inspection_page'])->withQueryString(),
+            'inspections' => $project->inspections()->paginate(10, ['*'], 'inspection_page')->withQueryString(),
         ]);
     }
 

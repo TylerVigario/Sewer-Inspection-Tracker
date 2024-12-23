@@ -4,9 +4,7 @@
     @csrf
     @method($method)
 
-    @isset($project)
-    <input type="hidden" name="project_id" id="project_id" value="{{ $project->id }}" />
-    @else
+    @if(!isset($project))
     <div>
         <x-input-label for="project_id" :value="__('Project')" />
         <div class="mt-2 grid grid-cols-1">
@@ -21,7 +19,7 @@
         </div>
         <x-input-error class="mt-2" :messages="$errors->get('project_id')" />
     </div>
-    @endisset
+    @endif
 
     <div>
         <x-input-label for="pipe_id" :value="__('Pipe')" />
@@ -38,37 +36,39 @@
         <x-input-error class="mt-2" :messages="$errors->get('pipe_id')" />
     </div>
 
-    <div x-data="{ enabled: {{ !isset($pipe) || $pipe->downstream ? 'true' : 'false' }} }">
-        <div @click="enabled = !enabled" class="flex items-center justify-between">
-            <span class="flex grow flex-col">
-                <span class="text-sm/6 font-medium text-gray-900" id="availability-label">Direction: <span class="text-gray-700">Downstream</span></span>
-                <span class="text-sm text-gray-500" id="availability-description">Was the inspection done from upstream to downstream?</span>
-            </span>
-            <button type="button" class="relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2" :class="enabled ? 'bg-indigo-600' : 'bg-gray-200'" role="switch" aria-checked="false" aria-labelledby="availability-label" aria-describedby="availability-description">
-                <span aria-hidden="true" class="pointer-events-none inline-block size-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out" :class="enabled ? 'translate-x-5' : 'translate-x-0'"></span>
-            </button>
-        </div>
-        <x-input-error class="mt-2" :messages="$errors->get('downstream')" />
-    </div>
-
     <div>
         <x-input-label for="distance" :value="__('Distance')" />
         <div class="mt-2">
             <div class="flex items-center rounded-md bg-white px-3 outline outline-1 -outline-offset-1 outline-gray-300 focus-within:outline focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-600">
-                <input type="number" value="$inspection->distance ?? 0.00" step="0.1" min="0.00" name="distance" id="distance" class="border-none focus:ring-0 block min-w-0 grow py-1.5 pl-1 pr-3 text-base text-gray-900 placeholder:text-gray-400 focus:outline focus:outline-0 sm:text-sm/6" placeholder="0.00" aria-describedby="price-currency">
+                <input type="number" value="{{ $inspection->distance ?? 0.00 }}" step="0.1" min="0.00" name="distance" id="distance" class="border-none focus:ring-0 block min-w-0 grow py-1.5 pl-1 pr-3 text-base text-gray-900 placeholder:text-gray-400 focus:outline focus:outline-0 sm:text-sm/6" placeholder="0.00" aria-describedby="price-currency" required>
                 <div id="distance-measurement" class="shrink-0 select-none text-base text-gray-500 sm:text-sm/6">ft</div>
             </div>
         </div>
         <x-input-error class="mt-2" :messages="$errors->get('distance')" />
     </div>
 
-    <div x-data="{ enabled: {{ isset($isset) && $inspection->completed ? 'true' : 'false' }} }">
+    <div x-data="{ enabled: {{ !isset($pipe) || $pipe->downstream ? 'true' : 'false' }} }">
+        <input type="text" name="downstream" id="downstream" :value="enabled ? 1 : 0" class="hidden" />
         <div @click="enabled = !enabled" class="flex items-center justify-between">
             <span class="flex grow flex-col">
-                <span class="text-sm/6 font-medium text-gray-900" id="availability-label">Completed</span>
-                <span class="text-sm text-gray-500" id="availability-description">Was the inspection completed without issue?</span>
+                <span class="text-sm/6 font-medium text-gray-900" id="direction-label">Direction: <span class="text-gray-700">Downstream</span></span>
+                <span class="text-sm text-gray-500" id="direction-description">Was the inspection done from upstream to downstream?</span>
             </span>
-            <button type="button" class="relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2" :class="enabled ? 'bg-indigo-600' : 'bg-gray-200'" role="switch" aria-checked="false" aria-labelledby="availability-label" aria-describedby="availability-description">
+            <button type="button" class="relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2" :class="enabled ? 'bg-indigo-600' : 'bg-gray-200'" role="switch" :aria-checked="enabled" aria-labelledby="downstream-label" aria-describedby="downstream-description">
+                <span aria-hidden="true" class="pointer-events-none inline-block size-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out" :class="enabled ? 'translate-x-5' : 'translate-x-0'"></span>
+            </button>
+        </div>
+        <x-input-error class="mt-2" :messages="$errors->get('downstream')" />
+    </div>
+
+    <div x-data="{ enabled: {{ isset($inspection) && $inspection->completed ? 'true' : 'false' }} }">
+        <input type="text" name="completed" id="completed" :value="enabled ? 1 : 0" class="hidden" />
+        <div @click="enabled = !enabled" class="flex items-center justify-between">
+            <span class="flex grow flex-col">
+                <span class="text-sm/6 font-medium text-gray-900" id="completed-label">Completed</span>
+                <span class="text-sm text-gray-500" id="completed-description">Was the inspection completed without issue?</span>
+            </span>
+            <button type="button" class="relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2" :class="enabled ? 'bg-indigo-600' : 'bg-gray-200'" role="switch" :aria-checked="enabled" aria-labelledby="completed-label" aria-describedby="completed-description">
                 <span aria-hidden="true" class="pointer-events-none inline-block size-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out" :class="enabled ? 'translate-x-5' : 'translate-x-0'"></span>
             </button>
         </div>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Inspections;
 use App\Http\Controllers\Controller;
 use App\Models\Inspection;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class InspectionController extends Controller
 {
@@ -29,7 +30,25 @@ class InspectionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'project_id' => ['required', 'exists:projects,id'],
+            'pipe_id' => ['required', 'exists:pipes,id'],
+            'downstream' => ['required', 'boolean'],
+            'completed' => ['required', 'boolean'],
+            'remarks' => ['string', 'max:255'],
+            'distance' => ['required', 'integer', 'min:0'],
+        ]);
+
+        $inspection = Inspection::create([
+            'project_id' => $request->project_id,
+            'pipe_id' => $request->pipe_id,
+            'downstream' => $request->downstream,
+            'completed' => $request->complete,
+            'remarks' => $request->remarks,
+            'distance' => $request->distance,
+        ]);
+
+        return Redirect::route('inspections.show', $inspection);
     }
 
     /**

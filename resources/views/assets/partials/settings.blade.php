@@ -1,6 +1,6 @@
 @props(['method', 'url', 'project' => null, 'asset' => null])
 
-<form method="post" action="{{ $url }}" class="mt-6 space-y-6">
+<form method="post" action="{{ $url }}" class="mt-6 space-y-6" x-data="{ tag: '{{ $asset->type->tag ?? 'MH' }}' }">
     @csrf
     @method($method)
 
@@ -28,7 +28,7 @@
         <div class="mt-2 grid grid-cols-1">
             <select id="asset_type_id" name="asset_type_id" class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pl-3 pr-8 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
                 @foreach(App\Models\AssetType::all() as $assetType)
-                <option @if(isset($asset) && $asset->type->id == $assetType->id) selected @endif value="{{ $assetType->id }}">{{ $assetType->name }} ({{ $assetType->tag }})</option>
+                <option @click="tag = '{{ $assetType->tag }}'" @if(isset($asset) && $asset->type->id == $assetType->id) selected @endif value="{{ $assetType->id }}">{{ $assetType->name }}</option>
                 @endforeach
             </select>
             <svg class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" data-slot="icon">
@@ -40,7 +40,10 @@
 
     <div>
         <x-input-label for="name" :value="__('Name')" />
-        <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name', ($asset->name ?? ''))" required autofocus />
+        <div class="mt-2 flex">
+            <div class="flex shrink-0 items-center rounded-l-md bg-white px-3 text-base text-gray-500 outline outline-1 -outline-offset-1 outline-gray-300 sm:text-sm/6" x-text="tag">{{ $asset->type->tag ?? 'MH' }}</div>
+            <input type="text" name="name" id="name" class="-ml-px block w-full grow rounded-r-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" value="{{ $asset->name ?? '' }}" />
+        </div>
         <x-input-error class="mt-2" :messages="$errors->get('name')" />
     </div>
 

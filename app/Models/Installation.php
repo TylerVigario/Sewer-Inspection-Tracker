@@ -13,8 +13,9 @@ class Installation extends Model
      * @var list<string>
      */
     protected $fillable = [
+        'project_id',
         'asset_id',
-        'complete',
+        'completed',
         'remarks',
     ];
 
