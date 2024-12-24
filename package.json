@@ -8,7 +8,7 @@
     "devDependencies": {
         "@invoate/alpine-query-string": "^1.0.0",
         "@tailwindcss/forms": "^0.5.9",
-        "alpinejs": "^3.14.7",
+        "alpinejs": "^3.14.8",
         "autoprefixer": "^10.4.20",
         "axios": "^1.7.9",
         "concurrently": "^9.1.0",

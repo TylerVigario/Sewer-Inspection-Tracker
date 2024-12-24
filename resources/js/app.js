@@ -1,109 +1,102 @@
 import "./bootstrap";
-import queryString from "@invoate/alpine-query-string"
+import queryString from "@invoate/alpine-query-string";
 
 import Alpine from "alpinejs";
 
 window.Alpine = Alpine;
 
-Alpine.plugin(queryString)
+Alpine.plugin(queryString);
 
 Alpine.start();
 
 import "flowbite";
 
-((g) => {
-    var h,
-        a,
-        k,
-        p = "The Google Maps JavaScript API",
-        c = "google",
-        l = "importLibrary",
-        q = "__ib__",
-        m = document,
-        b = window;
-    b = b[c] || (b[c] = {});
-    var d = b.maps || (b.maps = {}),
-        r = new Set(),
-        e = new URLSearchParams(),
-        u = () =>
-            h ||
-            (h = new Promise(async (f, n) => {
-                await (a = m.createElement("script"));
-                e.set("libraries", [...r] + "");
-                for (k in g)
-                    e.set(
-                        k.replace(/[A-Z]/g, (t) => "_" + t[0].toLowerCase()),
-                        g[k]
-                    );
-                e.set("callback", c + ".maps." + q);
-                a.src = `https://maps.${c}apis.com/maps/api/js?` + e;
-                d[q] = f;
-                a.onerror = () => (h = n(Error(p + " could not load.")));
-                a.nonce = m.querySelector("script[nonce]")?.nonce || "";
-                m.head.append(a);
-            }));
-    d[l]
-        ? console.warn(p + " only loads once. Ignoring:", g)
-        : (d[l] = (f, ...n) => r.add(f) && u().then(() => d[l](f, ...n)));
-})({
-    key: "AIzaSyC4wX7uf2znePZArRl4n3SiwmZSh4SXfmY",
-    v: "weekly",
-    // Use the 'v' parameter to indicate the version to use (weekly, beta, alpha, etc.).
-    // Add other bootstrap parameters as needed, using camel case.
-});
+Array.from(document.getElementsByClassName("map")).forEach(loadMap);
 
-async function initMap() {
-    // Request needed libraries.
+async function loadMap(mapElement) {
     const { Map, InfoWindow } = await google.maps.importLibrary("maps");
     const { AdvancedMarkerElement, PinElement } =
         await google.maps.importLibrary("marker");
-    const map = new Map(document.getElementById("map"), {
-        zoom: 17,
-        center: markers[0].position,
+
+    let markers = mapElement.getElementsByClassName("marker");
+    let pos;
+
+    const map = new Map(mapElement.getElementsByClassName("viewport")[0], {
+        zoom: parseInt(mapElement.dataset.zoom),
+        center: {
+            lat: parseFloat(mapElement.dataset.lat),
+            lng: parseFloat(mapElement.dataset.lng),
+        },
         mapId: "4504f8b37365c3d0",
     });
 
-    // Create an info window to share between markers.
-    const infoWindow = new InfoWindow();
+    Array.from(markers).forEach(async (markerElement) => {
+        const infoWindow = new InfoWindow();
 
-    // Create the markers.
-    if (markers) {
-        markers.forEach(({ position, title }, i) => {
-            const pin = new PinElement({
-                glyph: `${i + 1}`,
-                scale: 1.5,
-            });
-            const marker = new AdvancedMarkerElement({
-                position,
-                map,
-                title: `${i + 1}. ${title}`,
-                content: pin.element,
-                gmpClickable: true,
-                gmpDraggable: true,
-            });
+        const pin = new PinElement({
+            glyph: markerElement.dataset.title,
+            scale: 1.5,
+        });
 
-            // Add a click listener for each marker, and set up the info window.
-            marker.addListener("click", ({ domEvent, latLng }) => {
+        const marker = new AdvancedMarkerElement({
+            map,
+            position: {
+                lat: parseFloat(markerElement.dataset.lat),
+                lng: parseFloat(markerElement.dataset.lng),
+            },
+            title: markerElement.dataset.title,
+            content: pin.element,
+            gmpClickable: markerElement.dataset.clickable === "" ? true : false,
+            gmpDraggable: markerElement.dataset.draggable === "" ? true : false,
+        });
+
+        if (markerElement.dataset.geolocation === "") {
+            marker.position = pos = await getLocation(pos);
+        }
+
+        if (markerElement.dataset.clickable === "") {
+            marker.addListener("click", async ({ domEvent, latLng }) => {
                 const { target } = domEvent;
 
                 infoWindow.close();
                 infoWindow.setContent(marker.title);
                 infoWindow.open(marker.map, marker);
             });
+        }
 
-            marker.addListener("dragend", (event) => {
+        if (markerElement.dataset.draggable === "") {
+            marker.addListener("dragend", async (event) => {
                 const position = marker.position;
 
-                infoWindow.close();
-                infoWindow.setContent(
-                    `Pin dropped at: ${position.lat}, ${position.lng}`
-                );
-                infoWindow.open(marker.map, marker);
+                markerElement.children.lat.value = position.lat;
+                markerElement.children.lng.value = position.lng;
+
+                if (markerElement.dataset.geocode === "") {
+                    const geocoder = new google.maps.Geocoder();
+
+                    const response = await geocoder.geocode({
+                        location: { lat: position.lat, lng: position.lng },
+                    });
+
+                    const address = response.results[0].address_components;
+
+                    console.debug(address);
+
+                    mapElement.querySelector("#number").value = address[0].short_name;
+                    mapElement.querySelector("#street_name").value = address[1].short_name;
+                    mapElement.querySelector("#city").value = address[2].short_name;
+                    mapElement.querySelector("#state").value = address[4].short_name;
+                    mapElement.querySelector("#zip_code").value = address[6].short_name;
+                }
             });
-        });
+        }
+    });
+
+    if (mapElement.dataset.geolocation === "") {
+        map.setCenter((pos = await getLocation(pos)));
     }
 
-    if (paths) {
+    /*if (paths) {
         const pipePath = new google.maps.Polyline({
             path: paths,
             geodesic: true,
@@ -113,7 +106,32 @@ async function initMap() {
         });
 
         pipePath.setMap(map);
+    }*/
+}
+
+async function getLocation(pos) {
+    if (pos) {
+        return pos;
+    } else {
+        console.debug("Attempting to get geolocation from browser.");
+
+        if (navigator.geolocation) {
+            let position = await getCoordinates();
+
+            console.debug(position);
+
+            return {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude,
+            };
+        }
+
+        return false;
     }
 }
 
-initMap();
+async function getCoordinates() {
+    return new Promise(function (resolve, reject) {
+        navigator.geolocation.getCurrentPosition(resolve, reject);
+    });
+}

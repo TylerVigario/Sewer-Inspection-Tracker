@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->double('lat');
             $table->double('lng');
+            $table->double('depth')->nullable();
             $table->timestamps();
         });
     }

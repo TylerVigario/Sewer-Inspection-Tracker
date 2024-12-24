@@ -63,6 +63,11 @@ class AssetTypeSeeder extends Seeder
             'tag'=> 'EP',
             'created_at' => Carbon::parse('12/13/2024 6:30PM'),
             'updated_at' => Carbon::parse('12/13/2024 6:30PM')
+        ],[
+            'name' => 'Building',          // 11
+            'tag'=> 'BLDG',
+            'created_at' => Carbon::parse('12/24/2024 1:30AM'),
+            'updated_at' => Carbon::parse('12/24/2024 1:30AM')
         ]]);
     }
 }

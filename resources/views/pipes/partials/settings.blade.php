@@ -4,9 +4,7 @@
     @csrf
     @method($method)
 
-    @isset($project)
-    <input type="hidden" name="project_id" id="project_id" value="{{ $project->id }}" />
-    @else
+    @if(!isset($project))
     <div>
         <x-input-label for="project_id" :value="__('Project')" />
         <div class="mt-2 grid grid-cols-1">
@@ -21,7 +19,7 @@
         </div>
         <x-input-error class="mt-2" :messages="$errors->get('project_id')" />
     </div>
-    @endisset
+    @endif
 
     <div>
         <x-input-label for="upstream_asset_id" :value="__('Upstream Asset')" />
@@ -51,6 +49,17 @@
             </svg>
         </div>
         <x-input-error class="mt-2" :messages="$errors->get('downstream_asset_id')" />
+    </div>
+
+    <div>
+        <x-input-label for="size" :value="__('Size')" />
+        <div class="mt-2">
+            <div class="flex items-center rounded-md bg-white px-3 outline outline-1 -outline-offset-1 outline-gray-300 focus-within:outline focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-600">
+                <input type="number" value="{{ $pipe->size ?? 0.0 }}" step="1" min="0.0" placeholder="4" name="size" id="size" class="border-none focus:ring-0 block min-w-0 grow py-1.5 pl-1 pr-3 text-base text-gray-900 placeholder:text-gray-400 focus:outline focus:outline-0 sm:text-sm/6" aria-describedby="size-measurement">
+                <div id="size-measurement" class="shrink-0 select-none text-base text-gray-500 sm:text-sm/6">in</div>
+            </div>
+        </div>
+        <x-input-error class="mt-2" :messages="$errors->get('size')" />
     </div>
 
     <div class="flex items-center gap-4">

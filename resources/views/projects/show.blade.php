@@ -8,7 +8,7 @@
         <div class="max-w-7xl mt-6 mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <div class="px-4 sm:px-6 lg:px-8" x-data="{tab: 'assets'}" x-query-string="tab">
+                    <div class="px-4 sm:px-6 lg:px-8" x-data="{ tab: 'assets' }" x-query-string="tab">
 
                         <div class="relative border-b border-gray-200 pb-5 sm:pb-0">
                             <div class="md:flex md:items-center md:justify-between">
@@ -41,23 +41,34 @@
                                 <!-- Tabs at small breakpoint and up -->
                                 <div class="hidden sm:block">
                                     <nav class="-mb-px flex space-x-8">
-                                        <!-- Current: "border-indigo-500 text-indigo-600", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" -->
-                                        <a href="#" @click="tab = 'map'" @click.prevent class="'whitespace-nowrap border-b-2 px-1 pb-4 text-sm font-medium hover:border-gray-300 hover:text-gray-700" :class="tab == 'map' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500'" :aria-current="tab == 'map'">Map</a>
-                                        <a href="#" @click="tab = 'assets'" @click.prevent class="'whitespace-nowrap border-b-2 px-1 pb-4 text-sm font-medium hover:border-gray-300 hover:text-gray-700" :class="tab == 'assets' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500'" :aria-current="tab == 'assets'">Assets</a>
-                                        <a href="#" @click="tab = 'pipes'" @click.prevent class="'whitespace-nowrap border-b-2 px-1 pb-4 text-sm font-medium hover:border-gray-300 hover:text-gray-700" :class="tab == 'pipes' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500'" :aria-current="tab == 'pipes'">Pipes</a>
-                                        <a href="#" @click="tab = 'inspections'" @click.prevent class="'whitespace-nowrap border-b-2 px-1 pb-4 text-sm font-medium hover:border-gray-300 hover:text-gray-700" :class="tab == 'inspections' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500'" :aria-current="tab == 'inspections'">Inspections</a>
-                                        <a href="#" @click="tab = 'settings'" @click.prevent class="'whitespace-nowrap border-b-2 px-1 pb-4 text-sm font-medium hover:border-gray-300 hover:text-gray-700" :class="tab == 'settings' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500'" :aria-current="tab == 'settings'">Settings</a>
+                                        <a href="#" @click.prevent @click="tab = 'map'" class="'whitespace-nowrap border-b-2 px-1 pb-4 text-sm font-medium" :class="tab == 'map' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'" :aria-current="tab == 'map' ? 'page' : ''">
+                                            Map
+                                        </a>
+                                        <a href="#" @click.prevent @click="tab = 'assets'" class="'whitespace-nowrap border-b-2 px-1 pb-4 text-sm font-medium" :class="tab == 'assets' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'" :aria-current="tab == 'assets' ? 'page' : ''">
+                                            Assets
+                                            <span class="ml-3 hidden rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-900 md:inline-block">{{ $project->assets()->count() }}</span>
+                                        </a>
+                                        <a href="#" @click.prevent @click="tab = 'pipes'" class="'whitespace-nowrap border-b-2 px-1 pb-4 text-sm font-medium" :class="tab == 'pipes' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'" :aria-current="tab == 'pipes' ? 'page' : ''">
+                                            Pipes
+                                            <span class="ml-3 hidden rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-900 md:inline-block">{{ $project->pipes()->count() }}</span>
+                                        </a>
+                                        <a href="#" @click.prevent @click="tab = 'inspections'" class="'whitespace-nowrap border-b-2 px-1 pb-4 text-sm font-medium" :class="tab == 'inspections' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'" :aria-current="tab == 'inspections' ? 'page' : ''">
+                                            Inspections
+                                            <span class="ml-3 hidden rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-900 md:inline-block">{{ $project->inspections()->count() }}</span>
+                                        </a>
+                                        <a href="#" @click.prevent @click="tab = 'settings'" class="'whitespace-nowrap border-b-2 px-1 pb-4 text-sm font-medium" :class="tab == 'settings' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'" :aria-current="tab == 'settings' ? 'page' : ''">
+                                            Settings
+                                        </a>
                                     </nav>
                                 </div>
                             </div>
                         </div>
 
                         <div x-cloak x-show="tab == 'map'" x-transition>
-                            <div id="map" style="height:600px" class="map w-full"></div>
-                            <script>
-                                let markers = {!! json_encode($markers) !!};
-                                let paths = {!! json_encode($paths) !!};
-                            </script>
+                            <div class="map" data-zoom="17" data-lat="36.908035" data-lng="-119.794041" data-geolocation=true>
+                                <div class="viewport"></div>
+                                <div class="marker" data-lat="36.908035" data-lng="-119.794041" data-title="1" data-clickable=true data-draggable=true></div>
+                            </div>
                         </div>
 
                         <div x-cloak x-show="tab == 'assets'" x-transition>

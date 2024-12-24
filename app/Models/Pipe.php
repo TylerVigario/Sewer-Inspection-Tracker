@@ -14,6 +14,17 @@ class Pipe extends Model
     use HasFactory;
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var list<string>
+     */
+    protected $fillable = [
+        'upstream_asset_id',
+        'downstream_asset_id',
+        'size',
+    ];
+
+    /**
      * Get the upstream asset associated with the pipe.
      */
     public function upstreamAsset(): HasOne

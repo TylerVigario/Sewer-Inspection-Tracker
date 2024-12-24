@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Assets;
 use App\Http\Controllers\Controller;
 use App\Models\Asset;
 use App\Models\Project;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 
 class ProjectAssetController extends Controller
@@ -28,6 +31,34 @@ class ProjectAssetController extends Controller
         return view('projects.assets.create', [
             'project' => $project,
         ]);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function store(Project $project, Request $request): RedirectResponse
+    {
+        $request->validate([
+            'asset_type_id' => ['required', 'exists:asset_types,id'],
+            'address_id' => ['exists:addresses,id'],
+            'name' => ['required', 'string', 'max:255'],
+            'lat' => ['required', ''],
+            'lng' => ['required', ''],
+            'depth' => [''],
+        ]);
+
+        $asset = Asset::create([
+            'asset_type_id' => $request->asset_type_id,
+            'address_id' => $request->address_id,
+            'name' => $request->name,
+            'lat' => $request->lat,
+            'lng' => $request->lng,
+            'depth' => $request->depth,
+        ]);
+
+        return Redirect::route('projects.assets.show', [$project, $asset]);
     }
 
     /**

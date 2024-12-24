@@ -19,7 +19,7 @@
         "laravel/pail": "^v1.2.1",
         "laravel/pint": "^v1.18.3",
         "laravel/sail": "^v1.39.1",
-        "mockery/mockery": "^1.6",
+        "mockery/mockery": "^1.6.12",
         "nunomaduro/collision": "^v8.5.0",
         "pestphp/pest": "^v3.7.1",
         "pestphp/pest-plugin-laravel": "^v3.0.0"

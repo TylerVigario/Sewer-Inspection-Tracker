@@ -51,7 +51,7 @@ class ProjectInspectionController extends Controller
             'distance' => $request->distance,
         ]);
 
-        return Redirect::route('projects.inspections.show', [$project, $inspection]);
+        return Redirect::route('projects.show', [$project, 'tab' => 'inspections']);
     }
 
     /**
