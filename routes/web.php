@@ -38,20 +38,22 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('cleanings', CleaningController::class);
     Route::resource('installations', InstallationController::class);
 
-    // Project Context
-    Route::resource('projects.assets', ProjectAssetController::class);
-    Route::resource('projects.pipes', ProjectPipeController::class);
-    Route::resource('projects.inspections', ProjectInspectionController::class);
-    Route::resource('projects.cleanings', ProjectCleaningController::class);
-    Route::resource('projects.installations', ProjectInstallationController::class);
+    Route::scopeBindings()->group(function () {
+        // Project Context
+        Route::resource('projects.assets', ProjectAssetController::class);
+        Route::resource('projects.pipes', ProjectPipeController::class);
+        Route::resource('projects.inspections', ProjectInspectionController::class);
+        Route::resource('projects.cleanings', ProjectCleaningController::class);
+        Route::resource('projects.installations', ProjectInstallationController::class);
 
-    // Project & Asset Context
-    Route::resource('projects.assets.pipes', ProjectAssetPipeController::class);
-    Route::resource('projects.assets.installations', ProjectAssetInstallationController::class);
+        // Project & Asset Context
+        Route::resource('projects.assets.pipes', ProjectAssetPipeController::class);
+        Route::resource('projects.assets.installations', ProjectAssetInstallationController::class);
 
-    // Project & Pipe Context
-    Route::resource('projects.pipes.inspections', ProjectPipeInspectionController::class);
-    Route::resource('projects.pipes.cleanings', ProjectPipeCleaningController::class);
+        // Project & Pipe Context
+        Route::resource('projects.pipes.inspections', ProjectPipeInspectionController::class);
+        Route::resource('projects.pipes.cleanings', ProjectPipeCleaningController::class);
+    });
 });
 
 Route::middleware('auth')->group(function () {
@@ -60,4 +62,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

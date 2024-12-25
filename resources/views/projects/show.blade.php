@@ -8,7 +8,7 @@
         <div class="max-w-7xl mt-6 mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <div class="px-4 sm:px-6 lg:px-8" x-data="{ tab: 'assets' }" x-query-string="tab">
+                    <div class="px-4 sm:px-6 lg:px-8 pb-6" x-data="{ tab: 'assets' }" x-query-string="tab">
 
                         <div class="relative border-b border-gray-200 pb-5 sm:pb-0">
                             <div class="md:flex md:items-center md:justify-between">
@@ -50,7 +50,7 @@
                                         </a>
                                         <a href="#" @click.prevent @click="tab = 'pipes'" class="'whitespace-nowrap border-b-2 px-1 pb-4 text-sm font-medium" :class="tab == 'pipes' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'" :aria-current="tab == 'pipes' ? 'page' : ''">
                                             Pipes
-                                            <span class="ml-3 hidden rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-900 md:inline-block">{{ $project->pipes()->count() }}</span>
+                                            <span class="ml-3 hidden rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-900 md:inline-block">{{ count($pipes) }}</span>
                                         </a>
                                         <a href="#" @click.prevent @click="tab = 'inspections'" class="'whitespace-nowrap border-b-2 px-1 pb-4 text-sm font-medium" :class="tab == 'inspections' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'" :aria-current="tab == 'inspections' ? 'page' : ''">
                                             Inspections
@@ -65,9 +65,14 @@
                         </div>
 
                         <div x-cloak x-show="tab == 'map'" x-transition>
-                            <div class="map" data-zoom="17" data-lat="36.908035" data-lng="-119.794041" data-geolocation=true>
+                            <div class="map" data-zoom="17" data-center="{{ $project->assets()->count() > 0 ? $project->assets()->first()->lat . ',' .  $project->assets()->first()->lng : $project->lat . ',' . $project->lng }}">
                                 <div class="viewport"></div>
-                                <div class="marker" data-lat="36.908035" data-lng="-119.794041" data-title="1" data-clickable=true data-draggable=true></div>
+                                @foreach ($project->assets as $asset)
+                                <div class="marker" data-lat="{{ $asset->lat }}" data-lng="{{ $asset->lng }}" data-id="{{ $asset->id }}" data-title="{{ $asset->fullName }}" data-clickable></div>
+                                @endforeach
+                                @foreach ($pipes as $pipe)
+                                <div class="path" data-start="{{ $pipe->upstreamAsset->lat . ',' . $pipe->upstreamAsset->lng }}" data-end="{{ $pipe->downstreamAsset->lat . ',' . $pipe->downstreamAsset->lng }}" data-color="#00FF00"></div>
+                                @endforeach
                             </div>
                         </div>
 
@@ -126,7 +131,6 @@
                                     @endforeach
                                 </tbody>
                             </table>
-                            {{ $pipes->links('components.pagination-centered') }}
                         </div>
 
                         <div x-cloak x-show="tab == 'inspections'" x-transition>

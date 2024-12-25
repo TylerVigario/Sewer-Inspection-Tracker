@@ -40,16 +40,20 @@ class ProjectController extends Controller
             'name' => ['required', 'string', 'max:255', Rule::unique(Project::class)],
             'customer_id' => ['required', 'exists:customers,id'],
             'due' => ['required', 'date'],
-            //'lat' => ['required', 'between:-90,90'],
-            //'lng' => ['required', 'between:-180,180'],
+            'lat' => ['required', 'numeric', 'between:-90,90'],
+            'lng' => ['required', 'numeric', 'between:-180,180'],
+            'city' => ['required', 'string'],
+            'state' => ['required', 'string'],
         ]);
 
         $project = Project::create([
             'name' => $request->name,
             'customer_id' => $request->customer_id,
             'due' => $request->due,
-            'lat' => 0,
-            'lng' => 0,
+            'lat' => $request->lat,
+            'lng' => $request->lng,
+            'city' => $request->city,
+            'state' => $request->state,
         ]);
 
         return Redirect::route('projects.show', $project);
@@ -60,25 +64,10 @@ class ProjectController extends Controller
      */
     public function show(Project $project): View
     {
-        $markers = [];
-
-        foreach ($project->assets as $asset) {
-            $markers[] = (object)['position' => ['lat' => $asset->lat, 'lng' => $asset->lng], 'title' => $asset->fullName];
-        }
-
-        $paths = [];
-
-        foreach ($project->pipes as $pipe) {
-            $paths[] = (object)['lat' => $pipe->upstreamAsset->lat, 'lng' => $pipe->upstreamAsset->lng];
-            $paths[] = (object)['lat' => $pipe->downstreamAsset->lat, 'lng' => $pipe->downstreamAsset->lng];
-        }
-
         return view('projects.show', [
             'project' => $project,
-            'markers' => $markers,
-            'paths' => $paths,
             'assets' => $project->assets()->paginate(10, ['*'], 'asset_page')->withQueryString(),
-            'pipes' => $project->pipes()->paginate(10, ['*'], 'pipe_page')->withQueryString(),
+            'pipes' => $project->pipes,
             'inspections' => $project->inspections()->paginate(10, ['*'], 'inspection_page')->withQueryString(),
         ]);
     }
@@ -104,16 +93,20 @@ class ProjectController extends Controller
             'name' => ['required', 'string', 'max:255', Rule::unique(Project::class)->ignore($project->id)],
             'customer_id' => ['required', 'exists:customers,id'],
             'due' => ['required', 'date'],
-            //'lat' => ['required', 'between:-90,90'],
-            //'lng' => ['required', 'between:-180,180'],
+            'lat' => ['required', 'numeric', 'between:-90,90'],
+            'lng' => ['required', 'numeric', 'between:-180,180'],
+            'city' => ['required', 'string'],
+            'state' => ['required', 'string'],
         ]);
 
         $project->fill([
             'name' => $request->name,
             'customer_id' => $request->customer_id,
             'due' => $request->due,
-            //'lat' => $request->lat,
-            //'lng' => $request->lng,
+            'lat' => $request->lat,
+            'lng' => $request->lng,
+            'city' => $request->city,
+            'state' => $request->state,
         ])->save();
 
         return Redirect::route('projects.edit', $project)->with('status', 'project-updated');

@@ -81,7 +81,7 @@
     </div>
 
     <div x-cloak x-show="tab == 'location'" x-transition>
-        <div class="map border-b border-gray-900/10 pb-6" data-zoom="21" data-lat="36.908035" data-lng="-119.794041" data-geolocation>
+        <div class="map border-b border-gray-900/10 pb-6" data-zoom="21" data-center="36.908035,-119.794041" data-geolocation>
             <div class="viewport"></div>
             <div class="marker" data-lat="36.908035" data-lng="-119.794041" data-title="1" data-geolocation data-geocode data-clickable data-draggable>
                 <input type="hidden" name="lat" id="lat" value="36.908035" />

@@ -40,13 +40,15 @@ class ProjectAssetController extends Controller
      */
     public function store(Project $project, Request $request): RedirectResponse
     {
+        //die(print_r($request->all()));
+
         $request->validate([
             'asset_type_id' => ['required', 'exists:asset_types,id'],
             'address_id' => ['exists:addresses,id'],
             'name' => ['required', 'string', 'max:255'],
-            'lat' => ['required', ''],
-            'lng' => ['required', ''],
-            'depth' => [''],
+            'lat' => ['required', 'numeric', 'between:-90,90'],
+            'lng' => ['required', 'numeric', 'between:-180,180'],
+            'depth' => ['numeric'],
         ]);
 
         $asset = Asset::create([
@@ -66,25 +68,9 @@ class ProjectAssetController extends Controller
      */
     public function show(Project $project, Asset $asset): View
     {
-        $markers[] = (object)['position' => ['lat' => $asset->lat, 'lng' => $asset->lng], 'title' => $asset->fullName];
-
-        foreach ($asset->downstreamPipes as $pipe) {
-            $markers[] = (object)['position' => ['lat' => $pipe->downstreamAsset->lat, 'lng' => $pipe->downstreamAsset->lng], 'title' => $pipe->downstreamAsset->fullName];
-            $paths[] = (object)['lat' => $pipe->upstreamAsset->lat, 'lng' => $pipe->upstreamAsset->lng];
-            $paths[] = (object)['lat' => $pipe->downstreamAsset->lat, 'lng' => $pipe->downstreamAsset->lng];
-        }
-
-        foreach ($asset->upstreamPipes as $pipe) {
-            $markers[] = (object)['position' => ['lat' => $pipe->upstreamAsset->lat, 'lng' => $pipe->upstreamAsset->lng], 'title' => $pipe->upstreamAsset->fullName];
-            $paths[] = (object)['lat' => $pipe->upstreamAsset->lat, 'lng' => $pipe->upstreamAsset->lng];
-            $paths[] = (object)['lat' => $pipe->downstreamAsset->lat, 'lng' => $pipe->downstreamAsset->lng];
-        }
-
         return view('projects.assets.show', [
             'project' => $project,
             'asset' => $asset,
-            'markers' => $markers,
-            'paths' => $paths,
         ]);
     }
 

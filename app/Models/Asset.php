@@ -21,7 +21,11 @@ class Asset extends Model
      */
     protected $fillable = [
         'asset_type_id',
+        'address_id',
         'name',
+        'lat',
+        'lng',
+        'depth',
     ];
 
     /**

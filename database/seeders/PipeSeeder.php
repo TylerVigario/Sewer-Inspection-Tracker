@@ -114,17 +114,5 @@ class PipeSeeder extends Seeder
             'created_at' => Carbon::parse('12/13/2024 6:30PM'),
             'updated_at' => Carbon::parse('12/13/2024 6:30PM')
         ]]);
-
-        $data = [];
-
-        for ($i = 1; $i <= 20; $i++)
-        {
-            $data[] = [
-                'pipe_id' => $i,
-                'project_id' => 1
-            ];
-        }
-
-        DB::table('project_pipes')->insert($data);
     }
 }

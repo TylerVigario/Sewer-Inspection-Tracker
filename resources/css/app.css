@@ -3,5 +3,5 @@
 @tailwind utilities;
 
 .map .viewport  {
-    min-height: 400px;
+    min-height: 600px;
 }

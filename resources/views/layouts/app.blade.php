@@ -20,9 +20,6 @@
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
     <!-- Scripts -->
-    <script
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC4wX7uf2znePZArRl4n3SiwmZSh4SXfmY&libraries=maps,marker&v=beta"
-        defer></script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 

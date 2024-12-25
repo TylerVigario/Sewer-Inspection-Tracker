@@ -29,12 +29,6 @@ return new class extends Migration
             $table->foreignId('asset_id')->constrained();
             $table->timestamps();
         });
-
-        Schema::create('project_pipes', function (Blueprint $table) {
-            $table->foreignId('project_id')->constrained();
-            $table->foreignId('pipe_id')->constrained();
-            $table->timestamps();
-        });
     }
 
     /**
@@ -43,7 +37,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('project_assets');
-        Schema::dropIfExists('project_pipes');
         Schema::dropIfExists('projects');
     }
 };

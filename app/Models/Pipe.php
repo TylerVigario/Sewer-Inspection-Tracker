@@ -41,14 +41,6 @@ class Pipe extends Model
     }
 
     /**
-     * The projects that belong to the pipe.
-     */
-    public function projects(): BelongsToMany
-    {
-        return $this->belongsToMany(Project::class, 'project_pipes');
-    }
-
-    /**
      * Get inspection activities related to the pipe.
      */
     public function inspections(): HasMany
