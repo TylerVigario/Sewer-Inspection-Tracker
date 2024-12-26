@@ -56,7 +56,7 @@ class ProjectController extends Controller
             'state' => $request->state,
         ]);
 
-        return Redirect::route('projects.show', $project);
+        return Redirect::route('projects.show.v2', $project);
     }
 
     /**
