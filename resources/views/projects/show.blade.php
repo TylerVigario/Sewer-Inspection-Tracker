@@ -65,7 +65,7 @@
                         </div>
 
                         <div x-cloak x-show="tab == 'map'" x-transition>
-                            <div class="map" data-zoom="17" data-center="{{ $project->assets()->count() > 0 ? $project->assets()->first()->lat . ',' .  $project->assets()->first()->lng : $project->lat . ',' . $project->lng }}">
+                            <div class="map" data-zoom="17" data-center="{{ $project->assets()->count() > 0 ? $project->assets()->first()->lat . ',' .  $project->assets()->first()->lng : $project->lat . ',' . $project->lng }}" data-new-asset>
                                 <div class="viewport"></div>
                                 @foreach ($project->assets as $asset)
                                 <div class="marker" data-lat="{{ $asset->lat }}" data-lng="{{ $asset->lng }}" data-id="{{ $asset->id }}" data-title="{{ $asset->fullName }}" data-clickable></div>

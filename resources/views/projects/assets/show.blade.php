@@ -10,11 +10,18 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 max-h-96 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="relative h-0 overflow-hidden" style="padding-bottom: 56.25%;">
-                    <div id="map" class="map"></div>
-                    <script>
-                    let markers = {!! json_encode($markers) !!};
-                    let paths = {!! json_encode($paths) !!};
-                    </script>
+                    <div class="map" data-zoom="19" data-center="{{ $asset->lat . ',' . $asset->lng }}" data-new-asset>
+                        <div class="viewport"></div>
+                        <div class="marker" data-lat="{{ $asset->lat }}" data-lng="{{ $asset->lng }}" data-title="{{ $asset->fullName }}" data-id="{{ $asset->id }}" data-clickable></div>
+                        @foreach ($asset->upstreamPipes as $pipe)
+                        <div class="marker" data-lat="{{ $pipe->upstreamAsset->lat }}" data-lng="{{ $pipe->upstreamAsset->lng }}" data-title="{{ $pipe->upstreamAsset->fullName }}" data-id="{{ $pipe->upstreamAsset->id }}" data-clickable></div>
+                        <div class="path" data-start="{{ $pipe->upstreamAsset->lat . ',' . $pipe->upstreamAsset->lng }}" data-end="{{ $pipe->downstreamAsset->lat . ',' . $pipe->downstreamAsset->lng }}"></div>
+                        @endforeach
+                        @foreach ($asset->downstreamPipes as $pipe)
+                        <div class="marker" data-lat="{{ $pipe->downstreamAsset->lat }}" data-lng="{{ $pipe->downstreamAsset->lng }}" data-title="{{ $pipe->downstreamAsset->fullName }}" data-id="{{ $pipe->downstreamAsset->id }}" data-clickable></div>
+                        <div class="path" data-start="{{ $pipe->upstreamAsset->lat . ',' . $pipe->upstreamAsset->lng }}" data-end="{{ $pipe->downstreamAsset->lat . ',' . $pipe->downstreamAsset->lng }}"></div>
+                        @endforeach
+                    </div>
                 </div>
             </div>
         </div>

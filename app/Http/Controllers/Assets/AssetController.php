@@ -24,7 +24,7 @@ class AssetController extends Controller
      */
     public function create(): view
     {
-        return view('assets.edit');
+        return view('assets.create');
     }
 
     /**

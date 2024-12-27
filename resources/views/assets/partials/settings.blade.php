@@ -81,11 +81,11 @@
     </div>
 
     <div x-cloak x-show="tab == 'location'" x-transition>
-        <div class="map border-b border-gray-900/10 pb-6" data-zoom="21" data-center="36.908035,-119.794041">
+        <div class="map border-b border-gray-900/10 pb-6" data-zoom="21" data-center="{{ isset($position) ? implode(',', $position) : '36.908035,-119.794041' }}">
             <div class="viewport"></div>
-            <div class="marker" data-lat="36.908035" data-lng="-119.794041" data-title="1" data-geocode data-clickable data-draggable>
-                <input type="hidden" name="lat" id="lat" value="36.908035" />
-                <input type="hidden" name="lng" id="lng" value="-119.794041" />
+            <div class="marker" data-lat="{{ $position[0] ?? '36.908035' }}" data-lng="{{ $position[1] ?? '-119.794041' }}" data-title="0" data-geocode data-clickable data-draggable>
+                <input type="hidden" name="lat" id="lat" value="{{ $position[0] ?? '36.908035' }}" />
+                <input type="hidden" name="lng" id="lng" value="{{ $position[1] ?? '-119.794041' }}" />
             </div>
             <div class="py-4" x-data="{ enabled: false }">
                 <div class="mt-6">
