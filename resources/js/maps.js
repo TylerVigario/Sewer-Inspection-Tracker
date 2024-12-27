@@ -33,7 +33,7 @@ if (document.getElementsByClassName("map").length > 0) {
                         "bg-white",
                         "p-2",
                         "text-gray-600",
-                        "shadow-sm",
+                        "shadow-md",
                         "hover:text-black",
                     ];
 
@@ -98,7 +98,7 @@ if (document.getElementsByClassName("map").length > 0) {
                         }
                     });
 
-                    if (mapElement.dataset.newAsset === "") {
+                    if (mapElement.hasAttribute("data-create-asset")) {
                         const newAssetButton = document.createElement("button");
 
                         newAssetButton.classList.add(
@@ -136,7 +136,9 @@ if (document.getElementsByClassName("map").length > 0) {
 
                                 const pin = new PinElement({
                                     glyph: "0",
-                                    background: "#FFA500",
+                                    background: "#3F83F8",
+                                    borderColor: "#4169E1",
+                                    glyphColor: "white",
                                     scale: 1,
                                 });
 
@@ -149,8 +151,8 @@ if (document.getElementsByClassName("map").length > 0) {
                                 });
                             } else {
                                 window.location.assign(
-                                    import.meta.env.VITE_APP_URL +
-                                        "/assets/create?position=" +
+                                    mapElement.dataset.createAsset +
+                                        "?position=" +
                                         newAssetMarker.position.lat +
                                         "," +
                                         newAssetMarker.position.lng
@@ -174,6 +176,7 @@ if (document.getElementsByClassName("map").length > 0) {
 
                         const pin = new PinElement({
                             glyph: markerElement.dataset.id,
+                            glyphColor: "black",
                             scale: 1,
                         });
 
@@ -185,17 +188,19 @@ if (document.getElementsByClassName("map").length > 0) {
                             },
                             title: markerElement.dataset.title,
                             content: pin.element,
-                            gmpClickable:
-                                markerElement.dataset.clickable === ""
-                                    ? true
-                                    : false,
-                            gmpDraggable:
-                                markerElement.dataset.draggable === ""
-                                    ? true
-                                    : false,
+                            gmpClickable: markerElement.hasAttribute(
+                                "data-clickable"
+                            )
+                                ? true
+                                : false,
+                            gmpDraggable: markerElement.hasAttribute(
+                                "data-draggable"
+                            )
+                                ? true
+                                : false,
                         });
 
-                        if (markerElement.dataset.clickable === "") {
+                        if (markerElement.hasAttribute("data-clickable")) {
                             marker.addListener(
                                 "click",
                                 async ({ domEvent, latLng }) => {
@@ -208,7 +213,7 @@ if (document.getElementsByClassName("map").length > 0) {
                             );
                         }
 
-                        if (markerElement.dataset.draggable === "") {
+                        if (markerElement.hasAttribute("data-draggable")) {
                             marker.addListener("dragend", async (event) => {
                                 const position = marker.position;
 
@@ -219,7 +224,9 @@ if (document.getElementsByClassName("map").length > 0) {
                                         position.lng;
                                 }
 
-                                if (markerElement.dataset.geocode === "") {
+                                if (
+                                    markerElement.hasAttribute("data-geocode")
+                                ) {
                                     const geocoder = new google.maps.Geocoder();
 
                                     const response = await geocoder.geocode({
