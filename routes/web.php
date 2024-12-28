@@ -38,7 +38,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('cleanings', CleaningController::class);
     Route::resource('installations', InstallationController::class);
 
-    Route::scopeBindings()->group(function () {
         // Project Context
         Route::resource('projects.assets', ProjectAssetController::class);
         Route::resource('projects.pipes', ProjectPipeController::class);
@@ -53,7 +52,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
         // Project & Pipe Context
         Route::resource('projects.pipes.inspections', ProjectPipeInspectionController::class);
         Route::resource('projects.pipes.cleanings', ProjectPipeCleaningController::class);
-    });
 });
 
 Route::middleware('auth')->group(function () {

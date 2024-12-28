@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -38,6 +39,32 @@ class Pipe extends Model
     public function downstreamAsset(): HasOne
     {
         return $this->hasOne(Asset::class, 'id', 'downstream_asset_id');
+    }
+
+    /**
+     * Get turns of the pipe.
+     */
+    public function turns(): HasMany
+    {
+        return $this->hasMany(PipeTurn::class);
+    }
+
+    /**
+     * Get all pipe path.
+     */
+    public function path(): Attribute
+    {
+        return Attribute::make(
+            get: function (mixed $value, array $attributes) {
+                $points[] = [$this->upstreamAsset->lat, $this->upstreamAsset->lng];
+
+                foreach ($this->turns()->sort("order")->get() as $turn) {
+                    $points[] = [$turn->lat, $turn->lng];
+                }
+
+                $points[] = [$this->downstreamAsset->lat, $this->downstreamAsset->lng];
+            },
+        );
     }
 
     /**

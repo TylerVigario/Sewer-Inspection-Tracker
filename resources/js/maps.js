@@ -27,7 +27,7 @@ if (document.getElementsByClassName("map").length > 0) {
                     );
                     //#endregion
 
-                    //#region Custom Controls
+                    //#region Location Button
                     const buttonClassList = [
                         "rounded-sm",
                         "bg-white",
@@ -97,7 +97,9 @@ if (document.getElementsByClassName("map").length > 0) {
                             navigator.geolocation.clearWatch(watchID);
                         }
                     });
+                    //#endregion
 
+                    //#region New Asset Button
                     if (mapElement.hasAttribute("data-create-asset")) {
                         const newAssetButton = document.createElement("button");
 
@@ -139,7 +141,7 @@ if (document.getElementsByClassName("map").length > 0) {
                                     background: "#3F83F8",
                                     borderColor: "#4169E1",
                                     glyphColor: "white",
-                                    scale: 1,
+                                    scale: 1.1,
                                 });
 
                                 newAssetMarker = new AdvancedMarkerElement({
@@ -180,12 +182,14 @@ if (document.getElementsByClassName("map").length > 0) {
                             scale: 1,
                         });
 
+                        const position = {
+                            lat: parseFloat(markerElement.dataset.lat),
+                            lng: parseFloat(markerElement.dataset.lng),
+                        };
+
                         const marker = new AdvancedMarkerElement({
                             map,
-                            position: {
-                                lat: parseFloat(markerElement.dataset.lat),
-                                lng: parseFloat(markerElement.dataset.lng),
-                            },
+                            position: position,
                             title: markerElement.dataset.title,
                             content: pin.element,
                             gmpClickable: markerElement.hasAttribute(
@@ -227,32 +231,13 @@ if (document.getElementsByClassName("map").length > 0) {
                                 if (
                                     markerElement.hasAttribute("data-geocode")
                                 ) {
-                                    const geocoder = new google.maps.Geocoder();
-
-                                    const response = await geocoder.geocode({
-                                        location: {
-                                            lat: position.lat,
-                                            lng: position.lng,
-                                        },
-                                    });
-
-                                    const address =
-                                        response.results[0].address_components;
-
-                                    mapElement.querySelector("#number").value =
-                                        address[0].short_name;
-                                    mapElement.querySelector(
-                                        "#street_name"
-                                    ).value = address[1].short_name;
-                                    mapElement.querySelector("#city").value =
-                                        address[2].short_name;
-                                    mapElement.querySelector("#state").value =
-                                        address[4].short_name;
-                                    mapElement.querySelector(
-                                        "#zip_code"
-                                    ).value = address[6].short_name;
+                                    geocodePosition(position, mapElement);
                                 }
                             });
+                        }
+
+                        if (markerElement.hasAttribute("data-geocode")) {
+                            geocodePosition(position, mapElement);
                         }
                     });
                     //#endregion
@@ -293,4 +278,23 @@ if (document.getElementsByClassName("map").length > 0) {
         .catch((e) => {
             console.error(e);
         });
+}
+
+async function geocodePosition(position, mapElement) {
+    const geocoder = new google.maps.Geocoder();
+
+    const response = await geocoder.geocode({
+        location: {
+            lat: position.lat,
+            lng: position.lng,
+        },
+    });
+
+    const address = response.results[0].address_components;
+
+    mapElement.querySelector("#number").value = address[0].short_name;
+    mapElement.querySelector("#street_name").value = address[1].short_name;
+    mapElement.querySelector("#city").value = address[2].short_name;
+    mapElement.querySelector("#state").value = address[4].short_name;
+    mapElement.querySelector("#zip_code").value = address[6].short_name;
 }
