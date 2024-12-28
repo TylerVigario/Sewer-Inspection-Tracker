@@ -1,14 +1,14 @@
 @props(['method', 'url', 'project' => null, 'asset' => null])
 
-<form method="post" action="{{ $url }}" class="mt-0 space-y-6" x-data="{ tag: '{{ $asset->type->tag ?? 'MH' }}', tab: 'details' }" x-query-string="tab">
+<form method="post" action="{{ $url }}" class="mt-0 space-y-6" x-data="{ tag: '{{ $asset->type->tag ?? 'MH' }}', selected: 'details' }" x-query-string="selected">
     @csrf
     @method($method)
 
     <div class="!mt-0">
         <div class="grid grid-cols-1 sm:hidden">
             <select aria-label="Select a tab" class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-2 pl-3 pr-8 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600">
-                <option :selected="tab == 'details'" @click="tab = 'details'">Details</option>
-                <option :selected="tab == 'location'" @click="tab = 'location'">Location</option>
+                <option :selected="selected == 'details'" @click="selected = 'details'">Details</option>
+                <option :selected="selected == 'location'" @click="selected = 'location'">Location</option>
             </select>
             <svg class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end fill-gray-500" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" data-slot="icon">
                 <path fill-rule="evenodd" d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
@@ -17,10 +17,10 @@
         <div class="hidden sm:block">
             <div class="border-b border-gray-200">
                 <nav class="-mb-px flex space-x-8" aria-label="Tabs">
-                    <a href="#" @click.prevent @click="tab = 'details'" class="whitespace-nowrap border-b-2 px-1 py-4 text-sm font-medium" :class="tab == 'details' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'" :aria-current="tab == 'details' ? 'page' : ''">
+                    <a href="#" @click.prevent @click="selected = 'details'" class="whitespace-nowrap border-b-2 px-1 py-4 text-sm font-medium" :class="selected == 'details' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'" :aria-current="selected == 'details' ? 'page' : ''">
                         Details
                     </a>
-                    <a href="#" @click.prevent @click="tab = 'location'" class="whitespace-nowrap border-b-2 px-1 py-4 text-sm font-medium" :class="tab == 'location' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'" :aria-current="tab == 'location' ? 'page' : ''">
+                    <a href="#" @click.prevent @click="selected = 'location'" class="whitespace-nowrap border-b-2 px-1 py-4 text-sm font-medium" :class="selected == 'location' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'" :aria-current="selected == 'location' ? 'page' : ''">
                         Location
                     </a>
                 </nav>
@@ -29,7 +29,7 @@
     </div>
 
     @if(!isset($project))
-    <div x-cloak x-show="tab == 'details'" x-transition>
+    <div x-cloak x-show="selected == 'details'" x-transition>
         <x-input-label for="project_id" :value="__('Project')" />
         <div class="mt-2 grid grid-cols-1">
             <select id="project_id" name="project_id" class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pl-3 pr-8 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
@@ -45,7 +45,7 @@
     </div>
     @endif
 
-    <div x-cloak x-show="tab == 'details'" x-transition>
+    <div x-cloak x-show="selected == 'details'" x-transition>
         <x-input-label for="asset_type_id" :value="__('Asset Type')" />
         <div class="mt-2 grid grid-cols-1">
             <select id="asset_type_id" name="asset_type_id" class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pl-3 pr-8 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
@@ -60,7 +60,7 @@
         <x-input-error class="mt-2" :messages="$errors->get('asset_type_id')" />
     </div>
 
-    <div x-cloak x-show="tab == 'details'" x-transition>
+    <div x-cloak x-show="selected == 'details'" x-transition>
         <x-input-label for="name" :value="__('Name')" />
         <div class="mt-2 flex">
             <div class="flex shrink-0 items-center rounded-l-md bg-white px-3 text-base text-gray-500 outline outline-1 -outline-offset-1 outline-gray-300 sm:text-sm/6" x-text="tag">{{ $asset->type->tag ?? 'MH' }}</div>
@@ -69,7 +69,7 @@
         <x-input-error class="mt-2" :messages="$errors->get('name')" />
     </div>
 
-    <div x-cloak x-show="tab == 'details'" x-transition>
+    <div x-cloak x-show="selected == 'details'" x-transition>
         <x-input-label for="depth" :value="__('Depth')" />
         <div class="mt-2">
             <div class="flex items-center rounded-md bg-white px-3 outline outline-1 -outline-offset-1 outline-gray-300 focus-within:outline focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-600">
@@ -80,7 +80,7 @@
         <x-input-error class="mt-2" :messages="$errors->get('depth')" />
     </div>
 
-    <div x-cloak x-show="tab == 'location'" x-transition>
+    <div x-cloak x-show="selected == 'location'" x-transition>
         <div class="map border-b border-gray-900/10 pb-6" data-zoom="21" data-center="{{ isset($position) ? implode(',', $position) : '36.908035,-119.794041' }}">
             <div class="viewport"></div>
             <div class="marker" data-lat="{{ $position[0] ?? '36.908035' }}" data-lng="{{ $position[1] ?? '-119.794041' }}" data-title="0" data-geocode data-clickable data-draggable>

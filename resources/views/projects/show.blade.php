@@ -8,18 +8,18 @@
         <div class="max-w-7xl mt-6 mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <div class="px-4 sm:px-6 lg:px-8 pb-6" x-data="{ tab: 'assets' }" x-query-string="tab">
+                    <div class="px-4 sm:px-6 lg:px-8 pb-6" x-data="{ selected: 'map' }" x-query-string="selected">
 
                         <div class="relative border-b border-gray-200 pb-5 sm:pb-0">
                             <div class="md:flex md:items-center md:justify-between">
                                 <div class="mt-3 flex md:absolute md:right-0 md:top-3 md:mt-0">
-                                    <a x-cloak x-show="tab == 'assets'" href="{{ route('projects.assets.create', $project) }}">
+                                    <a x-cloak x-show="selected == 'assets'" href="{{ route('projects.assets.create', $project) }}">
                                         <button type="button" class="ml-3 inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">New Asset</button>
                                     </a>
-                                    <a x-cloak x-show="tab == 'pipes'" href="{{ route('projects.pipes.create', $project) }}">
+                                    <a x-cloak x-show="selected == 'pipes'" href="{{ route('projects.pipes.create', $project) }}">
                                         <button type="button" class="ml-3 inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">New Pipe</button>
                                     </a>
-                                    <a x-cloak x-show="tab == 'inspections'" href="{{ route('projects.inspections.create', $project) }}">
+                                    <a x-cloak x-show="selected == 'inspections'" href="{{ route('projects.inspections.create', $project) }}">
                                         <button type="button" class="ml-3 inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Record Inspection</button>
                                     </a>
                                 </div>
@@ -28,11 +28,11 @@
                                 <div class="grid grid-cols-1 sm:hidden">
                                     <!-- Use an "onChange" listener to redirect the user to the selected tab URL. -->
                                     <select aria-label="Select a tab" class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-2 pl-3 pr-8 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600">
-                                        <option :selected="tab == 'map'" @click="tab = 'map'">Map</option>
-                                        <option :selected="tab == 'assets'" @click="tab = 'assets'">Assets</option>
-                                        <option :selected="tab == 'pipes'" @click="tab = 'pipes'">Pipes</option>
-                                        <option :selected="tab == 'inspections'" @click="tab = 'inspections'">Inspections</option>
-                                        <option :selected="tab == 'settings'" @click="tab = 'settings'">Settings</option>
+                                        <option :selected="selected == 'map'" @click="selected = 'map'">Map</option>
+                                        <option :selected="selected == 'assets'" @click="selected = 'assets'">Assets</option>
+                                        <option :selected="selected == 'pipes'" @click="selected = 'pipes'">Pipes</option>
+                                        <option :selected="selected == 'inspections'" @click="selected = 'inspections'">Inspections</option>
+                                        <option :selected="selected == 'settings'" @click="selected = 'settings'">Settings</option>
                                     </select>
                                     <svg class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end fill-gray-500" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" data-slot="icon">
                                         <path fill-rule="evenodd" d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
@@ -41,22 +41,22 @@
                                 <!-- Tabs at small breakpoint and up -->
                                 <div class="hidden sm:block">
                                     <nav class="-mb-px flex space-x-8">
-                                        <a href="#" @click.prevent @click="tab = 'map'" class="'whitespace-nowrap border-b-2 px-1 pb-4 text-sm font-medium" :class="tab == 'map' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'" :aria-current="tab == 'map' ? 'page' : ''">
+                                        <a href="#" @click.prevent @click="selected = 'map'" class="'whitespace-nowrap border-b-2 px-1 pb-4 text-sm font-medium" :class="selected == 'map' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'" :aria-current="selected == 'map' ? 'page' : ''">
                                             Map
                                         </a>
-                                        <a href="#" @click.prevent @click="tab = 'assets'" class="'whitespace-nowrap border-b-2 px-1 pb-4 text-sm font-medium" :class="tab == 'assets' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'" :aria-current="tab == 'assets' ? 'page' : ''">
+                                        <a href="#" @click.prevent @click="selected = 'assets'" class="'whitespace-nowrap border-b-2 px-1 pb-4 text-sm font-medium" :class="selected == 'assets' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'" :aria-current="selected == 'assets' ? 'page' : ''">
                                             Assets
                                             <span class="ml-3 hidden rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-900 md:inline-block">{{ $project->assets()->count() }}</span>
                                         </a>
-                                        <a href="#" @click.prevent @click="tab = 'pipes'" class="'whitespace-nowrap border-b-2 px-1 pb-4 text-sm font-medium" :class="tab == 'pipes' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'" :aria-current="tab == 'pipes' ? 'page' : ''">
+                                        <a href="#" @click.prevent @click="selected = 'pipes'" class="'whitespace-nowrap border-b-2 px-1 pb-4 text-sm font-medium" :class="selected == 'pipes' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'" :aria-current="selected == 'pipes' ? 'page' : ''">
                                             Pipes
                                             <span class="ml-3 hidden rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-900 md:inline-block">{{ count($pipes) }}</span>
                                         </a>
-                                        <a href="#" @click.prevent @click="tab = 'inspections'" class="'whitespace-nowrap border-b-2 px-1 pb-4 text-sm font-medium" :class="tab == 'inspections' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'" :aria-current="tab == 'inspections' ? 'page' : ''">
+                                        <a href="#" @click.prevent @click="selected = 'inspections'" class="'whitespace-nowrap border-b-2 px-1 pb-4 text-sm font-medium" :class="selected == 'inspections' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'" :aria-current="selected == 'inspections' ? 'page' : ''">
                                             Inspections
                                             <span class="ml-3 hidden rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-900 md:inline-block">{{ $project->inspections()->count() }}</span>
                                         </a>
-                                        <a href="#" @click.prevent @click="tab = 'settings'" class="'whitespace-nowrap border-b-2 px-1 pb-4 text-sm font-medium" :class="tab == 'settings' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'" :aria-current="tab == 'settings' ? 'page' : ''">
+                                        <a href="#" @click.prevent @click="selected = 'settings'" class="'whitespace-nowrap border-b-2 px-1 pb-4 text-sm font-medium" :class="selected == 'settings' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'" :aria-current="selected == 'settings' ? 'page' : ''">
                                             Settings
                                         </a>
                                     </nav>
@@ -64,7 +64,7 @@
                             </div>
                         </div>
 
-                        <div x-cloak x-show="tab == 'map'" x-transition>
+                        <div x-cloak x-show="selected == 'map'" x-transition>
                             <div class="map" data-zoom="17" data-center="{{ $project->assets()->count() > 0 ? $project->assets()->first()->lat . ',' .  $project->assets()->first()->lng : $project->lat . ',' . $project->lng }}" data-create-asset="{{ route('projects.assets.create', $project) }}">
                                 <div class="viewport"></div>
                                 @foreach ($project->assets as $asset)
@@ -76,7 +76,7 @@
                             </div>
                         </div>
 
-                        <div x-cloak x-show="tab == 'assets'" x-transition>
+                        <div x-cloak x-show="selected == 'assets'" x-transition>
                             <table class="min-w-full divide-y divide-gray-300">
                                 <thead>
                                     <tr>
@@ -105,7 +105,7 @@
                             {{ $assets->links('components.pagination-centered') }}
                         </div>
 
-                        <div x-cloak x-show="tab == 'pipes'" x-transition>
+                        <div x-cloak x-show="selected == 'pipes'" x-transition>
                             <table class="min-w-full divide-y divide-gray-300">
                                 <thead>
                                     <tr>
@@ -133,7 +133,7 @@
                             </table>
                         </div>
 
-                        <div x-cloak x-show="tab == 'inspections'" x-transition>
+                        <div x-cloak x-show="selected == 'inspections'" x-transition>
                             <table class="min-w-full divide-y divide-gray-300">
                                 <thead>
                                     <tr>
@@ -162,7 +162,7 @@
                             {{ $inspections->links('components.pagination-centered') }}
                         </div>
 
-                        <div x-cloak x-show="tab == 'settings'" x-transition>
+                        <div x-cloak x-show="selected == 'settings'" x-transition>
                             @include('projects.partials.settings', [
                             'url' => route('projects.update', $project),
                             'method' => 'patch',

@@ -3,7 +3,7 @@ import { Loader } from "@googlemaps/js-api-loader";
 
 if (document.getElementsByClassName("map").length > 0) {
     new Loader({
-        apiKey: "AIzaSyC4wX7uf2znePZArRl4n3SiwmZSh4SXfmY",
+        apiKey: import.meta.env.VITE_GOOGLE_API_KEY,
         version: "beta",
     })
         .load()
