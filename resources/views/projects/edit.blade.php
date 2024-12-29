@@ -31,16 +31,18 @@
                     </div>
                 </div>
 
-                <div x-cloak x-show="selected == 'settings'" x-transition>
-                    @include('projects.partials.settings', [
-                    'url' => route('projects.update', $project),
-                    'method' => 'patch',
-                    ])
-                </div>
+                <form method="post" action="{{ route('projects.update', $project) }}">
+                    @csrf
+                    @method("patch")
 
-                <div x-cloak x-show="selected == 'map'" x-transition>
-                    @include('projects.partials.map')
-                </div>
+                    <div x-cloak x-show="selected == 'settings'" x-transition>
+                        @include('projects.partials.settings')
+                    </div>
+
+                    <div x-cloak x-show="selected == 'map'" x-transition>
+                        @include('projects.partials.map')
+                    </div>
+                </form>
             </div>
         </div>
     </div>
