@@ -91,7 +91,7 @@
                                     <tr>
                                         <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 dark:text-white sm:pl-0">{{ $asset->type->name }}</td>
                                         <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-300">{{ $asset->fullName }}</td>
-                                        <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-300">{{ __('Never attempted') }}</td>
+                                        <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-300">{{ $asset->status }}</td>
                                         <td class="whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
                                             <a href="{{ route('projects.assets.edit', [$project, $asset]) }}" class="text-indigo-600 hover:text-indigo-900 pl-3">Edit<span class="sr-only">, {{ $asset->name }}</span></a>
                                             <a href="{{ route('projects.assets.show', [$project, $asset]) }}" class="text-indigo-600 hover:text-indigo-900 pl-3">View<span class="sr-only">, {{ $asset->name }}</span></a>
@@ -120,7 +120,7 @@
                                     <tr>
                                         <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 dark:text-white sm:pl-0">{{ $pipe->upstreamAsset->fullName }}</td>
                                         <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-300">{{ $pipe->downstreamAsset->fullName }}</td>
-                                        <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-300">{{ __('Never attempted') }}</td>
+                                        <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-300">{{ $pipe->status }}</td>
                                         <td class="whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
                                             <a href="{{ route('projects.pipes.edit', [$project, $pipe]) }}" class="text-indigo-600 hover:text-indigo-900 pl-3">Edit<span class="sr-only">, {{ $asset->name }}</span></a>
                                             <a href="{{ route('projects.pipes.show', [$project, $pipe]) }}" class="text-indigo-600 hover:text-indigo-900 pl-3">View<span class="sr-only">, {{ $asset->name }}</span></a>
@@ -148,7 +148,7 @@
                                     <tr>
                                         <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 dark:text-white sm:pl-0">{{ $inspection->pipe->upstreamAsset->fullName }} -> {{ $inspection->pipe->downstreamAsset->fullName }}</td>
                                         <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-300">{{ $inspection->distance }}</td>
-                                        <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-300">{{ $inspection->completed ? __('Completed') : __('Not Completed') }}</td>
+                                        <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-300">{{ $inspection->complete ? __('Complete') : __('Not complete') }}</td>
                                         <td class="whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
                                             <a href="{{ route('projects.inspections.edit', [$project, $inspection]) }}" class="text-indigo-600 hover:text-indigo-900 pl-3">Edit<span class="sr-only">, {{ $asset->name }}</span></a>
                                             <a href="{{ route('projects.inspections.show', [$project, $inspection]) }}" class="text-indigo-600 hover:text-indigo-900 pl-3">View<span class="sr-only">, {{ $asset->name }}</span></a>

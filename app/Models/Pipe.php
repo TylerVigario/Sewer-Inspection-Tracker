@@ -94,4 +94,22 @@ class Pipe extends Model
             }
         );
     }
+
+    /**
+     * Get the pipe inspection status.
+     */
+    protected function status(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                if ($this->inspections()->complete()->count() > 0) {
+                    return __('Complete');
+                } else if ($this->inspections()->count() > 0) {
+                    return __('Not complete');
+                } else {
+                    return __('Needs attempt');
+                }
+            }
+        );
+    }
 }

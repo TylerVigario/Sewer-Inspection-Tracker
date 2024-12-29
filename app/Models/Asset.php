@@ -74,7 +74,7 @@ class Asset extends Model
     protected function fullName(): Attribute
     {
         return Attribute::make(
-            get: fn () => $this->type->tag . ' ' . $this->name,
+            get: fn() => $this->type->tag . ' ' . $this->name,
         );
     }
 
@@ -84,5 +84,40 @@ class Asset extends Model
     public function installations(): HasMany
     {
         return $this->hasMany(Installation::class);
+    }
+
+    /**
+     * Get the asset status.
+     */
+    protected function status(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                $totalPipes = $this->upstreamPipes()->count() + $this->downstreamPipes()->count();
+                if ($totalPipes > 0) {
+                    $completePipes = 0;
+
+                    foreach ($this->upstreamPipes as $pipe) {
+                        if ($pipe->complete) {
+                            $completePipes++;
+                        }
+                    }
+
+                    foreach ($this->downstreamPipes as $pipe) {
+                        if ($pipe->complete) {
+                            $completePipes++;
+                        }
+                    }
+
+                    if ($completePipes == $totalPipes) {
+                        return __('Complete');
+                    } else {
+                        return $completePipes . '/' . $totalPipes;
+                    }
+                } else {
+                    return __('Missing pipes');
+                }
+            }
+        );
     }
 }
