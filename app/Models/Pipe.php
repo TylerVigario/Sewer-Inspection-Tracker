@@ -82,4 +82,16 @@ class Pipe extends Model
     {
         return $this->hasMany(Cleaning::class);
     }
+
+    /**
+     * Whether the pipe has a complete inspection.
+     */
+    public function complete(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                return $this->inspections()->complete()->count() > 0;
+            }
+        );
+    }
 }

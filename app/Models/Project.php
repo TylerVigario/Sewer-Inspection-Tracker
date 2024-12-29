@@ -20,11 +20,14 @@ class Project extends Model
      * @var list<string>
      */
     protected $fillable = [
-        'name',
+        'project_type_id',
         'customer_id',
+        'name',
         'due',
         'lat',
-        'lng'
+        'lng',
+        'city',
+        'state',
     ];
 
     /**

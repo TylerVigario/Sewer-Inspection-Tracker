@@ -41,8 +41,6 @@ class ProjectAssetController extends Controller
      */
     public function store(Project $project, Request $request): RedirectResponse
     {
-        //die(print_r($request->all()));
-
         $request->validate([
             'asset_type_id' => ['required', 'exists:asset_types,id'],
             'address_id' => ['exists:addresses,id'],
@@ -60,6 +58,8 @@ class ProjectAssetController extends Controller
             'lng' => $request->lng,
             'depth' => $request->depth,
         ]);
+
+        $asset->projects()->save($project);
 
         return Redirect::route('projects.assets.show', [$project, $asset]);
     }

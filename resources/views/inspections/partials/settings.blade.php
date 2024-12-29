@@ -58,18 +58,18 @@
         <x-input-error class="mt-2" :messages="$errors->get('downstream')" />
     </div>
 
-    <div x-data="{ enabled: {{ isset($inspection) && $inspection->completed ? 'true' : 'false' }} }">
-        <input type="text" name="completed" id="completed" :value="enabled ? 1 : 0" class="hidden" />
+    <div x-data="{ enabled: {{ isset($inspection) && $inspection->complete ? 'true' : 'false' }} }">
+        <input type="text" name="complete" id="complete" :value="enabled ? 1 : 0" class="hidden" />
         <div @click="enabled = !enabled" class="flex items-center justify-between">
             <span class="flex grow flex-col">
-                <span class="text-sm/6 font-medium text-gray-900" id="completed-label">Completed</span>
-                <span class="text-sm text-gray-500" id="completed-description">Was the inspection completed without issue?</span>
+                <span class="text-sm/6 font-medium text-gray-900" id="complete-label">Complete</span>
+                <span class="text-sm text-gray-500" id="complete-description">Was the inspection completed without issue?</span>
             </span>
-            <button type="button" class="relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2" :class="enabled ? 'bg-indigo-600' : 'bg-gray-200'" role="switch" :aria-checked="enabled" aria-labelledby="completed-label" aria-describedby="completed-description">
+            <button type="button" class="relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2" :class="enabled ? 'bg-indigo-600' : 'bg-gray-200'" role="switch" :aria-checked="enabled" aria-labelledby="complete-label" aria-describedby="complete-description">
                 <span aria-hidden="true" class="pointer-events-none inline-block size-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out" :class="enabled ? 'translate-x-5' : 'translate-x-0'"></span>
             </button>
         </div>
-        <x-input-error class="mt-2" :messages="$errors->get('completed')" />
+        <x-input-error class="mt-2" :messages="$errors->get('complete')" />
     </div>
 
     <div class="flex items-center gap-4">

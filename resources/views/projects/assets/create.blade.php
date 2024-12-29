@@ -2,7 +2,7 @@
     <x-slot name="breadcrumbs">
         <x-breadcrumb href="{{ route('projects.index') }}" :value="'Projects'" />
         <x-breadcrumb href="{{ route('projects.show', $project) }}" :value="$project->name" />
-        <x-breadcrumb href="{{ route('projects.show', [$project, 'tab' => 'assets']) }}" :value="'Assets'" />
+        <x-breadcrumb href="{{ route('projects.show', [$project, 'selected' => 'assets']) }}" :value="'Assets'" />
         <x-breadcrumb href="{{ route('projects.assets.create', $project) }}" aria-current="page" :value="'New Asset'" />
     </x-slot>
 

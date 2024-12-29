@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('project_id')->constrained('projects');
             $table->foreignId('pipe_id')->constrained('pipes');
             $table->boolean('downstream');
-            $table->boolean('completed');
+            $table->boolean('complete');
             $table->string('remarks')->nullable();
             $table->integer('distance')->nullable();
             $table->timestamps();

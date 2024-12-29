@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -16,7 +17,7 @@ class Cleaning extends Model
         'project_id',
         'pipe_id',
         'downstream',
-        'completed',
+        'complete',
         'remarks',
         'distance',
     ];
@@ -35,5 +36,13 @@ class Cleaning extends Model
     public function project(): BelongsTo
     {
         return $this->belongsTo(Project::class);
+    }
+
+    /**
+     * Scope a query to only include complete inspections.
+     */
+    public function scopeComplete(Builder $query): void
+    {
+        $query->where('complete', true);
     }
 }

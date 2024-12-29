@@ -69,7 +69,7 @@
                                 <div class="marker" data-lat="{{ $asset->lat }}" data-lng="{{ $asset->lng }}" data-id="{{ $asset->id }}" data-title="{{ $asset->fullName }}" data-clickable></div>
                                 @endforeach
                                 @foreach ($pipes as $pipe)
-                                <div class="path" data-start="{{ $pipe->upstreamAsset->lat . ',' . $pipe->upstreamAsset->lng }}" data-end="{{ $pipe->downstreamAsset->lat . ',' . $pipe->downstreamAsset->lng }}" data-color="#00FF00"></div>
+                                <div class="path" data-start="{{ $pipe->upstreamAsset->lat . ',' . $pipe->upstreamAsset->lng }}" data-end="{{ $pipe->downstreamAsset->lat . ',' . $pipe->downstreamAsset->lng }}" data-color="{{ $pipe->complete ? '#00FF00' : '#FF0000' }}"></div>
                                 @endforeach
                             </div>
                         </div>

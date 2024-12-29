@@ -37,8 +37,9 @@ class ProjectController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
-            'name' => ['required', 'string', 'max:255', Rule::unique(Project::class)],
+            'project_type_id' => ['required', 'exists:project_types,id'],
             'customer_id' => ['required', 'exists:customers,id'],
+            'name' => ['required', 'string', 'max:255', Rule::unique(Project::class)],
             'due' => ['required', 'date'],
             'lat' => ['required', 'numeric', 'between:-90,90'],
             'lng' => ['required', 'numeric', 'between:-180,180'],
@@ -47,8 +48,9 @@ class ProjectController extends Controller
         ]);
 
         $project = Project::create([
-            'name' => $request->name,
+            'project_type_id' => $request->project_type_id,
             'customer_id' => $request->customer_id,
+            'name' => $request->name,
             'due' => $request->due,
             'lat' => $request->lat,
             'lng' => $request->lng,
@@ -56,7 +58,7 @@ class ProjectController extends Controller
             'state' => $request->state,
         ]);
 
-        return Redirect::route('projects.show.v2', $project);
+        return Redirect::route('projects.show', $project);
     }
 
     /**
@@ -90,8 +92,9 @@ class ProjectController extends Controller
     public function update(Project $project, Request $request): RedirectResponse
     {
         $request->validate([
-            'name' => ['required', 'string', 'max:255', Rule::unique(Project::class)->ignore($project->id)],
+            'project_type_id' => ['required', 'exists:project_types,id'],
             'customer_id' => ['required', 'exists:customers,id'],
+            'name' => ['required', 'string', 'max:255', Rule::unique(Project::class)->ignore($project->id)],
             'due' => ['required', 'date'],
             'lat' => ['required', 'numeric', 'between:-90,90'],
             'lng' => ['required', 'numeric', 'between:-180,180'],
@@ -100,8 +103,9 @@ class ProjectController extends Controller
         ]);
 
         $project->fill([
-            'name' => $request->name,
+            'project_type_id' => $request->project_type_id,
             'customer_id' => $request->customer_id,
+            'name' => $request->name,
             'due' => $request->due,
             'lat' => $request->lat,
             'lng' => $request->lng,

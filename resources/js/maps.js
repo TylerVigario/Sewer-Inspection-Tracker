@@ -314,9 +314,28 @@ async function geocodePosition(position, mapElement) {
 
     const address = response.results[0].address_components;
 
-    mapElement.querySelector("#number").value = address[0].short_name;
-    mapElement.querySelector("#street_name").value = address[1].short_name;
-    mapElement.querySelector("#city").value = address[2].short_name;
-    mapElement.querySelector("#state").value = address[4].short_name;
-    mapElement.querySelector("#zip_code").value = address[6].short_name;
+    const numberElement = mapElement.querySelector("#number");
+    if (numberElement) {
+        numberElement.value = address[0].short_name;
+    }
+
+    const streetNameElement = mapElement.querySelector("#street_name");
+    if (streetNameElement) {
+        streetNameElement.value = address[1].short_name;
+    }
+
+    const cityElement = mapElement.querySelector("#city");
+    if (cityElement) {
+        cityElement.value = address[2].short_name;
+    }
+
+    const stateElement = mapElement.querySelector("#state");
+    if (stateElement) {
+        stateElement.value = address[4].short_name;
+    }
+
+    const zipCodeElement = mapElement.querySelector("#zip_code");
+    if (zipCodeElement) {
+        zipCodeElement.value = address[6].short_name;
+    }
 }

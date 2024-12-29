@@ -37,7 +37,7 @@ class ProjectInspectionController extends Controller
         $request->validate([
             'pipe_id' => ['required', 'exists:pipes,id'],
             'downstream' => ['required', 'boolean'],
-            'completed' => ['required', 'boolean'],
+            'complete' => ['required', 'boolean'],
             'remarks' => ['string', 'max:255'],
             'distance' => ['required', 'numeric', 'min:0'],
         ]);
@@ -46,7 +46,7 @@ class ProjectInspectionController extends Controller
             'project_id' => $project->id,
             'pipe_id' => $request->pipe_id,
             'downstream' => $request->downstream,
-            'completed' => $request->completed,
+            'complete' => $request->complete,
             'remarks' => $request->remarks,
             'distance' => $request->distance,
         ]);

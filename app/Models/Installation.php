@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -15,7 +16,7 @@ class Installation extends Model
     protected $fillable = [
         'project_id',
         'asset_id',
-        'completed',
+        'complete',
         'remarks',
     ];
 
@@ -33,5 +34,13 @@ class Installation extends Model
     public function project(): BelongsTo
     {
         return $this->belongsTo(Project::class);
+    }
+
+    /**
+     * Scope a query to only include complete inspections.
+     */
+    public function scopeComplete(Builder $query): void
+    {
+        $query->where('complete', true);
     }
 }

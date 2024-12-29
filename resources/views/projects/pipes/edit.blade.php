@@ -2,7 +2,7 @@
     <x-slot name="breadcrumbs">
         <x-breadcrumb href="{{ route('projects.index') }}" :value="'Projects'" />
         <x-breadcrumb href="{{ route('projects.show', $project) }}" :value="$project->name" />
-        <x-breadcrumb href="{{ route('projects.show', [$project, 'tab' => 'pipes']) }}" :value="'Pipes'" />
+        <x-breadcrumb href="{{ route('projects.show', [$project, 'selected' => 'pipes']) }}" :value="'Pipes'" />
         <x-breadcrumb href="{{ route('projects.pipes.edit', [$project, $pipe]) }}" class="flex items-center" aria-current="page">
             {{ $pipe->upstreamAsset->fullName }}
             <svg xmlns=" http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 px-1">
