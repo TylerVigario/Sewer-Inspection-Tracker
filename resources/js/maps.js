@@ -12,16 +12,28 @@ if (document.getElementsByClassName("map").length > 0) {
                 async (mapElement) => {
                     //#region Map
                     const { Map } = await google.maps.importLibrary("maps");
-                    const center = mapElement.dataset.center.split(",");
+                    let center;
+                    if (
+                        mapElement.hasAttribute("data-center") &&
+                        mapElement.dataset.center.length > 0
+                    ) {
+                        center = mapElement.dataset.center.split(",");
+                        center = {
+                            lat: parseFloat(center[0]),
+                            lng: parseFloat(center[1]),
+                        };
+                    } else {
+                        center = {
+                            lat: 36.908035,
+                            lng: -119.794041,
+                        };
+                    }
 
                     const map = new Map(
                         mapElement.getElementsByClassName("viewport")[0],
                         {
                             zoom: parseInt(mapElement.dataset.zoom),
-                            center: {
-                                lat: parseFloat(center[0]),
-                                lng: parseFloat(center[1]),
-                            },
+                            center: center,
                             mapId: mapElement.dataset.id ?? "TEST_MAP_ID",
                         }
                     );
@@ -182,10 +194,25 @@ if (document.getElementsByClassName("map").length > 0) {
                             scale: 1,
                         });
 
-                        const position = {
-                            lat: parseFloat(markerElement.dataset.lat),
-                            lng: parseFloat(markerElement.dataset.lng),
-                        };
+                        let position;
+
+                        if (
+                            markerElement.hasAttribute("data-lat") &&
+                            markerElement.dataset.lat.length > 0 &&
+                            markerElement.hasAttribute("data-lng") &&
+                            markerElement.dataset.lng.length > 0
+                        ) {
+                            position = {
+                                lat: parseFloat(markerElement.dataset.lat),
+                                lng: parseFloat(markerElement.dataset.lng),
+                            };
+                        } else {
+                            position = map.getCenter();
+                            position = {
+                                lat: position.lat(),
+                                lng: position.lng(),
+                            };
+                        }
 
                         const marker = new AdvancedMarkerElement({
                             map,
@@ -205,16 +232,11 @@ if (document.getElementsByClassName("map").length > 0) {
                         });
 
                         if (markerElement.hasAttribute("data-clickable")) {
-                            marker.addListener(
-                                "click",
-                                async ({ domEvent, latLng }) => {
-                                    const { target } = domEvent;
-
-                                    infoWindow.close();
-                                    infoWindow.setContent(marker.title);
-                                    infoWindow.open(marker.map, marker);
-                                }
-                            );
+                            marker.addListener("gmp-click", async () => {
+                                infoWindow.close();
+                                infoWindow.setContent(marker.title);
+                                infoWindow.open(marker.map, marker);
+                            });
                         }
 
                         if (markerElement.hasAttribute("data-draggable")) {

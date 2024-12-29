@@ -26,7 +26,6 @@
                             </div>
                             <div class="mt-6">
                                 <div class="grid grid-cols-1 sm:hidden">
-                                    <!-- Use an "onChange" listener to redirect the user to the selected tab URL. -->
                                     <select aria-label="Select a tab" class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-2 pl-3 pr-8 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600">
                                         <option :selected="selected == 'map'" @click="selected = 'map'">Map</option>
                                         <option :selected="selected == 'assets'" @click="selected = 'assets'">Assets</option>
@@ -38,7 +37,6 @@
                                         <path fill-rule="evenodd" d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
                                     </svg>
                                 </div>
-                                <!-- Tabs at small breakpoint and up -->
                                 <div class="hidden sm:block">
                                     <nav class="-mb-px flex space-x-8">
                                         <a href="#" @click.prevent @click="selected = 'map'" class="'whitespace-nowrap border-b-2 px-1 pb-4 text-sm font-medium" :class="selected == 'map' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'" :aria-current="selected == 'map' ? 'page' : ''">

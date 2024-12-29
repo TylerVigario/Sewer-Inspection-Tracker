@@ -81,7 +81,7 @@
     </div>
 
     <div x-cloak x-show="selected == 'location'" x-transition>
-        <div class="map border-b border-gray-900/10 pb-6" data-zoom="21" data-center="{{ isset($position) ? implode(',', $position) : '36.908035,-119.794041' }}">
+        <div class="map border-b border-gray-900/10 pb-6" data-zoom="21" data-center="{{ isset($position) ? implode(',', $position) : '' }}">
             <div class="viewport"></div>
             <div class="marker" data-lat="{{ $position[0] ?? '36.908035' }}" data-lng="{{ $position[1] ?? '-119.794041' }}" data-title="0" data-geocode data-clickable data-draggable>
                 <input type="hidden" name="lat" id="lat" value="{{ $position[0] ?? '36.908035' }}" />
