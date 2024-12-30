@@ -51,7 +51,7 @@ class ProjectInspectionController extends Controller
             'distance' => $request->distance,
         ]);
 
-        return Redirect::route('projects.show', [$project, 'tab' => 'inspections']);
+        return Redirect::route('projects.show', [$project, 'selected' => 'inspections']);
     }
 
     /**
@@ -71,5 +71,30 @@ class ProjectInspectionController extends Controller
             'project' => $project,
             'inspection' => $inspection,
         ]);
+    }
+
+    /**
+     * Update stored resource.
+     */
+    public function update(Project $project, Inspection $inspection, Request $request)
+    {
+        $request->validate([
+            'pipe_id' => ['required', 'exists:pipes,id'],
+            'downstream' => ['required', 'boolean'],
+            'complete' => ['required', 'boolean'],
+            'remarks' => ['string', 'max:255'],
+            'distance' => ['required', 'numeric', 'min:0'],
+        ]);
+
+        $inspection->fill([
+            'project_id' => $project->id,
+            'pipe_id' => $request->pipe_id,
+            'downstream' => $request->downstream,
+            'complete' => $request->complete,
+            'remarks' => $request->remarks,
+            'distance' => $request->distance,
+        ])->save();
+
+        return Redirect::route('projects.show', [$project, 'selected' => 'inspections']);
     }
 }

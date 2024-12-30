@@ -105,7 +105,7 @@ class Pipe extends Model
                 if ($this->inspections()->complete()->count() > 0) {
                     return __('Complete');
                 } else if ($this->inspections()->count() > 0) {
-                    return __('Not complete');
+                    return __('No complete inspection');
                 } else {
                     return __('Needs attempt');
                 }

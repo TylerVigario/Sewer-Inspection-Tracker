@@ -14,11 +14,11 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UserSeeder::class,
             AssetTypeSeeder::class,
-            CustomerSeeder::class,
+            //CustomerSeeder::class,
             ProjectTypeSeeder::class,
-            ProjectSeeder::class,
-            AssetSeeder::class,
-            PipeSeeder::class
+            //ProjectSeeder::class,
+            //AssetSeeder::class,
+            //PipeSeeder::class
         ]);
     }
 }

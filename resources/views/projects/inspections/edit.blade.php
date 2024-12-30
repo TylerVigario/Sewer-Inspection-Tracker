@@ -11,7 +11,7 @@
             <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
                 @include('inspections.partials.settings', [
                 'url' => route('projects.inspections.update', [$project, $inspection]),
-                'method' => 'post',
+                'method' => 'patch',
                 'project' => $project,
                 'inspection' => $inspection,
                 ])
