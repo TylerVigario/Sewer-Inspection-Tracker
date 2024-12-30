@@ -49,7 +49,7 @@ class ProjectPipeController extends Controller
             'size' => $request->size,
         ]);
 
-        return Redirect::route('projects.show', [$project, 'tab' => 'pipes']);
+        return Redirect::route('projects.show', [$project, 'selected' => 'pipes']);
     }
 
     /**

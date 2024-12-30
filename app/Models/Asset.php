@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-use function App\Helpers\upstreamAssetSearch;
+use function App\Helpers\upstreamPathSearch;
 
 class Asset extends Model
 {
@@ -102,7 +102,18 @@ class Asset extends Model
                     return -1;
                 }
 
-                #region Count completed pipes
+                #region Lateral/Branch
+                if ($this->type->id == 4 || $this->type->id == 5) {
+                    return (upstreamPathSearch($this, function ($pipe) {
+                        // Only accept upstream pipes that are complete
+                        return $pipe->complete;
+                    }, function ($pipe, $upstreamAsset) {
+                        // Ends at pipe with upstream asset of building or
+                        return $upstreamAsset->type->id == 11 || $upstreamAsset->type->id == 9;
+                    }) ? 1 : 0);
+                }
+                #endregion
+
                 $completePipes = 0;
 
                 foreach ($this->upstreamPipes as $pipe) {
@@ -115,23 +126,6 @@ class Asset extends Model
                     if ($pipe->complete) {
                         $completePipes++;
                     }
-                }
-                #endregion
-
-                // Tap or branch completion logic
-                if ($this->type->id == 4 || $this->type->id == 5) {
-                    if (upstreamAssetSearch($this, function ($pipe) {
-                        return ($pipe->upstreamAsset->type->id == 11 || $pipe->upstreamAsset->type->id == 9) && $pipe->complete;
-                    })) {
-                        return 1;
-                    }
-
-                    return 0;
-                }
-
-                // General asset completion logic
-                if ($completePipes == 0) {
-                    return 0;
                 }
 
                 return $completePipes / $totalPipes;
@@ -148,15 +142,15 @@ class Asset extends Model
             get: function () {
                 $percent = $this->complete;
 
-                if ($percent >= 0) {
-                    if ($percent == 1) {
-                        return __('Complete');
-                    } else {
-                        return ($percent * 100) . '%';
-                    }
-                } else {
+                if ($percent < 0) {
                     return __('Missing pipe');
                 }
+
+                if ($percent == 1) {
+                    return __('Complete');
+                }
+
+                return ($percent * 100) . '%';
             }
         );
     }

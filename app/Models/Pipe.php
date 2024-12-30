@@ -104,11 +104,13 @@ class Pipe extends Model
             get: function () {
                 if ($this->inspections()->complete()->count() > 0) {
                     return __('Complete');
-                } else if ($this->inspections()->count() > 0) {
-                    return __('No complete inspection');
-                } else {
-                    return __('Needs attempt');
                 }
+
+                if ($this->inspections()->count() > 0) {
+                    return __('No complete inspection');
+                }
+
+                return __('Needs attempt');
             }
         );
     }

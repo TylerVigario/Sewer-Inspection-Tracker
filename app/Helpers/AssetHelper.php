@@ -2,14 +2,20 @@
 
 namespace App\Helpers;
 
-function upstreamAssetSearch($asset, $callback)
+use Illuminate\Support\Collection;
+
+function upstreamPathSearch($asset, $accepted, $end): bool
 {
     foreach ($asset->upstreamPipes as $pipe) {
-        if ($callback($pipe)) {
+        if (!$accepted($pipe, $pipe->upstreamAsset, $asset)) {
+            return false;
+        }
+
+        if ($end($pipe, $pipe->upstreamAsset, $asset)) {
             return true;
         }
 
-        if (upstreamAssetSearch($pipe->upstreamAsset, $callback)) {
+        if (upstreamPathSearch($pipe->upstreamAsset, $accepted, $end)) {
             return true;
         }
     }
@@ -17,17 +23,21 @@ function upstreamAssetSearch($asset, $callback)
     return false;
 }
 
-function downstreamAssetSearch($asset, $callback)
+function upstreamPath($asset, $accepted, $end): Collection
 {
-    foreach ($asset->downstreamPipes as $pipe) {
-        if ($callback($pipe)) {
-            return true;
-        }
+    $pipes = [];
 
-        if (downstreamAssetSearch($pipe->downstreamAsset, $callback)) {
-            return true;
+    foreach ($asset->upstreamPipes as $pipe) {
+        if ($accepted($pipe, $pipe->upstreamAsset, $asset)) {
+            $pipes[] = $pipe;
+
+            if ($end($pipe, $pipe->upstreamAsset, $asset)) {
+                break;
+            }
+
+            $pipes += upstreamPath($pipe->upstreamAsset, $accepted, $end);
         }
     }
 
-    return false;
+    return collect($pipes);
 }
