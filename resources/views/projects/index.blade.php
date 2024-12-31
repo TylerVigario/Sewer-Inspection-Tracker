@@ -5,74 +5,80 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <div class="px-4 sm:px-6 lg:px-8">
+            <div class="bg-white dark:bg-gray-800 shadow-sm sm:rounded-lg">
+                <div class="text-gray-900 dark:text-gray-100">
 
-                        <div class="relative border-b border-gray-200 pb-5 sm:pb-0">
-                            <div class="md:flex md:items-center md:justify-between">
-                                <div class="mt-3 flex md:absolute md:right-0 md:top-3 md:mt-0">
-                                    <a href="{{ route('projects.create') }}">
-                                        <button type="button" class="ml-3 inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">New Project</button>
-                                    </a>
-                                </div>
+                    <div class="border-b border-gray-200 px-4 py-5 sm:px-6 lg:px-8">
+                        <div class="-ml-4 -mt-2 flex flex-wrap items-center justify-between sm:flex-nowrap">
+                            <div class="ml-4 mt-2">
+                                <h3 class="text-base font-semibold">Projects</h3>
                             </div>
-                            <div class="mt-6">
-                                <div class="grid grid-cols-1 sm:hidden">
-                                    <!-- Use an "onChange" listener to redirect the user to the selected tab URL. -->
-                                    <select aria-label="Select a tab" class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-2 pl-3 pr-8 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600">
-                                        <option selected>In Progress</option>
-                                        <option>Completed</option>
-                                    </select>
-                                    <svg class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end fill-gray-500" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" data-slot="icon">
-                                        <path fill-rule="evenodd" d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
-                                    </svg>
-                                </div>
-                                <!-- Tabs at small breakpoint and up -->
-                                <div class="hidden sm:block">
-                                    <nav class="-mb-px flex space-x-8">
-                                        <!-- Current: "border-indigo-500 text-indigo-600", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" -->
-                                        <a href="#" class="whitespace-nowrap border-b-2 border-indigo-500 px-1 pb-4 text-sm font-medium text-indigo-600" aria-current="page">In Progress</a>
-                                        <a href="#" class="whitespace-nowrap border-b-2 border-transparent px-1 pb-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">Completed</a>
-                                    </nav>
-                                </div>
+                            <div class="ml-4 mt-2 shrink-0">
+                                <a href="{{ route('projects.create') }}">
+                                    <button type="button" class="relative inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">New project</button>
+                                </a>
                             </div>
                         </div>
+                    </div>
 
-                        <ul role="list" class="divide-y divide-white/5m">
-                            @foreach ($projects as $project)
-                            <li class="relative flex items-center space-x-4 py-6">
-                                <div class="min-w-0 flex-auto">
-                                    <div class="flex items-center gap-x-3">
-                                        <div class="flex-none rounded-full bg-green-400/10 p-1 text-green-400">
-                                            <div class="size-2 rounded-full bg-current"></div>
-                                        </div>
-                                        <h2 class="min-w-0 text-sm/6 font-semibold text-gray-700 dark:text-white">
-                                            <a href="{{ route('projects.show', [$project]) }}" class="flex gap-x-2">
-                                                <span class="truncate">{{ $project->customer->name }}</span>
-                                                <span class="text-gray-400">/</span>
-                                                <span class="whitespace-nowrap">{{ $project->name }}</span>
-                                                <span class="absolute inset-0"></span>
-                                            </a>
-                                        </h2>
-                                    </div>
-                                    <div class="mt-4 flex items-center gap-x-2.5 text-xs/5 text-gray-400">
-                                        <p class="truncate">{{ $project->city }}, {{ $project->state }}</p>
-                                        <svg viewBox="0 0 2 2" class="size-0.5 flex-none fill-gray-300">
-                                            <circle cx="1" cy="1" r="1" />
+                    @if (App\Models\Project::count() > 0)
+                    <ul role="list" class="divide-y divide-gray-100">
+                        @foreach($projects as $project)
+                        <li class="flex items-center justify-between gap-x-6 py-5 hover:bg-gray-50 px-6 sm:px-8 lg:px-10">
+                            <div class="min-w-0">
+                                <div class="flex items-start gap-x-3">
+                                    <p class="text-sm/6 font-semibold text-gray-900">{{ $project->name }}</p>
+                                    <p class="mt-0.5 whitespace-nowrap rounded-md bg-green-50 px-1.5 py-0.5 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">{{ $project->type->name }}</p>
+                                </div>
+                                <div class="mt-1 flex items-center gap-x-2 text-xs/5 text-gray-500">
+                                    <p class="whitespace-nowrap">Due on <time datetime="{{ $project->due }}">{{ $project->due->format("F j, o") }}</time></p>
+                                    <svg viewBox="0 0 2 2" class="size-0.5 fill-current">
+                                        <circle cx="1" cy="1" r="1" />
+                                    </svg>
+                                    <p class="truncate">Requested by {{ $project->customer->name }}</p>
+                                </div>
+                            </div>
+
+                            <div class="flex flex-none items-center gap-x-4">
+                                <a href="{{ route('projects.show', $project) }}" class="hidden rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:block">View project<span class="sr-only">, GraphQL API</span></a>
+                                <div class="relative flex-none" x-data="{ show: false }">
+                                    <button @click="show = !show" type="button" class="-m-2.5 block p-2.5 text-gray-500 hover:text-gray-900" id="options-menu-0-button" aria-expanded="false" aria-haspopup="true">
+                                        <span class="sr-only">Open options</span>
+                                        <svg class="size-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                                            <path d="M10 3a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM10 8.5a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM11.5 15.5a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0Z" />
                                         </svg>
-                                        <p class="whitespace-nowrap">{{ __('Due') }} {{ $project->due->diffForHumans() }}</p>
+                                    </button>
+                                    <div x-cloak x-show="show" x-transition class="absolute right-0 z-10 mt-2 w-32 origin-top-right rounded-md bg-white py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="options-menu-0-button" tabindex="-1">
+                                        <a href="{{ route('projects.edit', $project) }}" class="block px-3 py-1 text-sm/6 text-gray-900" role="menuitem" tabindex="-1" id="options-menu-0-item-0">Edit<span class="sr-only">, {{ $project->name }}</span></a>
+                                        <a href="#" class="block px-3 py-1 text-sm/6 text-gray-900" role="menuitem" tabindex="-1" id="options-menu-0-item-1">Delete<span class="sr-only">, {{ $project->name }}</span></a>
                                     </div>
                                 </div>
-                                <div class="flex-none rounded-full bg-gray-400/10 px-2 py-1 text-xs font-medium text-gray-400 ring-1 ring-inset ring-gray-400/20">{{ $project->type->name }}</div>
-                                <svg class="size-5 flex-none text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
-                                    <path fill-rule="evenodd" d="M8.22 5.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
-                                </svg>
-                            </li>
-                            @endforeach
-                        </ul>
-                        {{ $projects->links('components.pagination-centered') }}
+                            </div>
+                        </li>
+                        @endforeach
+                    </ul>
+                    @else
+                    <div class="text-center p-6">
+                        <svg class="mx-auto size-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path vector-effect="non-scaling-stroke" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+                        </svg>
+                        <h3 class="mt-2 text-sm font-semibold text-gray-900">No projects</h3>
+                        <p class="mt-1 text-sm text-gray-500">Get started by creating a new project.</p>
+                        <div class="mt-6">
+                            <a href="{{ route('projects.create') }}">
+                                <button type="button" class="inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                                    <svg class="-ml-0.5 mr-1.5 size-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                                        <path d="M10.75 4.75a.75.75 0 0 0-1.5 0v4.5h-4.5a.75.75 0 0 0 0 1.5h4.5v4.5a.75.75 0 0 0 1.5 0v-4.5h4.5a.75.75 0 0 0 0-1.5h-4.5v-4.5Z" />
+                                    </svg>
+                                    New Project
+                                </button>
+                            </a>
+                        </div>
                     </div>
+
+                    @endif
+
+                    {{ $projects->links('components.pagination-centered') }}
                 </div>
             </div>
         </div>

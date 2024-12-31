@@ -7,7 +7,7 @@
     <div class="pt-8 pb-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
             <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-                <div class="px-4 sm:px-6 lg:px-8 pb-6" x-data="{ selected: 'settings' }" x-query-string="selected">
+                <div class="px-2 sm:px-4 lg:px-6 pb-4" x-data="{ selected: 'settings' }" x-query-string="selected">
 
                     <div class="relative border-b border-gray-200 pb-5 sm:pb-0">
                         <div class="mt-6">
@@ -44,6 +44,8 @@
                         <div x-cloak x-show="selected == 'map'" x-transition>
                             @include('projects.partials.map')
                         </div>
+
+                        @include('projects.partials.save-button')
                     </form>
                 </div>
             </div>

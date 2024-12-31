@@ -38,10 +38,12 @@ class CustomerController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255', Rule::unique(Customer::class)],
+            'email' => ['required', 'email:rfc,dns', 'max:255'],
         ]);
 
         $customer = Customer::create([
             'name' => $request->name,
+            'email' => $request->email,
         ]);
 
         return Redirect::route('customers.index');
@@ -76,10 +78,12 @@ class CustomerController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255', Rule::unique(Customer::class)->ignore($customer->id)],
+            'email' => ['required', 'email:rfc,dns', 'max:255'],
         ]);
 
         $customer->fill([
             'name' => $request->name,
+            'email' => $request->email,
         ])->save();
 
         return Redirect::route('customers.edit', $customer)->with('status', 'customer-updated');

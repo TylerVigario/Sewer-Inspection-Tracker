@@ -16,6 +16,7 @@ use App\Http\Controllers\Inspections\ProjectPipeInspectionController;
 use App\Http\Controllers\Cleanings\CleaningController;
 use App\Http\Controllers\Cleanings\ProjectCleaningController;
 use App\Http\Controllers\Cleanings\ProjectPipeCleaningController;
+use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\Installations\InstallationController;
 use App\Http\Controllers\Installations\ProjectInstallationController;
 use App\Http\Controllers\Installations\ProjectAssetInstallationController;
@@ -29,6 +30,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return view('dashboard');
     })->name('dashboard');
 
+    Route::resource('employees', EmployeeController::class);
     Route::resource('asset-types', AssetTypeController::class);
     Route::resource('customers', CustomerController::class);
     Route::resource('projects', ProjectController::class);
@@ -38,20 +40,20 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('cleanings', CleaningController::class);
     Route::resource('installations', InstallationController::class);
 
-        // Project Context
-        Route::resource('projects.assets', ProjectAssetController::class);
-        Route::resource('projects.pipes', ProjectPipeController::class);
-        Route::resource('projects.inspections', ProjectInspectionController::class);
-        Route::resource('projects.cleanings', ProjectCleaningController::class);
-        Route::resource('projects.installations', ProjectInstallationController::class);
+    // Project Context
+    Route::resource('projects.assets', ProjectAssetController::class)->scoped();
+    Route::resource('projects.pipes', ProjectPipeController::class)->scoped();
+    Route::resource('projects.inspections', ProjectInspectionController::class)->scoped();
+    Route::resource('projects.cleanings', ProjectCleaningController::class)->scoped();
+    Route::resource('projects.installations', ProjectInstallationController::class)->scoped();
 
-        // Project & Asset Context
-        Route::resource('projects.assets.pipes', ProjectAssetPipeController::class);
-        Route::resource('projects.assets.installations', ProjectAssetInstallationController::class);
+    // Project & Asset Context
+    Route::resource('projects.assets.pipes', ProjectAssetPipeController::class)->scoped();
+    Route::resource('projects.assets.installations', ProjectAssetInstallationController::class)->scoped();
 
-        // Project & Pipe Context
-        Route::resource('projects.pipes.inspections', ProjectPipeInspectionController::class);
-        Route::resource('projects.pipes.cleanings', ProjectPipeCleaningController::class);
+    // Project & Pipe Context
+    Route::resource('projects.pipes.inspections', ProjectPipeInspectionController::class)->scoped();
+    Route::resource('projects.pipes.cleanings', ProjectPipeCleaningController::class)->scoped();
 });
 
 Route::middleware('auth')->group(function () {

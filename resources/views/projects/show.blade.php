@@ -31,7 +31,6 @@
                                         <option :selected="selected == 'assets'" @click="selected = 'assets'">Assets</option>
                                         <option :selected="selected == 'pipes'" @click="selected = 'pipes'">Pipes</option>
                                         <option :selected="selected == 'inspections'" @click="selected = 'inspections'">Inspections</option>
-                                        <option :selected="selected == 'settings'" @click="selected = 'settings'">Settings</option>
                                     </select>
                                     <svg class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end fill-gray-500" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" data-slot="icon">
                                         <path fill-rule="evenodd" d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
@@ -53,9 +52,6 @@
                                         <a href="#" @click.prevent @click="selected = 'inspections'" class="'whitespace-nowrap border-b-2 px-1 pb-4 text-sm font-medium" :class="selected == 'inspections' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'" :aria-current="selected == 'inspections' ? 'page' : ''">
                                             Inspections
                                             <span class="ml-3 hidden rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-900 md:inline-block">{{ $project->inspections()->count() }}</span>
-                                        </a>
-                                        <a href="#" @click.prevent @click="selected = 'settings'" class="'whitespace-nowrap border-b-2 px-1 pb-4 text-sm font-medium" :class="selected == 'settings' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'" :aria-current="selected == 'settings' ? 'page' : ''">
-                                            Settings
                                         </a>
                                     </nav>
                                 </div>
@@ -158,14 +154,6 @@
                                 </tbody>
                             </table>
                             {{ $inspections->links('components.pagination-centered') }}
-                        </div>
-
-                        <div x-cloak x-show="selected == 'settings'" x-transition>
-                            @include('projects.partials.settings', [
-                            'url' => route('projects.update', $project),
-                            'method' => 'patch',
-                            'project' => $project,
-                            ])
                         </div>
                     </div>
                 </div>
