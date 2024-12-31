@@ -4,7 +4,7 @@
         <x-breadcrumb href="{{ route('projects.edit', $project) }}" aria-current="page" :value="$project->name" />
     </x-slot>
 
-    <div class="pt-8 pb-12">
+    <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
             <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg" x-data="{ selected: 'settings' }" x-query-string="selected">
                 <div class="relative border-b border-gray-200 pb-5 sm:pb-0">

@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
-.map .viewport  {
+.map .viewport {
     min-height: 600px;
+}
+
+[x-cloak] {
+    display: none !important;
 }

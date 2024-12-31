@@ -1,10 +1,10 @@
 import { Loader } from "@googlemaps/js-api-loader";
-//import "@googlemaps/extended-component-library/api_loader.js";
 
 if (document.getElementsByClassName("map").length > 0) {
     new Loader({
         apiKey: import.meta.env.VITE_GOOGLE_API_KEY,
         version: "beta",
+        libraries: ["places"],
     })
         .load()
         .then(async () => {
@@ -37,6 +37,18 @@ if (document.getElementsByClassName("map").length > 0) {
                             mapId: mapElement.dataset.id ?? "TEST_MAP_ID",
                         }
                     );
+                    //#endregion
+
+                    //#region Place Picker
+                    const searchInput = document.createElement("input");
+                    searchInput.type = "text";
+                    searchInput.classList.add("mt-2");
+
+                    const searchBox = new google.maps.places.SearchBox(searchInput);
+
+                    map.controls[
+                        google.maps.ControlPosition.TOP_CENTER
+                    ].push(searchInput);
                     //#endregion
 
                     //#region Location Button
@@ -116,7 +128,7 @@ if (document.getElementsByClassName("map").length > 0) {
                         const newAssetButton = document.createElement("button");
 
                         newAssetButton.classList.add(
-                            "mt-2",
+                            "mb-6",
                             ...buttonClassList
                         );
 
@@ -126,7 +138,7 @@ if (document.getElementsByClassName("map").length > 0) {
                             "</svg>";
 
                         map.controls[
-                            google.maps.ControlPosition.TOP_CENTER
+                            google.maps.ControlPosition.BOTTOM_CENTER
                         ].push(newAssetButton);
 
                         let newAssetMarker;
