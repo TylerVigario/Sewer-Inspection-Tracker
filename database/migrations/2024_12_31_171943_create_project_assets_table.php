@@ -11,12 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pipes', function (Blueprint $table) {
+        Schema::create('project_assets', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('upstream_asset_id')->constrained('assets');
-            $table->foreignId('downstream_asset_id')->constrained('assets');
-            $table->integer('size')->nullable();
-            $table->integer('length')->nullable();
+            $table->foreignId('project_id')->constrained('projects');
+            $table->foreignId('asset_id')->constrained('assets');
             $table->timestamps();
         });
     }
@@ -26,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pipes');
+        Schema::dropIfExists('project_assets');
     }
 };

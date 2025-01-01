@@ -69,7 +69,7 @@ class ProjectController extends Controller
         return view('projects.show', [
             'project' => $project,
             'assets' => $project->assets()->paginate(10, ['*'], 'asset_page')->withQueryString(),
-            'pipes' => $project->pipes,
+            'pipes' => $project->pipes()->paginate(10, ['*'], 'pipe_page')->withQueryString(),
             'inspections' => $project->inspections()->paginate(10, ['*'], 'inspection_page')->withQueryString(),
         ]);
     }
@@ -121,6 +121,8 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project): RedirectResponse
     {
+        $project->assets()->delete();
+
         $project->delete();
 
         return Redirect::route('projects.index')->with('status', 'project-deleted');

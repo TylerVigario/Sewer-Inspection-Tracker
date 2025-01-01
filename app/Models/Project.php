@@ -59,6 +59,14 @@ class Project extends Model
     }
 
     /**
+     * The assets that belong to the project.
+     */
+    public function pipes(): BelongsToMany
+    {
+        return $this->belongsToMany(Pipe::class, 'project_pipes');
+    }
+
+    /**
      * Get the Customer the Project belongs to.
      */
     public function customer(): BelongsTo
@@ -88,32 +96,5 @@ class Project extends Model
     public function installations(): HasMany
     {
         return $this->hasMany(Installation::class);
-    }
-
-    /**
-     * Get the pipes
-     */
-    protected function pipes(): Attribute
-    {
-        return Attribute::make(
-            get: function () {
-                $pipes = [];
-
-                foreach ($this->assets as $asset) {
-                    foreach ($asset->upstreamPipes as $pipe) {
-                        if (!array_key_exists($pipe->id, $pipes)) {
-                            $pipes[$pipe->id] = $pipe;
-                        }
-                    }
-                    foreach ($asset->downstreamPipes as $pipe) {
-                        if (!array_key_exists($pipe->id, $pipes)) {
-                            $pipes[$pipe->id] = $pipe;
-                        }
-                    }
-                }
-
-                return $pipes;
-            }
-        );
     }
 }

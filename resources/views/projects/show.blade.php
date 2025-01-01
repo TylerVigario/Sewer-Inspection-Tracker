@@ -125,6 +125,7 @@
                                     @endforeach
                                 </tbody>
                             </table>
+                            {{ $pipes->links('components.pagination-centered') }}
                         </div>
 
                         <div x-cloak x-show="selected == 'inspections'" x-transition>

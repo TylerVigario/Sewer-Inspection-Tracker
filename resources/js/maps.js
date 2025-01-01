@@ -40,15 +40,171 @@ if (document.getElementsByClassName("map").length > 0) {
                     //#endregion
 
                     //#region Place Picker
+                    await google.maps.importLibrary("places");
+
+                    const placeAutocomplete =
+                        new google.maps.places.PlaceAutocompleteElement();
+
+                    map.controls[google.maps.ControlPosition.TOP_CENTER].push(
+                        placeAutocomplete
+                    );
+
+                    placeAutocomplete.addEventListener(
+                        "gmp-placeselect",
+                        async ({ place }) => {
+                            await place.fetchFields({
+                                fields: [
+                                    "displayName",
+                                    "formattedAddress",
+                                    "location",
+                                ],
+                            });
+
+                            if (place.viewport) {
+                                map.fitBounds(place.viewport);
+                            } else {
+                                map.setCenter(place.location);
+                                map.setZoom(17);
+                            }
+
+                            console.debug(place);
+                        }
+                    );
+                    //#endregion
+
+                    //#region Place Picker (old)
+                    const searchInputDiv = document.createElement("div");
+
+                    searchInputDiv.classList.add("m-2", "grid", "grid-cols-1");
+
                     const searchInput = document.createElement("input");
+
                     searchInput.type = "text";
-                    searchInput.classList.add("mt-2");
+                    searchInput.placeholder = "Search for a place...";
+                    searchInput.style.width = "300px";
+                    searchInput.classList.add(
+                        //"mt-2",
+                        "py-2",
+                        "rounded-sm",
+                        "shadow-lg",
+                        "border-none",
+                        //
+                        "col-start-1",
+                        "row-start-1",
+                        "block",
+                        "w-full",
+                        //"bg-white",
+                        "pl-3",
+                        "pr-10",
+                        "text-base",
+                        "text-gray-900",
+                        //"outline",
+                        //"outline-1",
+                        //"-outline-offset-1",
+                        //"outline-gray-300",
+                        "placeholder:text-gray-400",
+                        //"focus:outline",
+                        //"focus:outline-2",
+                        //"focus:-outline-offset-2",
+                        //"focus:outline-indigo-600",
+                        "sm:pr-9",
+                        "sm:text-sm/6"
+                    );
 
-                    const searchBox = new google.maps.places.SearchBox(searchInput);
+                    searchInputDiv.appendChild(searchInput);
 
-                    map.controls[
-                        google.maps.ControlPosition.TOP_CENTER
-                    ].push(searchInput);
+                    const searchInputSvg = document.createElementNS(
+                        "http://www.w3.org/2000/svg",
+                        "svg"
+                    );
+
+                    searchInputSvg.classList.add(
+                        "pointer-events-none",
+                        "col-start-1",
+                        "row-start-1",
+                        "mr-3",
+                        "size-5",
+                        "self-center",
+                        "justify-self-end",
+                        "text-gray-400",
+                        "sm:size-4"
+                    );
+
+                    searchInputSvg.setAttribute("fill", "none");
+                    searchInputSvg.setAttribute("viewBox", "0 0 24 24");
+                    searchInputSvg.setAttribute("stroke-width", "1.5");
+                    searchInputSvg.setAttribute("stroke", "currentColor");
+                    searchInputSvg.setAttribute("aria-hidden", "true");
+                    searchInputSvg.setAttribute("data-slot", "icon");
+
+                    const searchInputSvgPath = document.createElementNS(
+                        "http://www.w3.org/2000/svg",
+                        "path"
+                    );
+
+                    searchInputSvgPath.setAttribute("stroke-linecap", "round");
+                    searchInputSvgPath.setAttribute("stroke-linejoin", "round");
+                    searchInputSvgPath.setAttribute(
+                        "d",
+                        "m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+                    );
+
+                    searchInputSvg.appendChild(searchInputSvgPath);
+
+                    searchInputDiv.appendChild(searchInputSvg);
+
+                    /*map.controls[google.maps.ControlPosition.TOP_CENTER].push(
+                        searchInputDiv
+                    );*/
+
+                    searchInput.addEventListener("keydown", async (event) => {
+                        if (event.key === "Enter") {
+                            const { Place } = await google.maps.importLibrary(
+                                "places"
+                            );
+
+                            const request = {
+                                textQuery: searchInput.value,
+                                //fields: ["displayName", "location", "businessStatus"],
+                                //includedType: "restaurant",
+                                locationBias: map.getCenter(),
+                                //isOpenNow: true,
+                                language: "en-US",
+                                //maxResultCount: 8,
+                                //minRating: 3.2,
+                                region: "us",
+                                //useStrictTypeFiltering: false,
+                            };
+
+                            const { places } = await Place.searchByText(
+                                request
+                            );
+
+                            if (places.length) {
+                                console.log(places);
+
+                                const { LatLngBounds } =
+                                    await google.maps.importLibrary("core");
+                                const bounds = new LatLngBounds();
+
+                                // Loop through and get all the results.
+                                places.forEach((place) => {
+                                    const markerView =
+                                        new AdvancedMarkerElement({
+                                            map,
+                                            position: place.location,
+                                            title: place.displayName,
+                                        });
+
+                                    bounds.extend(place.location);
+                                    console.log(place);
+                                });
+                                map.fitBounds(bounds);
+                            } else {
+                                console.log("No results");
+                            }
+                        }
+                    });
                     //#endregion
 
                     //#region Location Button
