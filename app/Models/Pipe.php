@@ -122,4 +122,16 @@ class Pipe extends Model
             }
         );
     }
+
+    /**
+     * Get the pipe name.
+     */
+    protected function name(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                return $this->upstreamAsset->fullName . ' -> ' . $this->downstreamAsset->fullName;
+            }
+        );
+    }
 }

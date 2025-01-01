@@ -73,9 +73,9 @@ class Asset extends Model
     /**
      * The pipes that belong to the asset.
      */
-    public function pipes(): BelongsToMany
+    public function pipes(): HasMany
     {
-        return $this->belongsToMany(Pipe::class, 'project_pipes');
+        return $this->downstreamPipes()->union($this->upstreamPipes());
     }
 
     /**
