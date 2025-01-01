@@ -49,6 +49,8 @@ class ProjectPipeController extends Controller
             'size' => $request->size,
         ]);
 
+        $pipe->projects()->save($project);
+
         return Redirect::route('projects.show', [$project, 'selected' => 'pipes']);
     }
 

@@ -39,11 +39,20 @@ if (document.getElementsByClassName("map").length > 0) {
                     );
                     //#endregion
 
-                    //#region Place Picker
+                    //#region Place Picker (Google)
                     await google.maps.importLibrary("places");
 
                     const placeAutocomplete =
                         new google.maps.places.PlaceAutocompleteElement();
+
+                    placeAutocomplete.classList.add(
+                        "mt-3",
+                        "bg-white",
+                        "sm:text-sm/6",
+                        "shadow"
+                    );
+
+                    placeAutocomplete.style["width"] = "300px";
 
                     map.controls[google.maps.ControlPosition.TOP_CENTER].push(
                         placeAutocomplete
@@ -52,6 +61,14 @@ if (document.getElementsByClassName("map").length > 0) {
                     placeAutocomplete.addEventListener(
                         "gmp-placeselect",
                         async ({ place }) => {
+                            if (
+                                locationButton.classList.contains(
+                                    "text-blue-500"
+                                )
+                            ) {
+                                locationButton.click();
+                            }
+
                             await place.fetchFields({
                                 fields: [
                                     "displayName",
@@ -72,8 +89,8 @@ if (document.getElementsByClassName("map").length > 0) {
                     );
                     //#endregion
 
-                    //#region Place Picker (old)
-                    const searchInputDiv = document.createElement("div");
+                    //#region Place Picker (Custom)
+                    /*const searchInputDiv = document.createElement("div");
 
                     searchInputDiv.classList.add("m-2", "grid", "grid-cols-1");
 
@@ -153,9 +170,9 @@ if (document.getElementsByClassName("map").length > 0) {
 
                     searchInputDiv.appendChild(searchInputSvg);
 
-                    /*map.controls[google.maps.ControlPosition.TOP_CENTER].push(
+                    map.controls[google.maps.ControlPosition.TOP_CENTER].push(
                         searchInputDiv
-                    );*/
+                    );
 
                     searchInput.addEventListener("keydown", async (event) => {
                         if (event.key === "Enter") {
@@ -204,10 +221,10 @@ if (document.getElementsByClassName("map").length > 0) {
                                 console.log("No results");
                             }
                         }
-                    });
+                    });*/
                     //#endregion
 
-                    //#region Location Button
+                    //#region Geolocation
                     const buttonClassList = [
                         "rounded-sm",
                         "bg-white",
@@ -279,195 +296,280 @@ if (document.getElementsByClassName("map").length > 0) {
                     });
                     //#endregion
 
-                    //#region New Asset Button
-                    if (mapElement.hasAttribute("data-create-asset")) {
-                        const newAssetButton = document.createElement("button");
+                    //#region Asset/Pipe Tools
+                    if (
+                        mapElement.hasAttribute("data-create-asset") ||
+                        mapElement.hasAttribute("data-create-pipe")
+                    ) {
+                        const toolsDiv = document.createElement("div");
 
-                        newAssetButton.classList.add(
+                        toolsDiv.classList.add(
                             "mb-6",
-                            ...buttonClassList
+                            "flex",
+                            "flex-row",
+                            "space-x-2"
                         );
 
-                        newAssetButton.innerHTML =
-                            '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">' +
-                            '<path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />' +
-                            "</svg>";
+                        //#region New Asset
+                        if (mapElement.hasAttribute("data-create-asset")) {
+                            const newAssetButton =
+                                document.createElement("button");
+
+                            newAssetButton.classList.add(...buttonClassList);
+
+                            newAssetButton.innerHTML =
+                                '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">' +
+                                '<path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />' +
+                                "</svg>";
+
+                            toolsDiv.appendChild(newAssetButton);
+
+                            let newAssetMarker;
+
+                            newAssetButton.addEventListener(
+                                "click",
+                                async () => {
+                                    if (
+                                        newAssetButton.classList.contains(
+                                            "text-gray-600"
+                                        )
+                                    ) {
+                                        const {
+                                            AdvancedMarkerElement,
+                                            PinElement,
+                                        } = await google.maps.importLibrary(
+                                            "marker"
+                                        );
+
+                                        newAssetButton.classList.remove(
+                                            "text-gray-600",
+                                            "hover:text-black"
+                                        );
+                                        newAssetButton.classList.add(
+                                            "text-blue-500"
+                                        );
+
+                                        const pin = new PinElement({
+                                            glyph: "0",
+                                            background: "#3F83F8",
+                                            borderColor: "#4169E1",
+                                            glyphColor: "white",
+                                            scale: 1.1,
+                                        });
+
+                                        newAssetMarker =
+                                            new AdvancedMarkerElement({
+                                                map,
+                                                position: map.getCenter(),
+                                                title: "New Asset",
+                                                content: pin.element,
+                                                gmpDraggable: true,
+                                            });
+
+                                        newAssetMarker.addEventListener(
+                                            "dblclick",
+                                            () => {
+                                                newAssetMarker.setMap(null);
+                                                newAssetMarker = null;
+                                                newAssetButton.classList.remove(
+                                                    "text-blue-500"
+                                                );
+                                                newAssetButton.classList.add(
+                                                    "text-gray-600",
+                                                    "hover:text-black"
+                                                );
+                                            }
+                                        );
+                                    } else {
+                                        window.location.assign(
+                                            mapElement.dataset.createAsset +
+                                                "?position=" +
+                                                newAssetMarker.position.lat +
+                                                "," +
+                                                newAssetMarker.position.lng
+                                        );
+                                    }
+                                }
+                            );
+                        }
+                        //#endregion
+
+                        //#region New Pipe
+                        if (mapElement.hasAttribute("data-create-pipe")) {
+                            const newPipeButton =
+                                document.createElement("button");
+
+                            newPipeButton.classList.add(...buttonClassList);
+
+                            newPipeButton.innerHTML =
+                                '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">' +
+                                '<path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 0 1 1.242 7.244l-4.5 4.5a4.5 4.5 0 0 1-6.364-6.364l1.757-1.757m13.35-.622 1.757-1.757a4.5 4.5 0 0 0-6.364-6.364l-4.5 4.5a4.5 4.5 0 0 0 1.242 7.244" />' +
+                                "</svg>";
+
+                            toolsDiv.appendChild(newPipeButton);
+
+                            newPipeButton.addEventListener(
+                                "click",
+                                async () => {
+                                    window.location.assign(
+                                        mapElement.dataset.createPipe
+                                    );
+                                }
+                            );
+                        }
+                        //#endregion
+
+                        //#region New Inspection
+                        if (mapElement.hasAttribute("data-create-inspection")) {
+                            const newInspectionButton =
+                                document.createElement("button");
+
+                            newInspectionButton.classList.add(
+                                ...buttonClassList
+                            );
+
+                            newInspectionButton.innerHTML =
+                                '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">' +
+                                '<path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607ZM10.5 7.5v6m3-3h-6" />' +
+                                "</svg>";
+
+                            toolsDiv.appendChild(newInspectionButton);
+
+                            newInspectionButton.addEventListener(
+                                "click",
+                                async () => {
+                                    window.location.assign(
+                                        mapElement.dataset.createInspection
+                                    );
+                                }
+                            );
+                        }
+                        //#endregion
 
                         map.controls[
                             google.maps.ControlPosition.BOTTOM_CENTER
-                        ].push(newAssetButton);
-
-                        let newAssetMarker;
-
-                        newAssetButton.addEventListener("click", async () => {
-                            if (
-                                newAssetButton.classList.contains(
-                                    "text-gray-600"
-                                )
-                            ) {
-                                const { AdvancedMarkerElement, PinElement } =
-                                    await google.maps.importLibrary("marker");
-
-                                newAssetButton.classList.remove(
-                                    "text-gray-600"
-                                );
-                                newAssetButton.classList.remove(
-                                    "hover:text-black"
-                                );
-                                newAssetButton.classList.add("text-blue-500");
-
-                                const pin = new PinElement({
-                                    glyph: "0",
-                                    background: "#3F83F8",
-                                    borderColor: "#4169E1",
-                                    glyphColor: "white",
-                                    scale: 1.1,
-                                });
-
-                                newAssetMarker = new AdvancedMarkerElement({
-                                    map,
-                                    position: map.getCenter(),
-                                    title: "New Asset",
-                                    content: pin.element,
-                                    gmpDraggable: true,
-                                });
-                            } else {
-                                window.location.assign(
-                                    mapElement.dataset.createAsset +
-                                        "?position=" +
-                                        newAssetMarker.position.lat +
-                                        "," +
-                                        newAssetMarker.position.lng
-                                );
-                            }
-                        });
+                        ].push(toolsDiv);
                     }
                     //#endregion
 
-                    //#region Markers
-                    Array.from(
-                        mapElement.getElementsByClassName("marker")
-                    ).forEach(async (markerElement) => {
-                        const { AdvancedMarkerElement, PinElement } =
-                            await google.maps.importLibrary("marker");
-                        const { InfoWindow } = await google.maps.importLibrary(
-                            "maps"
-                        );
+                    loadMarkers(mapElement, map, google);
 
-                        const infoWindow = new InfoWindow();
-
-                        const pin = new PinElement({
-                            glyph: markerElement.dataset.id,
-                            glyphColor: "black",
-                            scale: 1,
-                        });
-
-                        let position;
-
-                        if (
-                            markerElement.hasAttribute("data-lat") &&
-                            markerElement.dataset.lat.length > 0 &&
-                            markerElement.hasAttribute("data-lng") &&
-                            markerElement.dataset.lng.length > 0
-                        ) {
-                            position = {
-                                lat: parseFloat(markerElement.dataset.lat),
-                                lng: parseFloat(markerElement.dataset.lng),
-                            };
-                        } else {
-                            position = map.getCenter();
-                            position = {
-                                lat: position.lat(),
-                                lng: position.lng(),
-                            };
-                        }
-
-                        const marker = new AdvancedMarkerElement({
-                            map,
-                            position: position,
-                            title: markerElement.dataset.title,
-                            content: pin.element,
-                            gmpClickable: markerElement.hasAttribute(
-                                "data-clickable"
-                            )
-                                ? true
-                                : false,
-                            gmpDraggable: markerElement.hasAttribute(
-                                "data-draggable"
-                            )
-                                ? true
-                                : false,
-                        });
-
-                        if (markerElement.hasAttribute("data-clickable")) {
-                            marker.addListener("gmp-click", async () => {
-                                infoWindow.close();
-                                infoWindow.setContent(marker.title);
-                                infoWindow.open(marker.map, marker);
-                            });
-                        }
-
-                        if (markerElement.hasAttribute("data-draggable")) {
-                            marker.addListener("dragend", async (event) => {
-                                const position = marker.position;
-
-                                if (markerElement.children.lat) {
-                                    markerElement.children.lat.value =
-                                        position.lat;
-                                    markerElement.children.lng.value =
-                                        position.lng;
-                                }
-
-                                if (
-                                    markerElement.hasAttribute("data-geocode")
-                                ) {
-                                    geocodePosition(position, mapElement);
-                                }
-                            });
-                        }
-
-                        if (markerElement.hasAttribute("data-geocode")) {
-                            geocodePosition(position, mapElement);
-                        }
-                    });
-                    //#endregion
-
-                    //#region Paths
-                    Array.from(
-                        mapElement.getElementsByClassName("path")
-                    ).forEach(async (pathElement) => {
-                        const { Polyline } = await google.maps.importLibrary(
-                            "maps"
-                        );
-
-                        const start = pathElement.dataset.start.split(",");
-                        const end = pathElement.dataset.end.split(",");
-
-                        const pipePath = new Polyline({
-                            path: [
-                                {
-                                    lat: parseFloat(start[0]),
-                                    lng: parseFloat(start[1]),
-                                },
-                                {
-                                    lat: parseFloat(end[0]),
-                                    lng: parseFloat(end[1]),
-                                },
-                            ],
-                            strokeColor: pathElement.dataset.color ?? "#FF0000",
-                            strokeOpacity: pathElement.dataset.opacity ?? 1.0,
-                            strokeWeight: pathElement.dataset.weight ?? 2,
-                        });
-
-                        pipePath.setMap(map);
-                    });
-                    //#endregion
+                    loadPaths(mapElement, map, google);
                 }
             );
         })
         .catch((e) => {
             console.error(e);
         });
+}
+
+async function loadMarkers(mapElement, map, google) {
+    Array.from(mapElement.getElementsByClassName("marker")).forEach(
+        async (markerElement) => {
+            const { AdvancedMarkerElement, PinElement } =
+                await google.maps.importLibrary("marker");
+            const { InfoWindow } = await google.maps.importLibrary("maps");
+
+            const infoWindow = new InfoWindow();
+
+            const pin = new PinElement({
+                glyph: markerElement.dataset.id,
+                glyphColor: "black",
+                background: markerElement.dataset.color ?? "#FF0000",
+                borderColor: markerElement.dataset.borderColor ?? "#e60303",
+                scale: 1,
+            });
+
+            let position;
+
+            if (
+                markerElement.hasAttribute("data-lat") &&
+                markerElement.dataset.lat.length > 0 &&
+                markerElement.hasAttribute("data-lng") &&
+                markerElement.dataset.lng.length > 0
+            ) {
+                position = {
+                    lat: parseFloat(markerElement.dataset.lat),
+                    lng: parseFloat(markerElement.dataset.lng),
+                };
+            } else {
+                position = map.getCenter();
+                position = {
+                    lat: position.lat(),
+                    lng: position.lng(),
+                };
+            }
+
+            const marker = new AdvancedMarkerElement({
+                map,
+                position: position,
+                title: markerElement.dataset.title,
+                content: pin.element,
+                gmpClickable: markerElement.hasAttribute("data-clickable")
+                    ? true
+                    : false,
+                gmpDraggable: markerElement.hasAttribute("data-draggable")
+                    ? true
+                    : false,
+            });
+
+            if (markerElement.hasAttribute("data-clickable")) {
+                marker.addListener("gmp-click", async () => {
+                    infoWindow.close();
+                    infoWindow.setContent(marker.title);
+                    infoWindow.open(marker.map, marker);
+                });
+            }
+
+            if (markerElement.hasAttribute("data-draggable")) {
+                marker.addListener("dragend", async (event) => {
+                    const position = marker.position;
+
+                    if (markerElement.children.lat) {
+                        markerElement.children.lat.value = position.lat;
+                        markerElement.children.lng.value = position.lng;
+                    }
+
+                    if (markerElement.hasAttribute("data-geocode")) {
+                        geocodePosition(position, mapElement);
+                    }
+                });
+            }
+
+            if (markerElement.hasAttribute("data-geocode")) {
+                geocodePosition(position, mapElement);
+            }
+        }
+    );
+}
+
+async function loadPaths(mapElement, map, google) {
+    Array.from(mapElement.getElementsByClassName("path")).forEach(
+        async (pathElement) => {
+            const { Polyline } = await google.maps.importLibrary("maps");
+
+            const start = pathElement.dataset.start.split(",");
+            const end = pathElement.dataset.end.split(",");
+
+            const pipePath = new Polyline({
+                path: [
+                    {
+                        lat: parseFloat(start[0]),
+                        lng: parseFloat(start[1]),
+                    },
+                    {
+                        lat: parseFloat(end[0]),
+                        lng: parseFloat(end[1]),
+                    },
+                ],
+                strokeColor: pathElement.dataset.color ?? "#FF0000",
+                strokeOpacity: pathElement.dataset.opacity ?? 1.0,
+                strokeWeight: pathElement.dataset.weight ?? 2,
+            });
+
+            pipePath.setMap(map);
+        }
+    );
 }
 
 async function geocodePosition(position, mapElement) {

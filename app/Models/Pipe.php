@@ -42,6 +42,14 @@ class Pipe extends Model
     }
 
     /**
+     * The projects that belong to the asset.
+     */
+    public function projects(): BelongsToMany
+    {
+        return $this->belongsToMany(Project::class, 'project_pipes');
+    }
+
+    /**
      * Get turns of the pipe.
      */
     public function turns(): HasMany
