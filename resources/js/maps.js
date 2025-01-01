@@ -83,8 +83,6 @@ if (document.getElementsByClassName("map").length > 0) {
                                 map.setCenter(place.location);
                                 map.setZoom(17);
                             }
-
-                            console.debug(place);
                         }
                     );
                     //#endregion

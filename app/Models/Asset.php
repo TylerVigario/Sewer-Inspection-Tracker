@@ -71,6 +71,14 @@ class Asset extends Model
     }
 
     /**
+     * The pipes that belong to the asset.
+     */
+    public function pipes(): BelongsToMany
+    {
+        return $this->belongsToMany(Pipe::class, 'project_pipes');
+    }
+
+    /**
      * Get the asset full name
      */
     protected function fullName(): Attribute
@@ -95,7 +103,7 @@ class Asset extends Model
     {
         return Attribute::make(
             get: function () {
-                $totalPipes = $this->upstreamPipes()->count() + $this->downstreamPipes()->count();
+                $totalPipes = $this->pipes()->count();
 
                 // All assets need at least one pipe
                 if ($totalPipes == 0) {
@@ -116,13 +124,7 @@ class Asset extends Model
 
                 $completePipes = 0;
 
-                foreach ($this->upstreamPipes as $pipe) {
-                    if ($pipe->complete) {
-                        $completePipes++;
-                    }
-                }
-
-                foreach ($this->downstreamPipes as $pipe) {
+                foreach ($this->pipes as $pipe) {
                     if ($pipe->complete) {
                         $completePipes++;
                     }
