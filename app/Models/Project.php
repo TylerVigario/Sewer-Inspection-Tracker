@@ -8,11 +8,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Project extends Model
 {
     /** @use HasFactory<\Database\Factories\ProjectFactory> */
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -96,5 +97,23 @@ class Project extends Model
     public function installations(): HasMany
     {
         return $this->hasMany(Installation::class);
+    }
+
+    /**
+     * The "booted" method of the model.
+     */
+    protected static function booted(): void
+    {
+        static::deleting(function (Project $project) {
+            $project->inspections()->delete();
+            $project->cleanings()->delete();
+            $project->installations()->delete();
+
+            $project->pipes()->detach();
+            $project->pipes()->delete();
+
+            $project->assets()->detach();
+            $project->assets()->delete();
+        });
     }
 }

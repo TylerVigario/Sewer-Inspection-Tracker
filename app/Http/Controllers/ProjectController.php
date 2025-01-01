@@ -121,8 +121,6 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project): RedirectResponse
     {
-        $project->assets()->delete();
-
         $project->delete();
 
         return Redirect::route('projects.index')->with('status', 'project-deleted');

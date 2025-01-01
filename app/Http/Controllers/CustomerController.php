@@ -94,6 +94,8 @@ class CustomerController extends Controller
      */
     public function destroy(Customer $customer)
     {
-        //
+        $customer->delete();
+
+        return Redirect::route('projects.index')->with('status', 'project-deleted');
     }
 }

@@ -28,4 +28,14 @@ class Customer extends Model
     {
         return $this->hasMany(Project::class);
     }
+
+    /**
+     * The "booted" method of the model.
+     */
+    protected static function booted(): void
+    {
+        static::deleting(function (Customer $customer) {
+            $customer->projects->delete();
+        });
+    }
 }
