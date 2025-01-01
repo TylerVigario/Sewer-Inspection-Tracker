@@ -15,8 +15,9 @@ class CustomerSeeder extends Seeder
     {
         DB::table('customers')->insert([
             'name' => 'PG&E',
+            'email' => 'pge@test.com',
             'created_at' => Carbon::parse('12/13/2024 6:30PM'),
-            'updated_at' => Carbon::parse('12/13/2024 6:30PM')
+            'updated_at' => Carbon::parse('1/1/2025 3:00PM')
         ]);
     }
 }

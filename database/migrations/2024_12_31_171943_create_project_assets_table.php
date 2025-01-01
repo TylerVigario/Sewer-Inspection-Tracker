@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('project_id')->constrained('projects');
             $table->foreignId('asset_id')->constrained('assets');
-            $table->timestamps();
         });
     }
 
