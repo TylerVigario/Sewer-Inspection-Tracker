@@ -62,7 +62,7 @@
                             <div class="map" data-zoom="17" data-center="{{ $project->assets()->count() > 0 ? $project->assets()->first()->lat . ',' .  $project->assets()->first()->lng : $project->lat . ',' . $project->lng }}" data-create-asset="{{ route('projects.assets.create', $project) }}" data-create-pipe="{{ route('projects.pipes.create', $project) }}" data-create-inspection="{{ route('projects.inspections.create', $project) }}">
                                 <div class="viewport"></div>
                                 @foreach ($project->assets as $asset)
-                                <div class="marker" data-lat="{{ $asset->lat }}" data-lng="{{ $asset->lng }}" data-id="{{ $asset->id }}" data-title="{{ $asset->fullName }}" data-clickable data-color="{{ $asset->complete == 1 ? '#00FF00' : '#FF0000' }}" data-border-color="{{ $asset->complete == 1 ? '#0c700c' : '#e60303' }}"></div>
+                                <div class="marker" data-lat="{{ $asset->lat }}" data-lng="{{ $asset->lng }}" data-id="{{ $asset->id }}" data-title="{{ $asset->fullName }}" data-clickable data-color="{{ $asset->complete == 1 ? '#00FF00' : '#FF0000' }}" data-border-color="{{ $asset->complete == 1 ? '#0c700c' : '#e60303' }}" data-url="{{ route('projects.assets.show', [$project, $asset])  }}"></div>
                                 @endforeach
                                 @foreach ($project->pipes as $pipe)
                                 <div class="path" data-start="{{ $pipe->upstreamAsset->lat . ',' . $pipe->upstreamAsset->lng }}" data-end="{{ $pipe->downstreamAsset->lat . ',' . $pipe->downstreamAsset->lng }}" data-color="{{ $pipe->complete ? '#00FF00' : '#FF0000' }}"></div>

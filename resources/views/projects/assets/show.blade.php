@@ -14,11 +14,11 @@
                         <div class="viewport"></div>
                         <div class="marker" data-lat="{{ $asset->lat }}" data-lng="{{ $asset->lng }}" data-title="{{ $asset->fullName }}" data-id="{{ $asset->id }}" data-clickable></div>
                         @foreach ($asset->upstreamPipes as $pipe)
-                        <div class="marker" data-lat="{{ $pipe->upstreamAsset->lat }}" data-lng="{{ $pipe->upstreamAsset->lng }}" data-title="{{ $pipe->upstreamAsset->fullName }}" data-id="{{ $pipe->upstreamAsset->id }}" data-clickable></div>
+                        <div class="marker" data-lat="{{ $pipe->upstreamAsset->lat }}" data-lng="{{ $pipe->upstreamAsset->lng }}" data-title="{{ $pipe->upstreamAsset->fullName }}" data-id="{{ $pipe->upstreamAsset->id }}" data-clickable data-url="{{ route('projects.assets.show', [$project, $pipe->upstreamAsset]) }}"></div>
                         <div class="path" data-start="{{ $pipe->upstreamAsset->lat . ',' . $pipe->upstreamAsset->lng }}" data-end="{{ $pipe->downstreamAsset->lat . ',' . $pipe->downstreamAsset->lng }}"></div>
                         @endforeach
                         @foreach ($asset->downstreamPipes as $pipe)
-                        <div class="marker" data-lat="{{ $pipe->downstreamAsset->lat }}" data-lng="{{ $pipe->downstreamAsset->lng }}" data-title="{{ $pipe->downstreamAsset->fullName }}" data-id="{{ $pipe->downstreamAsset->id }}" data-clickable></div>
+                        <div class="marker" data-lat="{{ $pipe->downstreamAsset->lat }}" data-lng="{{ $pipe->downstreamAsset->lng }}" data-title="{{ $pipe->downstreamAsset->fullName }}" data-id="{{ $pipe->downstreamAsset->id }}" data-clickable data-url="{{ route('projects.assets.show', [$project, $pipe->downstreamAsset]) }}"></div>
                         <div class="path" data-start="{{ $pipe->upstreamAsset->lat . ',' . $pipe->upstreamAsset->lng }}" data-end="{{ $pipe->downstreamAsset->lat . ',' . $pipe->downstreamAsset->lng }}"></div>
                         @endforeach
                     </div>
