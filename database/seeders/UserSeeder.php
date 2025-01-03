@@ -20,8 +20,8 @@ class UserSeeder extends Seeder
             'password' => Hash::make('test'),
             'first_name' => 'Test',
             'last_name' => 'User',
-            'created_at' => Carbon::parse('12/13/2024 6:30PM'),
-            'updated_at' => Carbon::parse('12/13/2024 6:30PM')
+            'created_at' => Carbon::parse('12/13/2024 6:30PM', 'America/Los_Angeles')->tz('UTC'),
+            'updated_at' => Carbon::parse('12/13/2024 6:30PM', 'America/Los_Angeles')->tz('UTC'),
         ]);
     }
 }

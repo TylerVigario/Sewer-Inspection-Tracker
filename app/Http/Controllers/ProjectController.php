@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Project;
+use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 use Illuminate\Validation\Rule;
@@ -51,7 +53,7 @@ class ProjectController extends Controller
             'project_type_id' => $request->project_type_id,
             'customer_id' => $request->customer_id,
             'name' => $request->name,
-            'due' => $request->due,
+            'due' => Carbon::parse($request->due, Auth::user()->timezone),
             'lat' => $request->lat,
             'lng' => $request->lng,
             'city' => $request->city,
