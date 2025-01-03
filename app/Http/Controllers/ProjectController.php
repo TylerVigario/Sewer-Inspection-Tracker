@@ -53,7 +53,7 @@ class ProjectController extends Controller
             'project_type_id' => $request->project_type_id,
             'customer_id' => $request->customer_id,
             'name' => $request->name,
-            'due' => Carbon::parse($request->due, Auth::user()->timezone),
+            'due' => Carbon::parse($request->due, Auth::user()->timezone)->tz('UTC'),
             'lat' => $request->lat,
             'lng' => $request->lng,
             'city' => $request->city,
