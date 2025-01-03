@@ -98,13 +98,7 @@ class Pipe extends Model
     {
         return Attribute::make(
             get: function () {
-                $complete_inspections = $this->inspections()->complete()->count();
-
-                if ($complete_inspections > 1 && $this->inspections()->count() == $complete_inspections) {
-                    return true;
-                }
-
-                return false;
+                return $this->inspections()->complete()->count() > 0;
             }
         );
     }

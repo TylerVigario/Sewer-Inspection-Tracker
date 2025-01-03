@@ -484,29 +484,32 @@ async function loadMarkers(mapElement, map, google) {
         const { InfoWindow } = await google.maps.importLibrary("maps");
 
         const bounds = new google.maps.LatLngBounds();
+        const infoWindow = new InfoWindow();
 
         Array.from(markers).forEach((markerElement) => {
-            const infoWindow = new InfoWindow();
 
             const pin = new PinElement({
                 glyph: markerElement.dataset.id,
                 glyphColor: "black",
-                background: markerElement.dataset.color ?? "#FF0000",
-                borderColor: markerElement.dataset.borderColor ?? "#e60303",
-                //scale: 1.25,
+                background: markerElement.dataset.complete == "true"
+                    ? "#2DFF05"
+                    : "#FF2D0D",
+                borderColor: markerElement.dataset.complete == "true"
+                    ? "#167C02"
+                    : "#B72009",
+                scale: 0.85,
             });
 
             let position;
 
             if (
-                markerElement.hasAttribute("data-lat") &&
-                markerElement.dataset.lat.length > 0 &&
-                markerElement.hasAttribute("data-lng") &&
-                markerElement.dataset.lng.length > 0
+                markerElement.hasAttribute("data-position") &&
+                markerElement.dataset.position.length > 0
             ) {
+                position = markerElement.dataset.position.split(",");
                 position = {
-                    lat: parseFloat(markerElement.dataset.lat),
-                    lng: parseFloat(markerElement.dataset.lng),
+                    lat: parseFloat(position[0]),
+                    lng: parseFloat(position[1]),
                 };
             } else {
                 position = map.getCenter();
@@ -600,9 +603,10 @@ async function loadPaths(mapElement, map, google) {
                         lng: parseFloat(end[1]),
                     },
                 ],
-                strokeColor: pathElement.dataset.color ?? "#FF0000",
-                strokeOpacity: pathElement.dataset.opacity ?? 1.0,
-                strokeWeight: pathElement.dataset.weight ?? 2,
+                strokeColor: pathElement.dataset.complete  == "true"
+                    ? "#2DFF05"
+                    : "#FF2D0D",
+                strokeWeight: 2,
             });
 
             pipePath.setMap(map);

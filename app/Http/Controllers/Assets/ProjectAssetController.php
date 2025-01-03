@@ -30,7 +30,7 @@ class ProjectAssetController extends Controller
     {
         return view('projects.assets.create', [
             'project' => $project,
-            'position' => explode(",", request()->query('position', '36.908035,-119.794041')),
+            'position' => explode(",", request()->query('position', $project->lat . ',' . $project->lng)),
         ]);
     }
 
