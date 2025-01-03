@@ -110,7 +110,6 @@ class Asset extends Model
                     return -1;
                 }
 
-                #region Lateral/Branch
                 if ($this->type->id == 4 || $this->type->id == 5) {
                     return (upstreamPathSearch($this, function ($pipe) {
                         // Only accept upstream pipes that are complete
@@ -120,7 +119,6 @@ class Asset extends Model
                         return $upstreamAsset->type->id == 11 || $upstreamAsset->type->id == 9;
                     }) ? 1 : 0);
                 }
-                #endregion
 
                 $completePipes = 0;
 

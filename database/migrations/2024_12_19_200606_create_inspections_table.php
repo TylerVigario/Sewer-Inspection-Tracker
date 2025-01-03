@@ -19,6 +19,7 @@ return new class extends Migration
             $table->boolean('complete');
             $table->string('remarks')->nullable();
             $table->integer('distance');
+            $table->timestamp('inspected_at')->default(now());
             $table->timestamps();
         });
     }

@@ -21,7 +21,20 @@ class Inspection extends Model
         'complete',
         'remarks',
         'distance',
+        'inspected_at',
     ];
+
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'inspected_at' => 'datetime',
+        ];
+    }
 
     /**
      * Get the pipe the inspection was performed on.
