@@ -2,10 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-.map .viewport {
-    min-height: 600px;
-}
+/*@import "../../vendor/spatie/laravel-medialibrary-pro/resources/js/media-library-pro-styles/src/styles.css";*/
 
 [x-cloak] {
     display: none !important;
+}
+
+.map .viewport {
+    min-height: 600px;
 }

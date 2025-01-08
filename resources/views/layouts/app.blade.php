@@ -19,8 +19,15 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
+    <!-- Styles -->
+    @vite(['resources/css/app.css'])
+    @livewireStyles
+    @mediaLibraryStyles
+
     <!-- Scripts -->
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @livewireScriptConfig
+    @vite(['resources/js/app.js'])
+    @mediaLibraryScripts
 </head>
 
 <body class="font-sans antialiased">

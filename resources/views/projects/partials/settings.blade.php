@@ -41,4 +41,6 @@
         </div>
         <x-input-error class="mt-2" :messages="$errors->get('due')" />
     </div>
+
+    <x-media-library-attachment multiple :model="$project" name="media" rules="mimes:png,jpeg,pdf" />
 </div>

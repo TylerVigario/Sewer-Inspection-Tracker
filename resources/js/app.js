@@ -1,13 +1,14 @@
 import "./bootstrap";
-import queryString from "@invoate/alpine-query-string";
 
-import Alpine from "alpinejs";
+import { Livewire, Alpine } from '../../vendor/livewire/livewire/dist/livewire.esm';
+
+import queryString from "@invoate/alpine-query-string";
 
 window.Alpine = Alpine;
 
 Alpine.plugin(queryString);
 
-Alpine.start();
+Livewire.start();
 
 import "flowbite";
 
