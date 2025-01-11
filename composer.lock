@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fe9ab9dcb817a7d0f922fe4e992b3bf0",
+    "content-hash": "ddef816d167c57d6972086640f85f560",
     "packages": [
         {
             "name": "brick/math",
@@ -2347,12 +2347,12 @@
             "version": "3.8.4",
             "source": {
                 "type": "git",
-                "url": "https://github.com/briannesbitt/Carbon.git",
+                "url": "https://github.com/CarbonPHP/carbon.git",
                 "reference": "129700ed449b1f02d70272d2ac802357c8c30c58"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/129700ed449b1f02d70272d2ac802357c8c30c58",
+                "url": "https://api.github.com/repos/CarbonPHP/carbon/zipball/129700ed449b1f02d70272d2ac802357c8c30c58",
                 "reference": "129700ed449b1f02d70272d2ac802357c8c30c58",
                 "shasum": ""
             },
@@ -3771,17 +3771,17 @@
         },
         {
             "name": "spatie/laravel-medialibrary-pro",
-            "version": "6.0.0",
+            "version": "6.1.3",
             "source": {
                 "type": "git",
                 "url": "git@github.com:spatie/laravel-medialibrary-pro.git",
-                "reference": "a1cae3160ab1350c93b62ba74c72eaf5ce8f2e35"
+                "reference": "078f4b7df22e447ec1004cbe0fe35ed058753c99"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://satis.spatie.be/dist/spatie/laravel-medialibrary-pro/spatie-laravel-medialibrary-pro-a1cae3160ab1350c93b62ba74c72eaf5ce8f2e35-zip-4b92b0.zip",
-                "reference": "a1cae3160ab1350c93b62ba74c72eaf5ce8f2e35",
-                "shasum": "9f4bd8d994c952852ae1f8a12eaf10c9f13da0e9"
+                "url": "https://satis.spatie.be/dist/spatie/laravel-medialibrary-pro/spatie-laravel-medialibrary-pro-078f4b7df22e447ec1004cbe0fe35ed058753c99-zip-47cef0.zip",
+                "reference": "078f4b7df22e447ec1004cbe0fe35ed058753c99",
+                "shasum": "9e77d5b8a17073025f58362765b05cf42f3c52d9"
             },
             "require": {
                 "ext-json": "*",
@@ -3842,10 +3842,10 @@
                 "spatie"
             ],
             "support": {
-                "source": "https://github.com/spatie/laravel-medialibrary-pro/tree/6.0.0",
+                "source": "https://github.com/spatie/laravel-medialibrary-pro/tree/6.1.3",
                 "issues": "https://github.com/spatie/laravel-medialibrary-pro/issues"
             },
-            "time": "2024-07-19T13:53:31+00:00"
+            "time": "2025-01-06T15:41:49+00:00"
         },
         {
             "name": "spatie/laravel-package-tools",
@@ -8837,16 +8837,16 @@
         },
         {
             "name": "sebastian/comparator",
-            "version": "6.2.1",
+            "version": "6.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/comparator.git",
-                "reference": "43d129d6a0f81c78bee378b46688293eb7ea3739"
+                "reference": "d4e47a769525c4dd38cea90e5dcd435ddbbc7115"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/comparator/zipball/43d129d6a0f81c78bee378b46688293eb7ea3739",
-                "reference": "43d129d6a0f81c78bee378b46688293eb7ea3739",
+                "url": "https://api.github.com/repos/sebastianbergmann/comparator/zipball/d4e47a769525c4dd38cea90e5dcd435ddbbc7115",
+                "reference": "d4e47a769525c4dd38cea90e5dcd435ddbbc7115",
                 "shasum": ""
             },
             "require": {
@@ -8858,6 +8858,9 @@
             },
             "require-dev": {
                 "phpunit/phpunit": "^11.4"
+            },
+            "suggest": {
+                "ext-bcmath": "For comparing BcMath\\Number objects"
             },
             "type": "library",
             "extra": {
@@ -8902,7 +8905,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/comparator/issues",
                 "security": "https://github.com/sebastianbergmann/comparator/security/policy",
-                "source": "https://github.com/sebastianbergmann/comparator/tree/6.2.1"
+                "source": "https://github.com/sebastianbergmann/comparator/tree/6.3.0"
             },
             "funding": [
                 {
@@ -8910,7 +8913,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-10-31T05:30:08+00:00"
+            "time": "2025-01-06T10:28:19+00:00"
         },
         {
             "name": "sebastian/complexity",

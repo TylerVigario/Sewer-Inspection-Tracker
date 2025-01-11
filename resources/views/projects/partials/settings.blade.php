@@ -42,5 +42,9 @@
         <x-input-error class="mt-2" :messages="$errors->get('due')" />
     </div>
 
-    <x-media-library-attachment multiple :model="$project" name="media" rules="mimes:png,jpeg,pdf" />
+    <div>
+        <x-input-label for="media" :value="__('Attachments')" />
+        <x-media-library-attachment multiple name="media" rules="mimes:png,jpeg,pdf" />
+        <x-input-error class="mt-2" :messages="$errors->get('due')" />
+    </div>
 </div>
