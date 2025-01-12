@@ -19,6 +19,7 @@ return new class extends Migration
             $table->boolean('complete');
             $table->string('remarks')->nullable();
             $table->integer('distance')->nullable();
+            $table->timestamp('datetime')->default(now('UTC'));
             $table->timestamps();
         });
     }

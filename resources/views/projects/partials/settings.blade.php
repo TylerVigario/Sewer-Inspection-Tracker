@@ -44,7 +44,7 @@
 
     <div>
         <x-input-label for="media" :value="__('Attachments')" />
-        <x-media-library-attachment multiple name="media" rules="mimes:png,jpeg,pdf" />
+        <x-media-library-attachment multiple name="media" rules="mimes:png,jpeg,pdf,csv,xlsx,docx" />
         <x-input-error class="mt-2" :messages="$errors->get('due')" />
     </div>
 </div>

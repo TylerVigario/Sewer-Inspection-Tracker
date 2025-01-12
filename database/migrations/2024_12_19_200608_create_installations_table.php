@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('asset_id')->constrained('assets');
             $table->boolean('complete');
             $table->string('remarks')->nullable();
+            $table->timestamp('datetime')->default(now('UTC'));
             $table->timestamps();
         });
     }
