@@ -36,7 +36,7 @@
 
         <!-- Page Heading -->
         @isset($breadcrumbs)
-        <header class="bg-white dark:bg-gray-800 shadow">
+        <header class="bg-white dark:bg-gray-800 shadow-sm">
             <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                 <nav class="flex" aria-label="Breadcrumb">
                     <ol role="list" class="flex items-center space-x-4">

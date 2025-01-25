@@ -5,7 +5,7 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 shadow-sm sm:rounded-lg">
+            <div class="bg-white dark:bg-gray-800 shadow-xs sm:rounded-lg">
                 <div class="text-gray-900 dark:text-gray-100">
 
                     <div class="border-b border-gray-200 px-4 py-5 sm:px-6 lg:px-8">
@@ -15,7 +15,7 @@
                             </div>
                             <div class="ml-4 mt-2 shrink-0">
                                 <a href="{{ route('employees.create') }}">
-                                    <button type="button" class="relative inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">New employee</button>
+                                    <button type="button" class="relative inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">New employee</button>
                                 </a>
                             </div>
                         </div>
@@ -51,7 +51,7 @@
                                                 <path d="M10 3a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM10 8.5a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM11.5 15.5a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0Z" />
                                             </svg>
                                         </button>
-                                        <div x-cloak x-show="show" x-transition @click.outside="show = ''" class="absolute right-0 z-10 mt-2 w-32 origin-top-right rounded-md bg-white py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="options-menu-4-button" tabindex="-1">
+                                        <div x-cloak x-show="show" x-transition @click.outside="show = ''" class="absolute right-0 z-10 mt-2 w-32 origin-top-right rounded-md bg-white py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-hidden" role="menu" aria-orientation="vertical" aria-labelledby="options-menu-4-button" tabindex="-1">
                                             <a href="#" class="block px-3 py-1 text-sm/6 text-gray-900" role="menuitem" tabindex="-1" id="options-menu-4-item-0">View profile<span class="sr-only">, Courtney Henry</span></a>
                                             <a href="#" class="block px-3 py-1 text-sm/6 text-gray-900" role="menuitem" tabindex="-1" id="options-menu-4-item-1">Message<span class="sr-only">, Courtney Henry</span></a>
                                         </div>

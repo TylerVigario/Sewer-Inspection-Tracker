@@ -6,7 +6,7 @@
 
     <div class="pt-8 pb-12">
         <div class="max-w-7xl mt-6 mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 shadow-sm sm:rounded-lg">
+            <div class="bg-white dark:bg-gray-800 shadow-xs sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <div class="px-4 sm:px-6 lg:px-8 pb-6" x-data="{ selected: 'map' }" x-query-string="selected">
 
@@ -14,13 +14,13 @@
                             <div class="md:flex md:items-center md:justify-between">
                                 <div class="mt-3 flex md:absolute md:right-0 md:top-3 md:mt-0">
                                     <a x-cloak x-show="selected == 'assets'" href="{{ route('projects.assets.create', $project) }}">
-                                        <button type="button" class="ml-3 inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">New Asset</button>
+                                        <button type="button" class="ml-3 inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">New Asset</button>
                                     </a>
                                     <a x-cloak x-show="selected == 'pipes'" href="{{ route('projects.pipes.create', $project) }}">
-                                        <button type="button" class="ml-3 inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">New Pipe</button>
+                                        <button type="button" class="ml-3 inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">New Pipe</button>
                                     </a>
                                     <a x-cloak x-show="selected == 'inspections'" href="{{ route('projects.inspections.create', $project) }}">
-                                        <button type="button" class="ml-3 inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Record Inspection</button>
+                                        <button type="button" class="ml-3 inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Record Inspection</button>
                                     </a>
                                 </div>
                             </div>
@@ -91,7 +91,7 @@
                                             <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-300">{{ $asset->status }}</td>
                                             <td class="whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
                                                 <div class="flex flex-row-reverse items-center gap-x-4">
-                                                    <a href="{{ route('projects.assets.show', [$project, $asset]) }}" class="hidden rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:block">View <span class="sr-only">, {{ $asset->fullName }}</span></a>
+                                                    <a href="{{ route('projects.assets.show', [$project, $asset]) }}" class="hidden rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-xs ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:block">View <span class="sr-only">, {{ $asset->fullName }}</span></a>
                                                     <div class="relative flex-none" x-data="{ show: false }">
                                                         <button @click="show = !show" type="button" class="-m-2.5 block p-2.5 text-gray-500 hover:text-gray-900" id="options-menu-0-button" aria-expanded="false" aria-haspopup="true">
                                                             <span class="sr-only">Open options</span>
@@ -99,7 +99,7 @@
                                                                 <path d="M10 3a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM10 8.5a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM11.5 15.5a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0Z" />
                                                             </svg>
                                                         </button>
-                                                        <div x-cloak x-show="show" x-transition @click.outside="show = ''" class="absolute right-0 z-10 mt-2 w-32 origin-top-right rounded-md bg-white py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="options-menu-0-button" tabindex="-1">
+                                                        <div x-cloak x-show="show" x-transition @click.outside="show = ''" class="absolute right-0 z-10 mt-2 w-32 origin-top-right rounded-md bg-white py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-hidden" role="menu" aria-orientation="vertical" aria-labelledby="options-menu-0-button" tabindex="-1">
                                                             <a href="{{ route('projects.assets.edit', [$project, $asset]) }}" class="block px-3 py-1 text-sm/6 text-gray-900" role="menuitem" tabindex="-1" id="options-menu-0-item-0">Edit<span class="sr-only">, {{ $asset->fullName }}</span></a>
                                                             <a href="#" @click.prevent @click="model = ['asset', '{{ $asset->fullName }}', '{{ route('projects.assets.destroy', [$project, $asset]) }}']" class="block px-3 py-1 text-sm/6 text-gray-900" role="menuitem" tabindex="-1" id="options-menu-0-item-1">Delete<span class="sr-only">, {{ $asset->fullName }}</span></a>
                                                         </div>
@@ -133,7 +133,7 @@
                                             <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-300">{{ $pipe->status }}</td>
                                             <td class="whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
                                                 <div class="flex flex-row-reverse items-center gap-x-4">
-                                                    <a href="{{ route('projects.pipes.show', [$project, $pipe]) }}" class="hidden rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:block">View <span class="sr-only">, {{ $asset->fullName }}</span></a>
+                                                    <a href="{{ route('projects.pipes.show', [$project, $pipe]) }}" class="hidden rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-xs ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:block">View <span class="sr-only">, {{ $asset->fullName }}</span></a>
                                                     <div class="relative flex-none" x-data="{ show: false }">
                                                         <button @click="show = !show" type="button" class="-m-2.5 block p-2.5 text-gray-500 hover:text-gray-900" id="options-menu-0-button" aria-expanded="false" aria-haspopup="true">
                                                             <span class="sr-only">Open options</span>
@@ -141,7 +141,7 @@
                                                                 <path d="M10 3a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM10 8.5a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM11.5 15.5a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0Z" />
                                                             </svg>
                                                         </button>
-                                                        <div x-cloak x-show="show" x-transition @click.outside="show = ''" class="absolute right-0 z-10 mt-2 w-32 origin-top-right rounded-md bg-white py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="options-menu-0-button" tabindex="-1">
+                                                        <div x-cloak x-show="show" x-transition @click.outside="show = ''" class="absolute right-0 z-10 mt-2 w-32 origin-top-right rounded-md bg-white py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-hidden" role="menu" aria-orientation="vertical" aria-labelledby="options-menu-0-button" tabindex="-1">
                                                             <a href="{{ route('projects.pipes.edit', [$project, $pipe]) }}" class="block px-3 py-1 text-sm/6 text-gray-900" role="menuitem" tabindex="-1" id="options-menu-0-item-0">Edit<span class="sr-only">, {{ $pipe->name }}</span></a>
                                                             <a href="#" @click.prevent @click="model = ['pipe', '{{ $pipe->name }}', '{{ route('projects.pipes.destroy', [$project, $pipe]) }}']" class="block px-3 py-1 text-sm/6 text-gray-900" role="menuitem" tabindex="-1" id="options-menu-0-item-1">Delete<span class="sr-only">, {{ $pipe->name }}</span></a>
                                                         </div>
@@ -177,7 +177,7 @@
                                             <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-300">{{ $inspection->complete ? __('Complete') : __('Not complete') }}</td>
                                             <td class="whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
                                             <div class="flex flex-row-reverse items-center gap-x-4">
-                                                    <a href="{{ route('projects.inspections.show', [$project, $inspection]) }}" class="hidden rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:block">View <span class="sr-only">, {{ $asset->fullName }}</span></a>
+                                                    <a href="{{ route('projects.inspections.show', [$project, $inspection]) }}" class="hidden rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-xs ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:block">View <span class="sr-only">, {{ $asset->fullName }}</span></a>
                                                     <div class="relative flex-none" x-data="{ show: false }">
                                                         <button @click="show = !show" type="button" class="-m-2.5 block p-2.5 text-gray-500 hover:text-gray-900" id="options-menu-0-button" aria-expanded="false" aria-haspopup="true">
                                                             <span class="sr-only">Open options</span>
@@ -185,7 +185,7 @@
                                                                 <path d="M10 3a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM10 8.5a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM11.5 15.5a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0Z" />
                                                             </svg>
                                                         </button>
-                                                        <div x-cloak x-show="show" x-transition @click.outside="show = ''" class="absolute right-0 z-10 mt-2 w-32 origin-top-right rounded-md bg-white py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="options-menu-0-button" tabindex="-1">
+                                                        <div x-cloak x-show="show" x-transition @click.outside="show = ''" class="absolute right-0 z-10 mt-2 w-32 origin-top-right rounded-md bg-white py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-hidden" role="menu" aria-orientation="vertical" aria-labelledby="options-menu-0-button" tabindex="-1">
                                                             <a href="{{ route('projects.inspections.edit', [$project, $pipe]) }}" class="block px-3 py-1 text-sm/6 text-gray-900" role="menuitem" tabindex="-1" id="options-menu-0-item-0">Edit<span class="sr-only">, {{ $inspection->created_at }}</span></a>
                                                             <a href="#" @click.prevent @click="model = ['inspection', '{{ $inspection->created_at }}', '{{ route('projects.inspections.destroy', [$project, $inspection]) }}']" class="block px-3 py-1 text-sm/6 text-gray-900" role="menuitem" tabindex="-1" id="options-menu-0-item-1">Delete<span class="sr-only">, {{ $inspection->created_at }}</span></a>
                                                         </div>

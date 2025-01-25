@@ -51,8 +51,8 @@
                 <span class="text-sm/6 font-medium text-gray-900" id="direction-label">Direction: <span class="text-gray-700">Downstream</span></span>
                 <span class="text-sm text-gray-500" id="direction-description">Was the inspection done from upstream to downstream?</span>
             </span>
-            <button type="button" class="relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2" :class="enabled ? 'bg-indigo-600' : 'bg-gray-200'" role="switch" :aria-checked="enabled" aria-labelledby="downstream-label" aria-describedby="downstream-description">
-                <span aria-hidden="true" class="pointer-events-none inline-block size-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out" :class="enabled ? 'translate-x-5' : 'translate-x-0'"></span>
+            <button type="button" class="relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-hidden focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2" :class="enabled ? 'bg-indigo-600' : 'bg-gray-200'" role="switch" :aria-checked="enabled" aria-labelledby="downstream-label" aria-describedby="downstream-description">
+                <span aria-hidden="true" class="pointer-events-none inline-block size-5 transform rounded-full bg-white shadow-sm ring-0 transition duration-200 ease-in-out" :class="enabled ? 'translate-x-5' : 'translate-x-0'"></span>
             </button>
         </div>
         <x-input-error class="mt-2" :messages="$errors->get('downstream')" />
@@ -65,8 +65,8 @@
                 <span class="text-sm/6 font-medium text-gray-900" id="complete-label">Complete</span>
                 <span class="text-sm text-gray-500" id="complete-description">Was the inspection completed without issue?</span>
             </span>
-            <button type="button" class="relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2" :class="enabled ? 'bg-indigo-600' : 'bg-gray-200'" role="switch" :aria-checked="enabled" aria-labelledby="complete-label" aria-describedby="complete-description">
-                <span aria-hidden="true" class="pointer-events-none inline-block size-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out" :class="enabled ? 'translate-x-5' : 'translate-x-0'"></span>
+            <button type="button" class="relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-hidden focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2" :class="enabled ? 'bg-indigo-600' : 'bg-gray-200'" role="switch" :aria-checked="enabled" aria-labelledby="complete-label" aria-describedby="complete-description">
+                <span aria-hidden="true" class="pointer-events-none inline-block size-5 transform rounded-full bg-white shadow-sm ring-0 transition duration-200 ease-in-out" :class="enabled ? 'translate-x-5' : 'translate-x-0'"></span>
             </button>
         </div>
         <x-input-error class="mt-2" :messages="$errors->get('complete')" />

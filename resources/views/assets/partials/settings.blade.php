@@ -4,7 +4,7 @@
     @csrf
     @method($method)
 
-    <div class="!mt-0">
+    <div class="mt-0!">
         <div class="grid grid-cols-1 sm:hidden">
             <select aria-label="Select a tab" class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-2 pl-3 pr-8 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600">
                 <option :selected="selected == 'details'" @click="selected = 'details'">Details</option>
@@ -94,8 +94,8 @@
                             <span class="text-sm/6 font-medium text-gray-900" id="direction-label">Address</span>
                             <span class="text-sm text-gray-500" id="direction-description">Does the asset belong to a property?</span>
                         </span>
-                        <button type="button" class="relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2" :class="enabled ? 'bg-indigo-600' : 'bg-gray-200'" role="switch" :aria-checked="enabled" aria-labelledby="downstream-label" aria-describedby="downstream-description">
-                            <span aria-hidden="true" class="pointer-events-none inline-block size-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out" :class="enabled ? 'translate-x-5' : 'translate-x-0'"></span>
+                        <button type="button" class="relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-hidden focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2" :class="enabled ? 'bg-indigo-600' : 'bg-gray-200'" role="switch" :aria-checked="enabled" aria-labelledby="downstream-label" aria-describedby="downstream-description">
+                            <span aria-hidden="true" class="pointer-events-none inline-block size-5 transform rounded-full bg-white shadow-sm ring-0 transition duration-200 ease-in-out" :class="enabled ? 'translate-x-5' : 'translate-x-0'"></span>
                         </button>
                     </div>
                     <x-input-error class="mt-2" :messages="$errors->get('address')" />
