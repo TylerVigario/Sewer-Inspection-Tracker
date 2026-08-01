@@ -63,4 +63,10 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This project is licensed under [GNU AGPL-3.0-or-later](LICENSE). Anyone who receives it,
+or uses a modified version of it over a network, is entitled to its source and to the right
+to repair it.
+
+The Laravel framework it is built on remains [MIT](https://opensource.org/licenses/MIT),
+which is compatible: MIT-licensed components may be combined into an AGPL work, and their
+own terms are unaffected by this project's.
