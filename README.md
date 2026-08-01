@@ -8,10 +8,10 @@ carried out against them.
 
 | model | |
 | --- | --- |
-| `Customer`, `Address`, `Project` | who the work is for and where |
-| `Asset`, `AssetType`, `Pipe` | what is being worked on |
+| `Customer`, `Address`, `Project`, `ProjectType` | who the work is for and where |
+| `Asset`, `AssetType`, `Pipe`, `PipeTurn` | what is being worked on |
 | `Inspection`, `Cleaning`, `Installation` | what was done to it |
-| `Employee`, `User` | who did it |
+| `User` | who did it |
 
 ## Running it
 
