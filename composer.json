@@ -1,13 +1,14 @@
 {
     "$schema": "https://getcomposer.org/schema.json",
-    "name": "laravel/laravel",
+    "name": "vigario-technology-solutions/sewer-inspection-tracker",
     "type": "project",
-    "description": "The skeleton application for the Laravel framework.",
+    "description": "Sewer inspection tracking.",
     "keywords": [
-        "laravel",
-        "framework"
+        "sewer",
+        "inspection",
+        "laravel"
     ],
-    "license": "MIT",
+    "license": "AGPL-3.0-or-later",
     "require": {
         "php": "^8.2",
         "laravel/framework": "^12.42.0",
